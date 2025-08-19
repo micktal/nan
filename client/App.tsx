@@ -28,54 +28,62 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AdminProvider>
-      <NotificationProvider>
-        <UserSessionProvider>
-          <LanguageProvider>
-            <TooltipProvider>
-              <DeviceAdaptiveContainer>
-                <Toaster />
-                <Sonner />
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <ErrorBoundary>
+        <AdminProvider>
+          <ErrorBoundary>
+            <NotificationProvider>
+              <UserSessionProvider>
+                <LanguageProvider>
+                  <TooltipProvider>
+                    <DeviceAdaptiveContainer>
+                      <Toaster />
+                      <Sonner />
 
-                {/* Global Notification Center */}
-                <div className="fixed top-4 right-4 z-50">
-                  <NotificationCenter />
-                </div>
+                      {/* Global Notification Center */}
+                      <div className="fixed top-4 right-4 z-50">
+                        <NotificationCenter />
+                      </div>
 
-                <BrowserRouter>
-                  {/* Interface Selector - Inside Router */}
-                  <div className="fixed top-4 left-4 z-50">
-                    <InterfaceSelector />
-                  </div>
+                      <BrowserRouter>
+                        <ErrorBoundary>
+                          {/* Interface Selector - Inside Router */}
+                          <div className="fixed top-4 left-4 z-50">
+                            <InterfaceSelector />
+                          </div>
 
-                  {/* Device Switch Modal - Inside Router */}
-                  <DeviceSwitch />
+                          {/* Device Switch Modal - Inside Router */}
+                          <DeviceSwitch />
 
-                  <Routes>
-                    <Route path="/" element={<Index />} />
-                    <Route
-                      path="/profile-selection"
-                      element={<ProfileSelection />}
-                    />
-                    <Route path="/introduction" element={<Introduction />} />
-                    <Route path="/safety-course" element={<SafetyCourse />} />
-                    <Route path="/qcm" element={<QCM />} />
-                    <Route path="/certificate" element={<Certificate />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/admin" element={<EnhancedAdminDashboard />} />
-                    <Route path="/mobile" element={<MobileDashboard />} />
-                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </BrowserRouter>
-              </DeviceAdaptiveContainer>
-            </TooltipProvider>
-          </LanguageProvider>
-        </UserSessionProvider>
-      </NotificationProvider>
-    </AdminProvider>
-  </QueryClientProvider>
+                          <Routes>
+                            <Route path="/" element={<Index />} />
+                            <Route
+                              path="/profile-selection"
+                              element={<ProfileSelection />}
+                            />
+                            <Route path="/introduction" element={<Introduction />} />
+                            <Route path="/safety-course" element={<SafetyCourse />} />
+                            <Route path="/qcm" element={<QCM />} />
+                            <Route path="/certificate" element={<Certificate />} />
+                            <Route path="/dashboard" element={<Dashboard />} />
+                            <Route path="/admin" element={<EnhancedAdminDashboard />} />
+                            <Route path="/mobile" element={<MobileDashboard />} />
+                            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                            <Route path="*" element={<NotFound />} />
+                          </Routes>
+                        </ErrorBoundary>
+                      </BrowserRouter>
+                    </DeviceAdaptiveContainer>
+                  </TooltipProvider>
+                </LanguageProvider>
+              </UserSessionProvider>
+            </NotificationProvider>
+          </ErrorBoundary>
+        </AdminProvider>
+      </ErrorBoundary>
+    </QueryClientProvider>
+  </ErrorBoundary>
 );
 
 // Safe root creation to prevent multiple createRoot() calls
