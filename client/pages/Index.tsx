@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { ChevronDown, Play, Shield, Globe, Maximize } from "lucide-react";
+import { ChevronDown, Play, Shield, Globe, Maximize, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
