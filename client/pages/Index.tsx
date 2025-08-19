@@ -12,6 +12,8 @@ import { useSound } from "@/hooks/use-sound";
 import { useHaptic } from "@/hooks/use-haptic";
 import { useFullscreen } from "@/hooks/use-fullscreen";
 import { useLanguage, AVAILABLE_LANGUAGES } from "@/hooks/use-language.tsx";
+import { useAdmin } from "@/hooks/use-admin.tsx";
+import { AdminLogin } from "@/components/AdminLogin";
 
 export default function Index() {
   const [isLoaded, setIsLoaded] = useState(false);
