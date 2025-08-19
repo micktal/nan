@@ -11,13 +11,7 @@ import { Link } from "react-router-dom";
 import { useSound } from "@/hooks/use-sound";
 import { useHaptic } from "@/hooks/use-haptic";
 import { useFullscreen } from "@/hooks/use-fullscreen";
-
-const languages = [
-  { code: 'fr', label: 'Français', flag: '🇫🇷' },
-  { code: 'en', label: 'English', flag: '🇬🇧' },
-  { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
-  { code: 'es', label: 'Español', flag: '🇪🇸' },
-];
+import { useLanguage, AVAILABLE_LANGUAGES } from "@/hooks/use-language";
 
 export default function Index() {
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
