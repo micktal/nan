@@ -106,7 +106,7 @@ export default function QCM() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
         <div className="min-h-screen flex flex-col items-center justify-center px-6 animate-fade-in-up">
-          <Card className="glass-effect border-slate-600/50 shadow-2xl p-8 max-w-2xl w-full mx-auto text-center terminal-glow animate-scale-in">
+          <Card className="bg-slate-800/50 border-slate-600/50 shadow-2xl p-8 max-w-2xl w-full mx-auto text-center terminal-glow animate-scale-in backdrop-blur-md">
             <CardContent className="p-0">
               <div
                 className={`inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 animate-bounce-soft ${scorePercentage >= 70 ? "bg-emerald-500" : "bg-orange-500"}`}
@@ -207,11 +207,11 @@ export default function QCM() {
           {/* Progress bar */}
           <div className="mb-8">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-slate-300">
+              <span className="text-emerald-300 font-medium">
                 {t("qcm.question")} {currentQuestion + 1} {t("qcm.of")}{" "}
                 {questions.length}
               </span>
-              <span className="text-slate-300">
+              <span className="text-emerald-300 font-medium">
                 {Math.round(((currentQuestion + 1) / questions.length) * 100)}%
               </span>
             </div>
@@ -228,7 +228,7 @@ export default function QCM() {
             </div>
           </div>
 
-          <Card className="glass-effect border-slate-600/50 shadow-2xl terminal-glow animate-scale-in">
+          <Card className="bg-slate-800/50 border-slate-600/50 shadow-2xl terminal-glow animate-scale-in backdrop-blur-md">
             <CardContent className="p-8">
               <h2 className="text-2xl font-bold text-white mb-8 animate-fade-in-up">
                 {getQuestionText(question.question)}
@@ -342,7 +342,7 @@ export default function QCM() {
             <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
             <div className="w-3 h-3 bg-slate-600 rounded-full"></div>
           </div>
-          <span className="text-slate-400 text-sm ml-4">Étape 4 sur 5</span>
+          <span className="text-slate-200 text-sm ml-4 font-medium">Étape 4 sur 5</span>
         </div>
       </div>
     </div>
