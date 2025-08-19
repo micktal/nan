@@ -104,3 +104,29 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .animate-in {
+    animation-fill-mode: both;
+  }
+
+  .slide-in-from-bottom {
+    animation: slide-in-from-bottom 0.6s ease-out;
+  }
+
+  .terminal-glow {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+  }
+
+  .pulse-button {
+    animation: pulse 2s infinite;
+  }
+
+  .hover-lift {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+}
