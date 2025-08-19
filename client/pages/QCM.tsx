@@ -151,6 +151,20 @@ export default function QCM() {
   const question = questions[currentQuestion];
   const isCorrect = selectedAnswer === question.correct;
 
+  // Get question text with fallback to French if current language not available
+  const getQuestionText = (questionObj: any) => {
+    return questionObj[language as keyof typeof questionObj] ||
+           questionObj.fr ||
+           Object.values(questionObj)[0] || '';
+  };
+
+  // Get options with fallback to French if current language not available
+  const getQuestionOptions = (optionsObj: any) => {
+    return optionsObj[language as keyof typeof optionsObj] ||
+           optionsObj.fr ||
+           Object.values(optionsObj)[0] || [];
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
       {/* Back button */}
