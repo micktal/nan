@@ -86,10 +86,16 @@ export default function ProfileSelection() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [language] = useState('fr'); // For now, defaulting to French
   const navigate = useNavigate();
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // UX/UI hooks
+  const { playClickSound, playSuccessSound, playBeepSound } = useSound();
+  const { triggerLight, triggerMedium, triggerSuccess } = useHaptic();
 
   useEffect(() => {
     setIsLoaded(true);
-  }, []);
+    playBeepSound(); // Entry sound
+  }, [playBeepSound]);
 
   const handleProfileSelect = (profileId: string) => {
     setSelectedProfile(profileId);
