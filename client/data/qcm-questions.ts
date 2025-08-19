@@ -164,7 +164,7 @@ export const baseQuestions: QCMQuestion[] = [
         "Natychmiast wyjść bez powiadamiania"
       ],
       ar: [
-        "م��اصلة عملك",
+        "مواصلة عملك",
         "اتباع إجراءات الإخلاء",
         "انتظار التعليمات",
         "الخروج فوراً دون إشعار"
@@ -733,8 +733,11 @@ export function getQuestionsForProfile(profile: string): QCMQuestion[] {
       break;
   }
   
+  // Ensure all questions have language fallbacks
+  const questionsWithFallbacks = questions.map(ensureAllLanguages);
+
   // Shuffle and take 12 questions (5 base + 7 profile-specific or random)
-  const shuffled = questions.sort(() => 0.5 - Math.random());
+  const shuffled = questionsWithFallbacks.sort(() => 0.5 - Math.random());
   return shuffled.slice(0, 12);
 }
 
