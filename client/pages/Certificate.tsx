@@ -68,10 +68,10 @@ export default function Certificate() {
   if (isGenerated) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
-        <div className="min-h-screen flex flex-col items-center justify-center px-6">
-          
+        <div className="min-h-screen flex flex-col items-center justify-center px-6 animate-fade-in-up">
+
           {/* Certificate */}
-          <Card className="bg-white shadow-2xl max-w-4xl w-full mx-auto border-8 border-emerald-500 relative">
+          <Card className="bg-white shadow-2xl max-w-4xl w-full mx-auto border-8 border-emerald-500 relative animate-scale-in terminal-glow">
             <CardContent className="p-12">
               
               {/* Header */}
