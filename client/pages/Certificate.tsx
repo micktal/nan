@@ -47,8 +47,12 @@ export default function Certificate() {
                   <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-6 py-3 rounded-lg">
                     <span className="font-bold text-xl">GERFLOR</span>
                   </div>
-                  <div className="bg-gradient-to-r from-red-600 to-red-800 text-white px-6 py-3 rounded-lg">
-                    <span className="font-bold text-xl">FPSG</span>
+                  <div className="bg-white px-6 py-3 rounded-lg shadow-lg">
+                    <img
+                      src="https://cdn.builder.io/api/v1/image/assets%2Fd93d9a0ec7824aa1ac4d890a1f90a2ec%2Fca3c12dc38bf426eacbda6f86df51d73?format=webp&width=800"
+                      alt="FPSG Logo"
+                      className="h-8 object-contain"
+                    />
                   </div>
                 </div>
                 
