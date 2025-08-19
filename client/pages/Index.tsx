@@ -148,10 +148,10 @@ export default function Index() {
           {/* Description */}
           <div className="text-center mb-8 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             <p className="text-slate-300 text-lg leading-relaxed">
-              {currentContent.description}
+              {t('home.description')}
             </p>
             <p className="text-slate-400 text-sm mt-2">
-              ⏱️ Durée estimée : 5-10 minutes
+              ⏱️ {t('home.duration')}
             </p>
           </div>
 
