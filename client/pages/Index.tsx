@@ -104,11 +104,24 @@ export default function Index() {
         }} />
       </div>
 
-      {/* Language selector - top right */}
-      <div className="absolute top-6 right-6 z-20">
+      {/* Controls - top right */}
+      <div className="absolute top-6 right-6 z-20 flex gap-3">
+        {/* Fullscreen toggle for tablets */}
+        {isTablet && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleFullscreenToggle}
+            className="bg-white/10 border-white/20 text-white hover:bg-white/20 interactive-element focus-ring"
+          >
+            <Maximize className="w-4 h-4" />
+          </Button>
+        )}
+
+        {/* Language selector */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+            <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20 interactive-element focus-ring">
               <Globe className="w-4 h-4 mr-2" />
               {selectedLanguage.flag} {selectedLanguage.label}
               <ChevronDown className="w-4 h-4 ml-2" />
@@ -116,10 +129,10 @@ export default function Index() {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="bg-slate-800 border-slate-700">
             {languages.map((lang) => (
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 key={lang.code}
-                onClick={() => setSelectedLanguage(lang)}
-                className="text-white hover:bg-slate-700 cursor-pointer"
+                onClick={() => handleLanguageChange(lang)}
+                className="text-white hover:bg-slate-700 cursor-pointer interactive-element"
               >
                 {lang.flag} {lang.label}
               </DropdownMenuItem>
