@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowLeft, Download, Mail, CheckCircle, Award } from "lucide-react";
+import { ArrowLeft, Download, Mail, CheckCircle, Award, CreditCard, Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,6 +7,13 @@ import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { useSound } from "@/hooks/use-sound";
 import { useHaptic } from "@/hooks/use-haptic";
+import { BadgeCard } from "@/components/BadgeCard";
+import {
+  generateCertificatePDF,
+  printBadge,
+  emailCertificate,
+  type CertificateData
+} from "@/utils/certificate-utils";
 
 export default function Certificate() {
   const [firstName, setFirstName] = useState("");
@@ -43,6 +50,55 @@ export default function Certificate() {
   const handleDownload = () => {
     playClickSound();
     triggerMedium(downloadButtonRef.current || undefined);
+
+    const certificateData: CertificateData = {
+      firstName,
+      lastName,
+      profile: selectedProfile,
+      score: 85, // This would come from the QCM results
+      certificateId: `2024-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
+      issueDate: currentDate,
+      expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString('fr-FR'),
+      email
+    };
+
+    generateCertificatePDF(certificateData);
+  };
+
+  const handlePrintBadge = () => {
+    playClickSound();
+    triggerMedium();
+
+    const certificateData: CertificateData = {
+      firstName,
+      lastName,
+      profile: selectedProfile,
+      score: 85,
+      certificateId: `2024-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
+      issueDate: currentDate,
+      expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString('fr-FR'),
+      email
+    };
+
+    printBadge(certificateData);
+  };
+
+  const handleEmail = () => {
+    playClickSound();
+    triggerMedium();
+
+    const certificateData: CertificateData = {
+      firstName,
+      lastName,
+      profile: selectedProfile,
+      score: 85,
+      certificateId: `2024-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
+      issueDate: currentDate,
+      expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString('fr-FR'),
+      email
+    };
+
+    emailCertificate(certificateData);
   };
 
   const handleDashboard = () => {
@@ -160,21 +216,51 @@ export default function Certificate() {
             </CardContent>
           </Card>
 
+          {/* Badge Preview */}
+          <div className="mt-8 mb-8">
+            <h3 className="text-xl font-bold text-slate-800 text-center mb-4">
+              Aperçu du badge sécurité
+            </h3>
+            <div className="flex justify-center">
+              <BadgeCard
+                firstName={firstName}
+                lastName={lastName}
+                profile={selectedProfile}
+                score={85}
+                certificateId={`2024-${Math.random().toString(36).substr(2, 9).toUpperCase()}`}
+                issueDate={currentDate}
+                expiryDate={new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString('fr-FR')}
+              />
+            </div>
+          </div>
+
           {/* Actions */}
-          <div className="mt-8 flex flex-col sm:flex-row gap-4">
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Button
+              ref={downloadButtonRef}
               size="lg"
-              className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4"
+              onClick={handleDownload}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 interactive-element focus-ring"
             >
               <Download className="w-5 h-5 mr-2" />
               Télécharger PDF
+            </Button>
+
+            <Button
+              size="lg"
+              onClick={handlePrintBadge}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 interactive-element focus-ring"
+            >
+              <CreditCard className="w-5 h-5 mr-2" />
+              Imprimer Badge
             </Button>
 
             {email && (
               <Button
                 size="lg"
                 variant="outline"
-                className="border-emerald-500 text-emerald-600 hover:bg-emerald-50 px-8 py-4"
+                onClick={handleEmail}
+                className="border-emerald-500 text-emerald-600 hover:bg-emerald-50 px-6 py-3 interactive-element focus-ring"
               >
                 <Mail className="w-5 h-5 mr-2" />
                 Envoyer par e-mail
@@ -182,10 +268,11 @@ export default function Certificate() {
             )}
 
             <Button
+              ref={dashboardButtonRef}
               size="lg"
               variant="outline"
-              onClick={() => navigate("/dashboard")}
-              className="border-slate-500 text-slate-600 hover:bg-slate-50 px-8 py-4"
+              onClick={handleDashboard}
+              className="border-slate-500 text-slate-600 hover:bg-slate-50 px-6 py-3 interactive-element focus-ring"
             >
               Tableau de bord HSE
             </Button>
