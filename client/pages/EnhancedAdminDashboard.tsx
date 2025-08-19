@@ -330,6 +330,17 @@ export default function EnhancedAdminDashboard() {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
+              <Link to="/">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="bg-slate-800/50 text-white border-slate-600 hover:bg-slate-700 backdrop-blur-md"
+                >
+                  <Home className="w-4 h-4 mr-2" />
+                  Menu principal
+                </Button>
+              </Link>
+
               <div>
                 <h1 className="text-2xl font-bold text-white flex items-center gap-2">
                   <Shield className="w-6 h-6 text-emerald-500" />
