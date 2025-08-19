@@ -185,11 +185,11 @@ export default function QCM() {
             <CardContent className="p-8">
               
               <h2 className="text-2xl font-bold text-white mb-8 animate-fade-in-up">
-                {question.question}
+                {question.question[language as keyof typeof question.question]}
               </h2>
 
               <div className="space-y-4 mb-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                {question.options.map((option, index) => {
+                {question.options[language as keyof typeof question.options].map((option, index) => {
                   let buttonClass = "w-full p-4 text-left border-2 rounded-xl transition-all duration-200 ";
                   
                   if (showResult) {
