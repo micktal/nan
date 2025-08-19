@@ -3,6 +3,7 @@ import { Smartphone, Monitor, Tablet, Settings, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useDeviceDetection, useAutoMobileRedirect } from '@/hooks/use-device-detection';
+import { useLocation } from 'react-router-dom';
 
 interface DeviceSwitchProps {
   showNotification?: boolean;
