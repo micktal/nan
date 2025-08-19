@@ -96,11 +96,13 @@ export default function Index() {
         {/* Logo section */}
         <div className="mb-12 text-center">
           <div className="flex items-center justify-center gap-8 mb-6">
-            {/* Gerflor logo placeholder */}
+            {/* Gerflor logo */}
             <div className="bg-white rounded-lg p-4 shadow-lg">
-              <div className="w-24 h-12 bg-gradient-to-r from-blue-600 to-blue-800 rounded flex items-center justify-center">
-                <span className="text-white font-bold text-sm">GERFLOR</span>
-              </div>
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Fd93d9a0ec7824aa1ac4d890a1f90a2ec%2Fcf2c1680c78247c6bd78521e30a0f35c?format=webp&width=800"
+                alt="Gerflor Logo"
+                className="w-24 h-12 object-contain"
+              />
             </div>
             
             {/* FPSG logo */}
