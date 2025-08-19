@@ -132,7 +132,7 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="pl-10 pr-10 bg-slate-700/50 border-slate-600 text-white focus-ring"
-                  placeholder="••••••••"
+                  placeholder="•••���••••"
                   disabled={isLoading || attempts >= 3}
                   autoComplete="current-password"
                 />
@@ -162,27 +162,69 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
             )}
 
             {/* Demo Credentials Info */}
-            <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
-              <p className="text-emerald-400 text-xs mb-2 font-medium">
-                Comptes de démonstration :
-              </p>
-              <div className="text-xs text-slate-300 space-y-1">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span className="font-mono text-emerald-300">admin</span>
-                  <span>- Accès complet</span>
+            <div className="space-y-3">
+              <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-emerald-400 text-xs font-medium">Comptes de démonstration :</p>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowCodes(!showCodes)}
+                    className="text-emerald-400 hover:text-emerald-300 h-auto p-1 text-xs"
+                  >
+                    {showCodes ? 'Masquer codes' : 'Voir codes d\'accès'}
+                  </Button>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                  <span className="font-mono text-orange-300">supervisor</span>
-                  <span>- Gestion et exports</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span className="font-mono text-blue-300">hse</span>
-                  <span>- Consultation uniquement</span>
+                <div className="text-xs text-slate-300 space-y-1">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                    <span className="font-mono text-emerald-300">admin</span>
+                    <span>- Accès complet</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                    <span className="font-mono text-orange-300">supervisor</span>
+                    <span>- Gestion et exports</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span className="font-mono text-blue-300">hse</span>
+                    <span>- Consultation uniquement</span>
+                  </div>
                 </div>
               </div>
+
+              {showCodes && (
+                <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg animate-fade-in-up">
+                  <p className="text-blue-400 text-xs mb-2 font-medium flex items-center gap-1">
+                    🔐 Codes d'accès du jour ({new Date().toLocaleDateString('fr-FR')}) :
+                  </p>
+                  <div className="text-xs text-slate-300 space-y-2">
+                    <div className="flex items-center justify-between p-2 bg-slate-700/30 rounded">
+                      <span className="text-emerald-300">admin</span>
+                      <code className="text-white bg-slate-800 px-2 py-1 rounded text-xs font-mono">
+                        {dailyCodes.admin}
+                      </code>
+                    </div>
+                    <div className="flex items-center justify-between p-2 bg-slate-700/30 rounded">
+                      <span className="text-orange-300">supervisor</span>
+                      <code className="text-white bg-slate-800 px-2 py-1 rounded text-xs font-mono">
+                        {dailyCodes.supervisor}
+                      </code>
+                    </div>
+                    <div className="flex items-center justify-between p-2 bg-slate-700/30 rounded">
+                      <span className="text-blue-300">hse</span>
+                      <code className="text-white bg-slate-800 px-2 py-1 rounded text-xs font-mono">
+                        {dailyCodes.hse}
+                      </code>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-2 italic">
+                      💡 Codes régénérés quotidiennement pour la sécurité
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Action Buttons */}
