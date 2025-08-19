@@ -32,12 +32,13 @@ const App = () => (
             <TooltipProvider>
               <Toaster />
               <Sonner />
-              <BrowserRouter>
-                {/* Global Notification Center */}
-                <div className="fixed top-4 right-4 z-50">
-                  <NotificationCenter />
-                </div>
 
+              {/* Global Notification Center */}
+              <div className="fixed top-4 right-4 z-50">
+                <NotificationCenter />
+              </div>
+
+              <BrowserRouter>
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route
