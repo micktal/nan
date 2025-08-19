@@ -107,34 +107,11 @@ export function useAutoMobileRedirect() {
   const { isMobile, isTablet } = useDeviceDetection();
 
   useEffect(() => {
-    // Don't redirect if user is already on mobile dashboard
-    if (location.pathname === "/mobile") return;
+    // Automatic redirection disabled to keep main menu visible
+    // Users can access mobile supervisor via the dedicated button on homepage
 
-    // Don't redirect if user specifically went to admin
-    if (location.pathname === "/admin") return;
-
-    // Check if user preference is stored
-    const userPreference = localStorage.getItem("interface-preference");
-    if (userPreference === "desktop") return;
-
-    // Auto-redirect mobile users to mobile interface
-    if (isMobile) {
-      // Add a small delay to avoid jarring redirects
-      const timer = setTimeout(() => {
-        navigate("/mobile", { replace: true });
-      }, 500);
-
-      return () => clearTimeout(timer);
-    }
-
-    // Auto-redirect tablet users to mobile interface for better touch experience
-    if (isTablet && location.pathname === "/") {
-      const timer = setTimeout(() => {
-        navigate("/mobile", { replace: true });
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    }
+    // Note: Auto-redirection is intentionally disabled per user request
+    // to maintain visibility of the main menu and allow button-based access
   }, [isMobile, isTablet, location.pathname, navigate]);
 
   const forceDesktopMode = () => {
