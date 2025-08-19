@@ -84,15 +84,15 @@ export default function Index() {
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20 interactive-element focus-ring">
               <Globe className="w-4 h-4 mr-2" />
-              {selectedLanguage.flag} {selectedLanguage.label}
+              {languageConfig.flag} {languageConfig.label}
               <ChevronDown className="w-4 h-4 ml-2" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="bg-slate-800 border-slate-700">
-            {languages.map((lang) => (
+            {AVAILABLE_LANGUAGES.map((lang) => (
               <DropdownMenuItem
                 key={lang.code}
-                onClick={() => handleLanguageChange(lang)}
+                onClick={() => handleLanguageChange(lang.code)}
                 className="text-white hover:bg-slate-700 cursor-pointer interactive-element"
               >
                 {lang.flag} {lang.label}
