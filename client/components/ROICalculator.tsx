@@ -323,7 +323,7 @@ export function ROICalculator() {
 
           <div className="mt-6 text-center">
             <Button className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white px-8 py-3 text-lg font-semibold">
-              <DollarSign className="w-5 h-5 mr-2" />
+              <Calculator className="w-5 h-5 mr-2" />
               Télécharger l'Analyse ROI Complète
             </Button>
           </div>
