@@ -11,110 +11,261 @@ export interface CertificateData {
   email?: string;
 }
 
-// Generate PDF certificate
+// Generate PDF certificate using HTML-to-PDF approach
 export function generateCertificatePDF(data: CertificateData): void {
-  const doc = new jsPDF({
-    orientation: 'landscape',
-    unit: 'mm',
-    format: 'a4'
-  });
+  const printWindow = window.open('', '_blank');
+  if (!printWindow) return;
 
-  // Set background
-  doc.setFillColor(248, 250, 252);
-  doc.rect(0, 0, 297, 210, 'F');
+  const certificateHTML = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Certificat de Formation - ${data.firstName} ${data.lastName}</title>
+      <style>
+        @page {
+          size: A4 landscape;
+          margin: 15mm;
+        }
 
-  // Header with border
-  doc.setDrawColor(16, 185, 129);
-  doc.setLineWidth(3);
-  doc.rect(15, 15, 267, 180);
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+          background: #f8fafc;
+        }
 
-  // Title
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(24);
-  doc.setTextColor(51, 65, 85);
-  doc.text('CERTIFICAT DE FORMATION', 148.5, 40, { align: 'center' });
+        .certificate {
+          width: 100%;
+          height: 100vh;
+          border: 8px solid #10b981;
+          background: white;
+          padding: 40px;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
 
-  doc.setFontSize(16);
-  doc.setTextColor(100, 116, 139);
-  doc.text('Sensibilisation Sécurité', 148.5, 50, { align: 'center' });
+        .header {
+          text-align: center;
+          margin-bottom: 30px;
+        }
 
-  // Main content
-  doc.setFontSize(14);
-  doc.setTextColor(51, 65, 85);
-  doc.text('Nous certifions que', 148.5, 70, { align: 'center' });
+        .logos {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 40px;
+          margin-bottom: 30px;
+        }
 
-  // Name box
-  doc.setFillColor(241, 245, 249);
-  doc.setDrawColor(203, 213, 225);
-  doc.rect(50, 80, 197, 25, 'FD');
+        .logo {
+          padding: 12px 24px;
+          background: #f1f5f9;
+          border-radius: 8px;
+          font-weight: bold;
+          color: #10b981;
+          font-size: 18px;
+        }
 
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(20);
-  doc.setTextColor(51, 65, 85);
-  doc.text(`${data.firstName} ${data.lastName}`, 148.5, 95, { align: 'center' });
+        .title {
+          color: #334155;
+          margin-bottom: 10px;
+        }
 
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(12);
-  doc.setTextColor(100, 116, 139);
-  doc.text(`Profil : ${data.profile}`, 148.5, 102, { align: 'center' });
+        .title h1 {
+          font-size: 36px;
+          margin: 0;
+          font-weight: bold;
+        }
 
-  // Body text
-  doc.setFontSize(12);
-  doc.setTextColor(51, 65, 85);
-  const bodyText = 'a suivi avec succès la formation de sensibilisation aux règles de sécurité\net est autorisé(e) à accéder au site dans le cadre de ses fonctions.';
-  doc.text(bodyText, 148.5, 125, { align: 'center' });
+        .subtitle {
+          font-size: 20px;
+          color: #64748b;
+          margin: 0;
+        }
 
-  // Info grid
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(10);
-  doc.setTextColor(100, 116, 139);
-  
-  // Date
-  doc.text('Date de formation', 70, 150);
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(51, 65, 85);
-  doc.text(data.issueDate, 70, 158);
+        .content {
+          text-align: center;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
 
-  // Score
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(100, 116, 139);
-  doc.text('Score obtenu', 148.5, 150, { align: 'center' });
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(14);
-  doc.setTextColor(16, 185, 129);
-  doc.text(`${data.score}%`, 148.5, 158, { align: 'center' });
+        .intro {
+          font-size: 18px;
+          color: #334155;
+          margin-bottom: 30px;
+        }
 
-  // Validity
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(10);
-  doc.setTextColor(100, 116, 139);
-  doc.text('Validité', 227, 150, { align: 'center' });
-  doc.setFont('helvetica', 'normal');
-  doc.setTextColor(51, 65, 85);
-  doc.text('12 mois', 227, 158, { align: 'center' });
+        .name-box {
+          background: #f1f5f9;
+          border: 2px solid #cbd5e1;
+          border-radius: 12px;
+          padding: 30px;
+          margin: 30px auto;
+          max-width: 600px;
+        }
 
-  // Validation stamp
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(12);
-  doc.setTextColor(16, 185, 129);
-  doc.text('✓ VALIDÉ', 240, 175);
-  
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8);
-  doc.setTextColor(100, 116, 139);
-  doc.text(`Certificat #${data.certificateId}`, 240, 182);
+        .name {
+          font-size: 32px;
+          font-weight: bold;
+          color: #334155;
+          margin: 0 0 10px 0;
+        }
 
-  // Logos (text placeholders - in production, you'd use actual images)
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(10);
-  doc.setTextColor(16, 185, 129);
-  doc.text('GERFLOR', 30, 35);
-  doc.text('×', 148.5, 35, { align: 'center' });
-  doc.text('FPSG', 267, 35, { align: 'right' });
+        .profile {
+          font-size: 16px;
+          color: #64748b;
+          margin: 0;
+        }
 
-  // Save the PDF
-  const filename = `certificat-${data.firstName}-${data.lastName}-${data.certificateId}.pdf`;
-  doc.save(filename);
+        .body-text {
+          font-size: 16px;
+          color: #334155;
+          line-height: 1.6;
+          margin: 30px auto;
+          max-width: 800px;
+        }
+
+        .info-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 40px;
+          margin: 40px 0;
+        }
+
+        .info-item {
+          text-align: center;
+        }
+
+        .info-label {
+          font-size: 14px;
+          color: #64748b;
+          margin-bottom: 8px;
+        }
+
+        .info-value {
+          font-size: 18px;
+          font-weight: bold;
+          color: #334155;
+        }
+
+        .info-value.score {
+          font-size: 24px;
+          color: #10b981;
+        }
+
+        .footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 40px;
+        }
+
+        .validation {
+          text-align: center;
+        }
+
+        .stamp {
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          background: #10b981;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          font-weight: bold;
+          margin: 0 auto 10px;
+        }
+
+        .valid-text {
+          color: #10b981;
+          font-weight: bold;
+          margin-bottom: 5px;
+        }
+
+        .cert-id {
+          font-size: 12px;
+          color: #64748b;
+        }
+
+        @media print {
+          body { -webkit-print-color-adjust: exact; }
+          .certificate { height: auto; min-height: 100vh; }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="certificate">
+        <div class="header">
+          <div class="logos">
+            <div class="logo">GERFLOR</div>
+            <div class="logo">×</div>
+            <div class="logo">FPSG</div>
+          </div>
+
+          <div class="title">
+            <h1>🏆 CERTIFICAT DE FORMATION</h1>
+            <p class="subtitle">Sensibilisation Sécurité</p>
+          </div>
+        </div>
+
+        <div class="content">
+          <p class="intro">Nous certifions que</p>
+
+          <div class="name-box">
+            <h2 class="name">${data.firstName} ${data.lastName}</h2>
+            <p class="profile">Profil : ${data.profile}</p>
+          </div>
+
+          <p class="body-text">
+            a suivi avec succès la formation de sensibilisation aux règles de sécurité
+            et est autorisé(e) à accéder au site dans le cadre de ses fonctions.
+          </p>
+
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Date de formation</div>
+              <div class="info-value">${data.issueDate}</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Score obtenu</div>
+              <div class="info-value score">${data.score}%</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Validité</div>
+              <div class="info-value">12 mois</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div></div>
+          <div class="validation">
+            <div class="stamp">✓</div>
+            <div class="valid-text">VALIDÉ</div>
+            <div class="cert-id">Certificat #${data.certificateId}</div>
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  printWindow.document.write(certificateHTML);
+  printWindow.document.close();
+
+  // Set title for download
+  printWindow.document.title = `certificat-${data.firstName}-${data.lastName}-${data.certificateId}`;
+
+  setTimeout(() => {
+    printWindow.print();
+  }, 500);
 }
 
 // Print badge function
