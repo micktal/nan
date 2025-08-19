@@ -124,7 +124,7 @@ export default function SafetyCourse() {
               className="lg:col-span-2 animate-fade-in-up"
               style={{ animationDelay: "0.4s" }}
             >
-              <Card className="glass-effect border-slate-600/50 h-96 relative overflow-hidden hover-lift smooth-transition">
+              <Card className="bg-slate-800/50 border-slate-600/50 h-96 relative overflow-hidden hover-lift smooth-transition backdrop-blur-md">
                 <CardContent className="p-0 h-full">
                   {/* Site background image placeholder */}
                   <div className="w-full h-full bg-gradient-to-br from-slate-600 to-slate-700 relative flex items-center justify-center terminal-glow">
@@ -175,7 +175,7 @@ export default function SafetyCourse() {
               style={{ animationDelay: "0.6s" }}
             >
               {selectedZone ? (
-                <Card className="glass-effect border-slate-600/50 animate-scale-in">
+                <Card className="bg-slate-800/50 border-slate-600/50 animate-scale-in backdrop-blur-md">
                   <CardContent className="p-6">
                     {(() => {
                       const zone = safetyZones.find(
@@ -204,7 +204,7 @@ export default function SafetyCourse() {
                   </CardContent>
                 </Card>
               ) : (
-                <Card className="glass-effect border-slate-600/50">
+                <Card className="bg-slate-800/50 border-slate-600/50 backdrop-blur-md">
                   <CardContent className="p-6 text-center">
                     <Shield className="w-12 h-12 text-slate-400 mx-auto mb-4" />
                     <p className="text-white font-medium">
@@ -216,7 +216,7 @@ export default function SafetyCourse() {
               )}
 
               {/* Progress */}
-              <Card className="glass-effect border-slate-600/50">
+              <Card className="bg-slate-800/50 border-slate-600/50 backdrop-blur-md">
                 <CardContent className="p-6">
                   <h4 className="text-emerald-400 font-bold mb-4 text-lg">Progression</h4>
                   <div className="space-y-2">
