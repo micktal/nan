@@ -249,10 +249,10 @@ export default function QCM() {
                   </p>
                   {!isCorrect && (
                     <div className="text-slate-300 mt-2">
-                      <p>{t('qcm.correctAnswer')} {question.options[language as keyof typeof question.options][question.correct]}</p>
+                      <p>{t('qcm.correctAnswer')} {getQuestionOptions(question.options)[question.correct]}</p>
                       {question.explanation && (
                         <p className="text-sm mt-2 italic">
-                          {question.explanation[language as keyof typeof question.explanation]}
+                          {getQuestionText(question.explanation)}
                         </p>
                       )}
                     </div>
