@@ -22,10 +22,25 @@ const languages = [
 export default function Index() {
   const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const startButtonRef = useRef<HTMLButtonElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // UX/UI hooks
+  const { playClickSound, playBeepSound, playNotificationSound } = useSound();
+  const { triggerLight, triggerMedium, triggerSuccess } = useHaptic();
+  const { isFullscreen, toggleFullscreen, isTablet, enableTabletMode } = useFullscreen();
 
   useEffect(() => {
     setIsLoaded(true);
-  }, []);
+
+    // Auto-enable tablet mode if on tablet
+    if (isTablet) {
+      // Add a slight delay to let the page load
+      setTimeout(() => {
+        playNotificationSound();
+      }, 1000);
+    }
+  }, [isTablet, playNotificationSound]);
 
   const content = {
     fr: {
