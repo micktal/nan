@@ -75,6 +75,23 @@ export default function Index() {
 
   const currentContent = content[selectedLanguage.code as keyof typeof content];
 
+  const handleLanguageChange = (lang: typeof languages[0]) => {
+    playClickSound();
+    triggerLight();
+    setSelectedLanguage(lang);
+  };
+
+  const handleStartTraining = () => {
+    playBeepSound();
+    triggerSuccess(startButtonRef.current || undefined);
+  };
+
+  const handleFullscreenToggle = async () => {
+    playClickSound();
+    triggerMedium();
+    await toggleFullscreen(containerRef.current || undefined);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
       {/* Background pattern to simulate terminal/kiosk environment */}
