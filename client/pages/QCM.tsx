@@ -14,16 +14,23 @@ export default function QCM() {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
+  const [questions, setQuestions] = useState<QCMQuestion[]>([]);
   const navigate = useNavigate();
   const nextButtonRef = useRef<HTMLButtonElement>(null);
   const certificateButtonRef = useRef<HTMLButtonElement>(null);
 
-  // UX/UI hooks
+  // Language and UX/UI hooks
+  const { language, t } = useLanguage();
   const { playClickSound, playBeepSound, playSuccessSound, playErrorSound, playConfirmSound } = useSound();
   const { triggerLight, triggerMedium, triggerSuccess, triggerError } = useHaptic();
 
   useEffect(() => {
     playBeepSound(); // Entry sound
+
+    // Get user profile and generate questions
+    const selectedProfile = sessionStorage.getItem('selectedProfile') || 'driver';
+    const profileQuestions = getQuestionsForProfile(selectedProfile);
+    setQuestions(profileQuestions);
   }, [playBeepSound]);
 
   const handleAnswerSelect = (answerIndex: number) => {
