@@ -107,7 +107,12 @@ export const baseQuestions: QCMQuestion[] = [
       fr: "Que devez-vous faire en cas d'urgence ?",
       en: "What should you do in case of emergency?",
       de: "Was sollten Sie im Notfall tun?",
-      es: "¿Qué debe hacer en caso de emergencia?"
+      es: "¿Qué debe hacer en caso de emergencia?",
+      it: "Cosa dovresti fare in caso di emergenza?",
+      pt: "O que você deve fazer em caso de emergência?",
+      nl: "Wat moet je doen in geval van nood?",
+      pl: "Co powinieneś zrobić w przypadku nagłej sytuacji?",
+      ar: "ماذا يجب أن تفعل في حالة الطوارئ؟"
     },
     options: {
       fr: [
@@ -133,6 +138,36 @@ export const baseQuestions: QCMQuestion[] = [
         "Seguir los procedimientos de evacuación",
         "Esperar instrucciones",
         "Salir inmediatamente sin avisar"
+      ],
+      it: [
+        "Continuare il tuo lavoro",
+        "Seguire le procedure di evacuazione",
+        "Aspettare istruzioni",
+        "Uscire immediatamente senza avvisare"
+      ],
+      pt: [
+        "Continuar seu trabalho",
+        "Seguir os procedimentos de evacuação",
+        "Aguardar instruções",
+        "Sair imediatamente sem avisar"
+      ],
+      nl: [
+        "Je werk voortzetten",
+        "Evacuatieprocedures volgen",
+        "Wachten op instructies",
+        "Onmiddellijk vertrekken zonder waarschuwing"
+      ],
+      pl: [
+        "Kontynuować pracę",
+        "Postępować zgodnie z procedurami ewakuacji",
+        "Czekać na instrukcje",
+        "Natychmiast wyjść bez powiadamiania"
+      ],
+      ar: [
+        "مواصلة عملك",
+        "اتباع إجراءات الإخلاء",
+        "انتظار التعليمات",
+        "الخروج فوراً دون إشعار"
       ]
     },
     correct: 1,
