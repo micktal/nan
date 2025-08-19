@@ -240,6 +240,12 @@ export default function Index() {
           onCancel={() => setShowAdminLogin(false)}
         />
       )}
+
+      {/* Mobile Supervisor Modal */}
+      <MobileSupervisorModal
+        isOpen={isMobileSupervisorOpen}
+        onClose={closeMobileSupervisor}
+      />
     </div>
   );
 }
