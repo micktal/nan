@@ -12,6 +12,7 @@ import { useSound } from "@/hooks/use-sound";
 import { useHaptic } from "@/hooks/use-haptic";
 import { useFullscreen } from "@/hooks/use-fullscreen";
 import { useLanguage, AVAILABLE_LANGUAGES } from "@/hooks/use-language.tsx";
+import { QCMTest } from "@/components/QCMTest";
 
 export default function Index() {
   const [isLoaded, setIsLoaded] = useState(false);
