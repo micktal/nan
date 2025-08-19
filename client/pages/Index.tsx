@@ -138,10 +138,10 @@ export default function Index() {
             </div>
 
             <h1 className="text-3xl font-bold text-white mb-2 animate-fade-in-up">
-              {currentContent.title}
+              {t('home.title')}
             </h1>
             <p className="text-emerald-400 text-lg font-medium animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              {currentContent.subtitle}
+              {t('home.subtitle')}
             </p>
           </div>
 
