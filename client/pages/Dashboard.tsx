@@ -9,10 +9,26 @@ import { useHaptic } from "@/hooks/use-haptic";
 
 export default function Dashboard() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const backButtonRef = useRef<HTMLButtonElement>(null);
+
+  // UX/UI hooks
+  const { playClickSound, playBeepSound, playNotificationSound } = useSound();
+  const { triggerLight, triggerMedium } = useHaptic();
 
   useEffect(() => {
     setIsLoaded(true);
-  }, []);
+    playNotificationSound(); // Entry sound for dashboard
+  }, [playNotificationSound]);
+
+  const handleBack = () => {
+    playClickSound();
+    triggerLight(backButtonRef.current || undefined);
+  };
+
+  const handleCardClick = () => {
+    playClickSound();
+    triggerMedium();
+  };
 
   const stats = {
     totalVisitors: 1247,
