@@ -103,11 +103,13 @@ export default function Index() {
               </div>
             </div>
             
-            {/* FPSG logo placeholder */}
+            {/* FPSG logo */}
             <div className="bg-white rounded-lg p-4 shadow-lg">
-              <div className="w-24 h-12 bg-gradient-to-r from-red-600 to-red-800 rounded flex items-center justify-center">
-                <span className="text-white font-bold text-sm">FPSG</span>
-              </div>
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2Fd93d9a0ec7824aa1ac4d890a1f90a2ec%2Fca3c12dc38bf426eacbda6f86df51d73?format=webp&width=800"
+                alt="FPSG Logo"
+                className="w-24 h-12 object-contain"
+              />
             </div>
           </div>
         </div>
