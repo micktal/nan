@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useAdmin } from "@/hooks/use-admin";
+import { useAdmin, getCurrentAccessCodes } from "@/hooks/use-admin";
 import { useSound } from "@/hooks/use-sound";
 import { useHaptic } from "@/hooks/use-haptic";
 
@@ -20,6 +20,9 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [attempts, setAttempts] = useState(0);
+  const [showCodes, setShowCodes] = useState(false);
+
+  const dailyCodes = getCurrentAccessCodes();
 
   const { login } = useAdmin();
   const { playClickSound, playSuccessSound, playErrorSound } = useSound();
