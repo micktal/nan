@@ -14,6 +14,7 @@ import { useFullscreen } from "@/hooks/use-fullscreen";
 import { useLanguage, AVAILABLE_LANGUAGES } from "@/hooks/use-language.tsx";
 import { useAdmin } from "@/hooks/use-admin.tsx";
 import { AdminLogin } from "@/components/AdminLogin";
+import { MobileSupervisorModal, useMobileSupervisorModal } from "@/components/MobileSupervisorModal";
 
 export default function Index() {
   const [isLoaded, setIsLoaded] = useState(false);
