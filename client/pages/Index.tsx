@@ -93,7 +93,10 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+    <div
+      ref={containerRef}
+      className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden"
+    >
       {/* Background pattern to simulate terminal/kiosk environment */}
       <div className="absolute inset-0 opacity-5">
         <div className="w-full h-full" style={{
