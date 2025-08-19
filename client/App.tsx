@@ -18,7 +18,7 @@ import SafetyCourse from "./pages/SafetyCourse";
 import QCM from "./pages/QCM";
 import Certificate from "./pages/Certificate";
 import Dashboard from "./pages/Dashboard";
-import AdminDashboard from "./pages/AdminDashboard";
+import EnhancedAdminDashboard from "./pages/EnhancedAdminDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
