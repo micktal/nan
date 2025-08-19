@@ -97,7 +97,7 @@ export default function Index() {
         <div className="mb-12 text-center">
           <div className="flex items-center justify-center gap-8 mb-6">
             {/* Gerflor logo */}
-            <div className="bg-white rounded-lg p-4 shadow-lg">
+            <div>
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2Fd93d9a0ec7824aa1ac4d890a1f90a2ec%2Fcf2c1680c78247c6bd78521e30a0f35c?format=webp&width=800"
                 alt="Gerflor Logo"
@@ -106,7 +106,7 @@ export default function Index() {
             </div>
             
             {/* FPSG logo */}
-            <div className="bg-white rounded-lg p-4 shadow-lg">
+            <div>
               <img
                 src="https://cdn.builder.io/api/v1/image/assets%2Fd93d9a0ec7824aa1ac4d890a1f90a2ec%2Fca3c12dc38bf426eacbda6f86df51d73?format=webp&width=800"
                 alt="FPSG Logo"
