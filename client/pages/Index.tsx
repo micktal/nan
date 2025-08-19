@@ -193,6 +193,17 @@ export default function Index() {
         </div>
 
       </div>
+
+      {/* Admin Login Modal */}
+      {showAdminLogin && (
+        <AdminLogin
+          onSuccess={() => {
+            setShowAdminLogin(false);
+            window.location.href = '/admin';
+          }}
+          onCancel={() => setShowAdminLogin(false)}
+        />
+      )}
     </div>
   );
 }
