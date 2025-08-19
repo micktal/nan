@@ -95,7 +95,7 @@ export default function Dashboard() {
         
         {/* Stats cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-slate-800/50 border-slate-600/50">
+          <Card className="glass-effect border-slate-600/50 hover-lift">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -108,7 +108,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800/50 border-slate-600/50">
+          <Card className="glass-effect border-slate-600/50 hover-lift">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -121,7 +121,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800/50 border-slate-600/50">
+          <Card className="glass-effect border-slate-600/50 hover-lift">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -134,7 +134,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800/50 border-slate-600/50">
+          <Card className="glass-effect border-slate-600/50 hover-lift">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -152,7 +152,7 @@ export default function Dashboard() {
           
           {/* Activity chart placeholder */}
           <div className="lg:col-span-2">
-            <Card className="bg-slate-800/50 border-slate-600/50">
+            <Card className="glass-effect border-slate-600/50 hover-lift">
               <CardHeader>
                 <CardTitle className="text-white flex items-center">
                   <BarChart3 className="w-5 h-5 mr-2" />
@@ -173,7 +173,7 @@ export default function Dashboard() {
 
           {/* Alerts */}
           <div>
-            <Card className="bg-slate-800/50 border-slate-600/50 mb-6">
+            <Card className="glass-effect border-slate-600/50 hover-lift mb-6">
               <CardHeader>
                 <CardTitle className="text-white flex items-center">
                   <Bell className="w-5 h-5 mr-2" />
@@ -195,7 +195,7 @@ export default function Dashboard() {
             </Card>
 
             {/* Progress by profile */}
-            <Card className="bg-slate-800/50 border-slate-600/50">
+            <Card className="glass-effect border-slate-600/50 hover-lift">
               <CardHeader>
                 <CardTitle className="text-white">Progression par profil</CardTitle>
               </CardHeader>
@@ -239,7 +239,7 @@ export default function Dashboard() {
         </div>
 
         {/* Recent activity */}
-        <Card className="bg-slate-800/50 border-slate-600/50 mt-8">
+        <Card className="glass-effect border-slate-600/50 hover-lift mt-8">
           <CardHeader>
             <CardTitle className="text-white">Activité récente</CardTitle>
           </CardHeader>
