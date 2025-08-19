@@ -15,15 +15,46 @@ export default function Certificate() {
   const [isGenerated, setIsGenerated] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const navigate = useNavigate();
+  const generateButtonRef = useRef<HTMLButtonElement>(null);
+  const downloadButtonRef = useRef<HTMLButtonElement>(null);
+  const dashboardButtonRef = useRef<HTMLButtonElement>(null);
+
+  // UX/UI hooks
+  const { playClickSound, playBeepSound, playSuccessSound, playConfirmSound } = useSound();
+  const { triggerLight, triggerMedium, triggerSuccess } = useHaptic();
 
   useEffect(() => {
     setIsLoaded(true);
-  }, []);
+    playBeepSound(); // Entry sound
+  }, [playBeepSound]);
 
   const handleGenerate = () => {
     if (firstName && lastName) {
-      setIsGenerated(true);
+      playSuccessSound();
+      triggerSuccess(generateButtonRef.current || undefined);
+      setTimeout(() => {
+        setIsGenerated(true);
+        playConfirmSound(); // Certificate generated sound
+      }, 500);
     }
+  };
+
+  const handleDownload = () => {
+    playClickSound();
+    triggerMedium(downloadButtonRef.current || undefined);
+  };
+
+  const handleDashboard = () => {
+    playConfirmSound();
+    triggerSuccess(dashboardButtonRef.current || undefined);
+    setTimeout(() => {
+      navigate('/dashboard');
+    }, 300);
+  };
+
+  const handleBack = () => {
+    playClickSound();
+    triggerLight();
   };
 
   const currentDate = new Date().toLocaleDateString('fr-FR', {
