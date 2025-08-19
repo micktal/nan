@@ -1,7 +1,7 @@
-import React from 'react';
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React from "react";
+import { AlertTriangle, RefreshCw, Home } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -14,38 +14,41 @@ interface ErrorBoundaryProps {
   fallback?: React.ComponentType<{ error: Error; resetError: () => void }>;
 }
 
-export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+export class ErrorBoundary extends React.Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = {
       hasError: false,
       error: null,
-      errorInfo: null
+      errorInfo: null,
     };
   }
 
   static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
     return {
       hasError: true,
-      error
+      error,
     };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
-    
+    console.error("ErrorBoundary caught an error:", error, errorInfo);
+
     this.setState({
       error,
-      errorInfo
+      errorInfo,
     });
 
     // Log to external service in production
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === "production") {
       // Here you would log to Sentry, LogRocket, etc.
-      console.error('Production error:', {
+      console.error("Production error:", {
         error: error.message,
         stack: error.stack,
-        componentStack: errorInfo.componentStack
+        componentStack: errorInfo.componentStack,
       });
     }
   }
@@ -54,7 +57,7 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
     this.setState({
       hasError: false,
       error: null,
-      errorInfo: null
+      errorInfo: null,
     });
   };
 
@@ -63,7 +66,12 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
       // Custom fallback component
       if (this.props.fallback) {
         const FallbackComponent = this.props.fallback;
-        return <FallbackComponent error={this.state.error!} resetError={this.resetError} />;
+        return (
+          <FallbackComponent
+            error={this.state.error!}
+            resetError={this.resetError}
+          />
+        );
       }
 
       // Default error UI
@@ -81,9 +89,11 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
                 <p className="text-red-400 font-medium mb-2">
                   Erreur détectée dans l'application
                 </p>
-                {process.env.NODE_ENV === 'development' && this.state.error && (
+                {process.env.NODE_ENV === "development" && this.state.error && (
                   <details className="text-red-300 text-sm">
-                    <summary className="cursor-pointer">Détails techniques</summary>
+                    <summary className="cursor-pointer">
+                      Détails techniques
+                    </summary>
                     <div className="mt-2 p-2 bg-slate-900/50 rounded font-mono text-xs overflow-auto">
                       <div className="mb-2">
                         <strong>Message:</strong> {this.state.error.message}
@@ -91,13 +101,17 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
                       {this.state.error.stack && (
                         <div className="mb-2">
                           <strong>Stack:</strong>
-                          <pre className="whitespace-pre-wrap">{this.state.error.stack}</pre>
+                          <pre className="whitespace-pre-wrap">
+                            {this.state.error.stack}
+                          </pre>
                         </div>
                       )}
                       {this.state.errorInfo?.componentStack && (
                         <div>
                           <strong>Component Stack:</strong>
-                          <pre className="whitespace-pre-wrap">{this.state.errorInfo.componentStack}</pre>
+                          <pre className="whitespace-pre-wrap">
+                            {this.state.errorInfo.componentStack}
+                          </pre>
                         </div>
                       )}
                     </div>
@@ -107,7 +121,8 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 
               <div className="text-slate-300">
                 <p className="mb-4">
-                  L'application a rencontré une erreur inattendue. Vous pouvez essayer de :
+                  L'application a rencontré une erreur inattendue. Vous pouvez
+                  essayer de :
                 </p>
                 <ul className="list-disc list-inside space-y-1 text-sm">
                   <li>Rafraîchir la page</li>
@@ -125,16 +140,16 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
                   <RefreshCw className="w-4 h-4 mr-2" />
                   Réessayer
                 </Button>
-                
+
                 <Button
-                  onClick={() => window.location.href = '/'}
+                  onClick={() => (window.location.href = "/")}
                   variant="outline"
                   className="bg-slate-700/50 border-slate-600 text-white hover:bg-slate-600"
                 >
                   <Home className="w-4 h-4 mr-2" />
                   Accueil
                 </Button>
-                
+
                 <Button
                   onClick={() => window.location.reload()}
                   variant="outline"
@@ -147,7 +162,8 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 
               <div className="text-xs text-slate-500 pt-4 border-t border-slate-700">
                 <p>
-                  Si cette erreur persiste, veuillez contacter le support technique avec l'ID d'erreur :{' '}
+                  Si cette erreur persiste, veuillez contacter le support
+                  technique avec l'ID d'erreur :{" "}
                   <code className="bg-slate-900/50 px-1 py-0.5 rounded">
                     {Date.now().toString(36).toUpperCase()}
                   </code>
@@ -166,22 +182,30 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 // Hook version for functional components
 export function useErrorHandler() {
   return (error: Error, errorInfo?: React.ErrorInfo) => {
-    console.error('Error caught by useErrorHandler:', error, errorInfo);
-    
+    console.error("Error caught by useErrorHandler:", error, errorInfo);
+
     // In a real app, you'd send this to your error reporting service
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === "production") {
       // Send to Sentry, LogRocket, etc.
     }
   };
 }
 
 // Simple fallback component
-export function SimpleErrorFallback({ error, resetError }: { error: Error; resetError: () => void }) {
+export function SimpleErrorFallback({
+  error,
+  resetError,
+}: {
+  error: Error;
+  resetError: () => void;
+}) {
   return (
     <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
       <div className="text-center text-white max-w-md">
         <AlertTriangle className="w-16 h-16 text-red-400 mx-auto mb-4" />
-        <h2 className="text-xl font-bold mb-2">Oops! Une erreur s'est produite</h2>
+        <h2 className="text-xl font-bold mb-2">
+          Oops! Une erreur s'est produite
+        </h2>
         <p className="text-slate-300 mb-6">
           L'application a rencontré un problème inattendu.
         </p>
@@ -189,9 +213,9 @@ export function SimpleErrorFallback({ error, resetError }: { error: Error; reset
           <Button onClick={resetError} className="w-full">
             Réessayer
           </Button>
-          <Button 
-            onClick={() => window.location.reload()} 
-            variant="outline" 
+          <Button
+            onClick={() => window.location.reload()}
+            variant="outline"
             className="w-full"
           >
             Rafraîchir la page

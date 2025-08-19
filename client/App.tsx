@@ -62,13 +62,28 @@ const App = () => (
                               path="/profile-selection"
                               element={<ProfileSelection />}
                             />
-                            <Route path="/introduction" element={<Introduction />} />
-                            <Route path="/safety-course" element={<SafetyCourse />} />
+                            <Route
+                              path="/introduction"
+                              element={<Introduction />}
+                            />
+                            <Route
+                              path="/safety-course"
+                              element={<SafetyCourse />}
+                            />
                             <Route path="/qcm" element={<QCM />} />
-                            <Route path="/certificate" element={<Certificate />} />
+                            <Route
+                              path="/certificate"
+                              element={<Certificate />}
+                            />
                             <Route path="/dashboard" element={<Dashboard />} />
-                            <Route path="/admin" element={<EnhancedAdminDashboard />} />
-                            <Route path="/mobile" element={<MobileDashboard />} />
+                            <Route
+                              path="/admin"
+                              element={<EnhancedAdminDashboard />}
+                            />
+                            <Route
+                              path="/mobile"
+                              element={<MobileDashboard />}
+                            />
                             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                             <Route path="*" element={<NotFound />} />
                           </Routes>
