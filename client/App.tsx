@@ -33,32 +33,42 @@ const App = () => (
         <UserSessionProvider>
           <LanguageProvider>
             <TooltipProvider>
-              <Toaster />
-              <Sonner />
+              <DeviceAdaptiveContainer>
+                <Toaster />
+                <Sonner />
 
-              {/* Global Notification Center */}
-              <div className="fixed top-4 right-4 z-50">
-                <NotificationCenter />
-              </div>
+                {/* Global Notification Center */}
+                <div className="fixed top-4 right-4 z-50">
+                  <NotificationCenter />
+                </div>
 
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route
-                    path="/profile-selection"
-                    element={<ProfileSelection />}
-                  />
-                  <Route path="/introduction" element={<Introduction />} />
-                  <Route path="/safety-course" element={<SafetyCourse />} />
-                  <Route path="/qcm" element={<QCM />} />
-                  <Route path="/certificate" element={<Certificate />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/admin" element={<EnhancedAdminDashboard />} />
-                  <Route path="/mobile" element={<MobileDashboard />} />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </BrowserRouter>
+                {/* Interface Selector */}
+                <div className="fixed top-4 left-4 z-50">
+                  <InterfaceSelector />
+                </div>
+
+                {/* Device Switch Modal */}
+                <DeviceSwitch />
+
+                <BrowserRouter>
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route
+                      path="/profile-selection"
+                      element={<ProfileSelection />}
+                    />
+                    <Route path="/introduction" element={<Introduction />} />
+                    <Route path="/safety-course" element={<SafetyCourse />} />
+                    <Route path="/qcm" element={<QCM />} />
+                    <Route path="/certificate" element={<Certificate />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/admin" element={<EnhancedAdminDashboard />} />
+                    <Route path="/mobile" element={<MobileDashboard />} />
+                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </BrowserRouter>
+              </DeviceAdaptiveContainer>
             </TooltipProvider>
           </LanguageProvider>
         </UserSessionProvider>
