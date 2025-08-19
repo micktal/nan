@@ -157,21 +157,7 @@ export function DeviceSwitch({ showNotification = true, onClose }: DeviceSwitchP
 // Component pour afficher le sélecteur d'interface
 export function InterfaceSelector() {
   const { deviceType, isMobile, isTablet } = useDeviceDetection();
-
-  // Safe router usage - only call if inside router context
-  let redirectFunctions;
-  try {
-    redirectFunctions = useAutoMobileRedirect();
-  } catch {
-    // Fallback if not in router context
-    redirectFunctions = {
-      forceDesktopMode: () => window.location.href = '/dashboard',
-      forceMobileMode: () => window.location.href = '/mobile',
-      clearPreference: () => localStorage.removeItem('interface-preference')
-    };
-  }
-
-  const { forceDesktopMode, forceMobileMode, clearPreference } = redirectFunctions;
+  const { forceDesktopMode, forceMobileMode, clearPreference } = useAutoMobileRedirect();
   const [userPreference, setUserPreference] = useState<string | null>(null);
 
   useEffect(() => {
