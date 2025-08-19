@@ -30,7 +30,12 @@ export const baseQuestions: QCMQuestion[] = [
       fr: "Quels équipements sont obligatoires en zone de chargement ?",
       en: "What equipment is mandatory in the loading area?",
       de: "Welche Ausrüstung ist im Ladebereich obligatorisch?",
-      es: "¿Qué equipo es obligatorio en el área de carga?"
+      es: "¿Qué equipo es obligatorio en el área de carga?",
+      it: "Quali attrezzature sono obbligatorie nell'area di carico?",
+      pt: "Que equipamento é obrigatório na área de carregamento?",
+      nl: "Welke uitrusting is verplicht in het laadgebied?",
+      pl: "Jaki sprzęt jest obowiązkowy w strefie załadunku?",
+      ar: "ما المعدات الإجبارية في منطقة التحميل؟"
     },
     options: {
       fr: [
@@ -56,6 +61,36 @@ export const baseQuestions: QCMQuestion[] = [
         "Solo casco",
         "Solo guantes de trabajo",
         "Ningún equipo específico"
+      ],
+      it: [
+        "Gilet ad alta visibilità, scarpe di sicurezza",
+        "Solo casco",
+        "Solo guanti da lavoro",
+        "Nessun equipaggiamento specifico"
+      ],
+      pt: [
+        "Colete de alta visibilidade, sapatos de segurança",
+        "Apenas capacete",
+        "Apenas luvas de trabalho",
+        "Nenhum equipamento específico"
+      ],
+      nl: [
+        "Hoge zichtbaarheidsvest, veiligheidsschoenen",
+        "Alleen helm",
+        "Alleen werkhandschoenen",
+        "Geen specifieke uitrusting"
+      ],
+      pl: [
+        "Kamizelka odblaskowa, buty robocze",
+        "Tylko hełm",
+        "Tylko rękawice robocze",
+        "Brak specjalnego sprzętu"
+      ],
+      ar: [
+        "سترة عالية الوضوح، أحذية أمان",
+        "خوذة فقط",
+        "قفازات عمل فقط",
+        "لا توجد معدات محددة"
       ]
     },
     correct: 0,
