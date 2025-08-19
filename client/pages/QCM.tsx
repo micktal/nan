@@ -253,7 +253,7 @@ export default function QCM() {
                   disabled={selectedAnswer === null || showResult}
                   className="bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 text-white px-6 py-3 interactive-element focus-ring hover-lift"
                 >
-                  {currentQuestion === questions.length - 1 ? "Terminer" : "Suivant"}
+                  {currentQuestion === questions.length - 1 ? t('nav.finish') : t('nav.next')}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
