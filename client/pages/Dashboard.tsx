@@ -117,12 +117,24 @@ export default function Dashboard() {
               </Link>
 
               <div>
-                <h1 className="text-2xl font-bold text-white">
-                  Tableau de Bord HSE
+                <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+                  <Award className="w-6 h-6 text-emerald-500" />
+                  Tableau de Bord HSE - Gerflor
                 </h1>
                 <p className="text-slate-300">
-                  Gestion de la formation sécurité
+                  Formation sécurité intelligente • ROI mesurable • Conformité garantie
                 </p>
+                <div className="flex items-center gap-4 mt-2">
+                  <div className="px-3 py-1 bg-emerald-500/20 border border-emerald-500/50 rounded-full">
+                    <span className="text-emerald-400 text-sm font-medium">ROI: +{Math.round(((700000 - 131000) / 131000) * 100)}%</span>
+                  </div>
+                  <div className="px-3 py-1 bg-blue-500/20 border border-blue-500/50 rounded-full">
+                    <span className="text-blue-400 text-sm font-medium">Payback: 4 mois</span>
+                  </div>
+                  <div className="px-3 py-1 bg-orange-500/20 border border-orange-500/50 rounded-full">
+                    <span className="text-orange-400 text-sm font-medium">Accidents: -67%</span>
+                  </div>
+                </div>
               </div>
             </div>
 
