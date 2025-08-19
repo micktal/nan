@@ -205,28 +205,28 @@ export default function ProfileSelection() {
                 <CardContent className="p-8 text-center">
                   {/* Icon with gradient background */}
                   <div className={`
-                    inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 shadow-lg transition-all duration-300
+                    inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 shadow-lg smooth-transition
                     bg-gradient-to-br ${profile.color} ${profile.hoverColor}
-                    ${isSelected ? 'animate-pulse' : ''}
+                    ${isSelected ? 'animate-bounce-soft scale-110' : 'hover:scale-110'}
                   `}>
                     <IconComponent className="w-10 h-10 text-white" />
                   </div>
-                  
+
                   {/* Title */}
-                  <h3 className="text-xl font-semibold text-white mb-3">
+                  <h3 className="text-xl font-semibold text-white mb-3 smooth-transition">
                     {profile.title[language as keyof typeof profile.title]}
                   </h3>
-                  
+
                   {/* Description */}
-                  <p className="text-slate-300 text-sm leading-relaxed">
+                  <p className="text-slate-300 text-sm leading-relaxed smooth-transition">
                     {profile.description[language as keyof typeof profile.description]}
                   </p>
-                  
+
                   {/* Selection indicator */}
                   {isSelected && (
-                    <div className="mt-4 flex items-center justify-center text-emerald-400">
+                    <div className="mt-4 flex items-center justify-center text-emerald-400 animate-fade-in-up">
                       <span className="text-sm font-medium mr-2">Sélectionné</span>
-                      <ArrowRight className="w-4 h-4 animate-pulse" />
+                      <ArrowRight className="w-4 h-4 animate-wiggle" />
                     </div>
                   )}
                 </CardContent>
