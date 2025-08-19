@@ -315,7 +315,7 @@ export default function Certificate() {
       <div
         className={`min-h-screen flex flex-col items-center justify-center px-6 transition-all duration-1000 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
       >
-        <Card className="bg-slate-800/90 backdrop-blur-sm border-slate-600/50 shadow-2xl p-8 max-w-2xl w-full mx-auto">
+        <Card className="bg-slate-800/50 backdrop-blur-md border-slate-600/50 shadow-2xl p-8 max-w-2xl w-full mx-auto">
           <CardContent className="p-0">
             <div className="text-center mb-8">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-full mb-6">
