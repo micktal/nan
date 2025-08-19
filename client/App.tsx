@@ -42,15 +42,15 @@ const App = () => (
                   <NotificationCenter />
                 </div>
 
-                {/* Interface Selector */}
-                <div className="fixed top-4 left-4 z-50">
-                  <InterfaceSelector />
-                </div>
-
-                {/* Device Switch Modal */}
-                <DeviceSwitch />
-
                 <BrowserRouter>
+                  {/* Interface Selector - Inside Router */}
+                  <div className="fixed top-4 left-4 z-50">
+                    <InterfaceSelector />
+                  </div>
+
+                  {/* Device Switch Modal - Inside Router */}
+                  <DeviceSwitch />
+
                   <Routes>
                     <Route path="/" element={<Index />} />
                     <Route
