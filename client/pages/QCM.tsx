@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link, useNavigate } from "react-router-dom";
 import { useSound } from "@/hooks/use-sound";
 import { useHaptic } from "@/hooks/use-haptic";
-import { useLanguage, type Language } from "@/hooks/use-language";
+import { useLanguage, type Language } from "@/hooks/use-language.tsx";
 import { getQuestionsForProfile, type QCMQuestion } from "@/data/qcm-questions";
 
 export default function QCM() {
