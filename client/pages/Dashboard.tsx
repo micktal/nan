@@ -125,17 +125,24 @@ export default function Dashboard() {
                   Tableau de Bord HSE - Gerflor
                 </h1>
                 <p className="text-slate-300">
-                  Formation sécurité intelligente • ROI mesurable • Conformité garantie
+                  Formation sécurité intelligente • ROI mesurable • Conformité
+                  garantie
                 </p>
                 <div className="flex items-center gap-4 mt-2">
                   <div className="px-3 py-1 bg-emerald-500/20 border border-emerald-500/50 rounded-full">
-                    <span className="text-emerald-400 text-sm font-medium">ROI: +{Math.round(((700000 - 131000) / 131000) * 100)}%</span>
+                    <span className="text-emerald-400 text-sm font-medium">
+                      ROI: +{Math.round(((700000 - 131000) / 131000) * 100)}%
+                    </span>
                   </div>
                   <div className="px-3 py-1 bg-blue-500/20 border border-blue-500/50 rounded-full">
-                    <span className="text-blue-400 text-sm font-medium">Payback: 4 mois</span>
+                    <span className="text-blue-400 text-sm font-medium">
+                      Payback: 4 mois
+                    </span>
                   </div>
                   <div className="px-3 py-1 bg-orange-500/20 border border-orange-500/50 rounded-full">
-                    <span className="text-orange-400 text-sm font-medium">Accidents: -67%</span>
+                    <span className="text-orange-400 text-sm font-medium">
+                      Accidents: -67%
+                    </span>
                   </div>
                 </div>
               </div>
@@ -182,7 +189,8 @@ export default function Dashboard() {
               Impact Financier & ROI de la Formation Sécurité
             </h2>
             <p className="text-slate-300 text-lg">
-              Démonstration de la valeur business générée par votre investissement
+              Démonstration de la valeur business générée par votre
+              investissement
             </p>
           </div>
           <ROICalculator />

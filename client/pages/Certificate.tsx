@@ -1,5 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowLeft, Download, Mail, CheckCircle, Award, CreditCard, Printer } from "lucide-react";
+import {
+  ArrowLeft,
+  Download,
+  Mail,
+  CheckCircle,
+  Award,
+  CreditCard,
+  Printer,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -12,7 +20,7 @@ import {
   generateCertificatePDF,
   printBadge,
   emailCertificate,
-  type CertificateData
+  type CertificateData,
 } from "@/utils/certificate-utils";
 
 export default function Certificate() {
@@ -58,8 +66,10 @@ export default function Certificate() {
       score: 85, // This would come from the QCM results
       certificateId: `2024-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
       issueDate: currentDate,
-      expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString('fr-FR'),
-      email
+      expiryDate: new Date(
+        Date.now() + 365 * 24 * 60 * 60 * 1000,
+      ).toLocaleDateString("fr-FR"),
+      email,
     };
 
     generateCertificatePDF(certificateData);
@@ -76,8 +86,10 @@ export default function Certificate() {
       score: 85,
       certificateId: `2024-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
       issueDate: currentDate,
-      expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString('fr-FR'),
-      email
+      expiryDate: new Date(
+        Date.now() + 365 * 24 * 60 * 60 * 1000,
+      ).toLocaleDateString("fr-FR"),
+      email,
     };
 
     printBadge(certificateData);
@@ -94,8 +106,10 @@ export default function Certificate() {
       score: 85,
       certificateId: `2024-${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
       issueDate: currentDate,
-      expiryDate: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString('fr-FR'),
-      email
+      expiryDate: new Date(
+        Date.now() + 365 * 24 * 60 * 60 * 1000,
+      ).toLocaleDateString("fr-FR"),
+      email,
     };
 
     emailCertificate(certificateData);
@@ -229,7 +243,9 @@ export default function Certificate() {
                 score={85}
                 certificateId={`2024-${Math.random().toString(36).substr(2, 9).toUpperCase()}`}
                 issueDate={currentDate}
-                expiryDate={new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toLocaleDateString('fr-FR')}
+                expiryDate={new Date(
+                  Date.now() + 365 * 24 * 60 * 60 * 1000,
+                ).toLocaleDateString("fr-FR")}
               />
             </div>
           </div>

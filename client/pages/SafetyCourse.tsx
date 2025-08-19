@@ -218,7 +218,9 @@ export default function SafetyCourse() {
               {/* Progress */}
               <Card className="bg-slate-800/50 border-slate-600/50 backdrop-blur-md">
                 <CardContent className="p-6">
-                  <h4 className="text-emerald-400 font-bold mb-4 text-lg">Progression</h4>
+                  <h4 className="text-emerald-400 font-bold mb-4 text-lg">
+                    Progression
+                  </h4>
                   <div className="space-y-2">
                     {safetyZones.map((zone) => (
                       <div key={zone.id} className="flex items-center">
@@ -267,7 +269,9 @@ export default function SafetyCourse() {
             <div className="w-3 h-3 bg-slate-600 rounded-full"></div>
             <div className="w-3 h-3 bg-slate-600 rounded-full"></div>
           </div>
-          <span className="text-slate-200 text-sm ml-4 font-medium">Étape 3 sur 5</span>
+          <span className="text-slate-200 text-sm ml-4 font-medium">
+            Étape 3 sur 5
+          </span>
         </div>
       </div>
     </div>

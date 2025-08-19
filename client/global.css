@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* Import device adaptive styles */
-@import './styles/device-adaptive.css';
+@import "./styles/device-adaptive.css";
 
 @layer base {
   /**

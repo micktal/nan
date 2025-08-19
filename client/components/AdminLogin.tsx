@@ -165,7 +165,9 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
             <div className="space-y-3">
               <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <p className="text-emerald-400 text-xs font-medium">Comptes de démonstration :</p>
+                  <p className="text-emerald-400 text-xs font-medium">
+                    Comptes de démonstration :
+                  </p>
                   <Button
                     type="button"
                     variant="ghost"
@@ -173,7 +175,7 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
                     onClick={() => setShowCodes(!showCodes)}
                     className="text-emerald-400 hover:text-emerald-300 h-auto p-1 text-xs"
                   >
-                    {showCodes ? 'Masquer codes' : 'Voir codes d\'accès'}
+                    {showCodes ? "Masquer codes" : "Voir codes d'accès"}
                   </Button>
                 </div>
                 <div className="text-xs text-slate-300 space-y-1">
@@ -184,7 +186,9 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
                   </div>
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                    <span className="font-mono text-orange-300">supervisor</span>
+                    <span className="font-mono text-orange-300">
+                      supervisor
+                    </span>
                     <span>- Gestion et exports</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -198,7 +202,8 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
               {showCodes && (
                 <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg animate-fade-in-up">
                   <p className="text-blue-400 text-xs mb-2 font-medium flex items-center gap-1">
-                    🔐 Codes d'accès du jour ({new Date().toLocaleDateString('fr-FR')}) :
+                    🔐 Codes d'accès du jour (
+                    {new Date().toLocaleDateString("fr-FR")}) :
                   </p>
                   <div className="text-xs text-slate-300 space-y-2">
                     <div className="flex items-center justify-between p-2 bg-slate-700/30 rounded">

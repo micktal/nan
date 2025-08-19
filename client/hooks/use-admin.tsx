@@ -35,8 +35,8 @@ export function useAdmin() {
 
 // Generate secure access codes
 function generateAccessCode(): string {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Avoid confusing characters
-  let result = '';
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // Avoid confusing characters
+  let result = "";
   for (let i = 0; i < 8; i++) {
     result += chars.charAt(Math.floor(Math.random() * chars.length));
   }
@@ -45,14 +45,14 @@ function generateAccessCode(): string {
 
 // Daily access codes (regenerated every day for security)
 function getDailyAccessCodes() {
-  const today = new Date().toISOString().split('T')[0];
-  const seed = today.split('-').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+  const today = new Date().toISOString().split("T")[0];
+  const seed = today.split("-").reduce((a, b) => parseInt(a) + parseInt(b), 0);
 
   // Seed-based generation for consistency within the day
   const codes = {
     admin: `ADM-${seed}${today.slice(-2)}A`,
     supervisor: `SUP-${seed}${today.slice(-2)}B`,
-    hse: `HSE-${seed}${today.slice(-2)}C`
+    hse: `HSE-${seed}${today.slice(-2)}C`,
   };
 
   return codes;
@@ -76,7 +76,7 @@ function getAdminAccounts() {
         "real_time_monitoring",
         "advanced_reports",
         "user_management",
-        "security_logs"
+        "security_logs",
       ],
     },
     supervisor: {
@@ -149,10 +149,10 @@ export function AdminProvider({ children }: AdminProviderProps) {
     const adminData = adminAccounts[username as keyof typeof adminAccounts];
 
     // Check both daily code and static password
-    const isValidPassword = adminData && (
-      adminData.password === password ||
-      adminData.staticPassword === password
-    );
+    const isValidPassword =
+      adminData &&
+      (adminData.password === password ||
+        adminData.staticPassword === password);
 
     if (isValidPassword) {
       const adminUser: AdminUser = {
@@ -169,8 +169,9 @@ export function AdminProvider({ children }: AdminProviderProps) {
       // Save session to localStorage with enhanced security info
       const sessionData = {
         ...adminUser,
-        loginMethod: adminData.password === password ? 'daily_code' : 'static_password',
-        sessionId: `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+        loginMethod:
+          adminData.password === password ? "daily_code" : "static_password",
+        sessionId: `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       };
       localStorage.setItem("admin-session", JSON.stringify(sessionData));
 

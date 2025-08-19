@@ -1,5 +1,5 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { Shield, CheckCircle, QrCode } from 'lucide-react';
+import { Card, CardContent } from "@/components/ui/card";
+import { Shield, CheckCircle, QrCode } from "lucide-react";
 
 interface BadgeCardProps {
   firstName: string;
@@ -11,17 +11,17 @@ interface BadgeCardProps {
   expiryDate: string;
 }
 
-export function BadgeCard({ 
-  firstName, 
-  lastName, 
-  profile, 
-  score, 
-  certificateId, 
+export function BadgeCard({
+  firstName,
+  lastName,
+  profile,
+  score,
+  certificateId,
   issueDate,
-  expiryDate 
+  expiryDate,
 }: BadgeCardProps) {
   return (
-    <div className="badge-card" style={{ width: '85.6mm', height: '53.98mm' }}>
+    <div className="badge-card" style={{ width: "85.6mm", height: "53.98mm" }}>
       <Card className="w-full h-full border-2 border-slate-300 bg-gradient-to-br from-white to-slate-50 shadow-lg overflow-hidden">
         <CardContent className="p-0 h-full relative">
           {/* Header with gradient */}
@@ -59,7 +59,9 @@ export function BadgeCard({
                 </div>
                 <div>
                   <p className="text-xs text-slate-500">Validité</p>
-                  <p className="font-bold text-slate-700 text-xs">{expiryDate}</p>
+                  <p className="font-bold text-slate-700 text-xs">
+                    {expiryDate}
+                  </p>
                 </div>
               </div>
             </div>
@@ -82,7 +84,7 @@ export function BadgeCard({
                     />
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-2">
                   <QrCode className="w-4 h-4 text-slate-400" />
                   <div className="text-right">
@@ -97,12 +99,15 @@ export function BadgeCard({
             <div className="absolute top-14 right-2 opacity-10">
               <Shield className="w-8 h-8 text-emerald-600" />
             </div>
-            
+
             {/* Background pattern */}
             <div className="absolute inset-0 opacity-5 pointer-events-none">
-              <div className="w-full h-full" style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2310B981' fill-opacity='1'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3C/g%3E%3C/svg%3E")`,
-              }} />
+              <div
+                className="w-full h-full"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2310B981' fill-opacity='1'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3C/g%3E%3C/svg%3E")`,
+                }}
+              />
             </div>
           </div>
         </CardContent>

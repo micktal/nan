@@ -342,7 +342,9 @@ export default function QCM() {
             <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
             <div className="w-3 h-3 bg-slate-600 rounded-full"></div>
           </div>
-          <span className="text-slate-200 text-sm ml-4 font-medium">Étape 4 sur 5</span>
+          <span className="text-slate-200 text-sm ml-4 font-medium">
+            Étape 4 sur 5
+          </span>
         </div>
       </div>
     </div>

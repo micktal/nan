@@ -13,7 +13,7 @@ export interface CertificateData {
 
 // Generate PDF certificate using HTML-to-PDF approach
 export function generateCertificatePDF(data: CertificateData): void {
-  const printWindow = window.open('', '_blank');
+  const printWindow = window.open("", "_blank");
   if (!printWindow) return;
 
   const certificateHTML = `
@@ -270,7 +270,7 @@ export function generateCertificatePDF(data: CertificateData): void {
 
 // Print badge function
 export function printBadge(data: CertificateData): void {
-  const printWindow = window.open('', '_blank');
+  const printWindow = window.open("", "_blank");
   if (!printWindow) return;
 
   const badgeHTML = `
@@ -459,7 +459,7 @@ export function printBadge(data: CertificateData): void {
 
   printWindow.document.write(badgeHTML);
   printWindow.document.close();
-  
+
   setTimeout(() => {
     printWindow.print();
     printWindow.close();
@@ -475,15 +475,17 @@ export function generateQRCodeData(data: CertificateData): string {
     score: data.score,
     issued: data.issueDate,
     expires: data.expiryDate,
-    valid: true
+    valid: true,
   });
 }
 
 // Email certificate function
 export function emailCertificate(data: CertificateData): void {
   if (!data.email) return;
-  
-  const subject = encodeURIComponent(`Certificat de formation sécurité - ${data.firstName} ${data.lastName}`);
+
+  const subject = encodeURIComponent(
+    `Certificat de formation sécurité - ${data.firstName} ${data.lastName}`,
+  );
   const body = encodeURIComponent(`
 Bonjour ${data.firstName},
 
@@ -502,6 +504,6 @@ Ce certificat vous autorise à accéder au site dans le cadre de vos fonctions.
 Cordialement,
 L'équipe GERFLOR × FPSG
   `);
-  
+
   window.open(`mailto:${data.email}?subject=${subject}&body=${body}`);
 }

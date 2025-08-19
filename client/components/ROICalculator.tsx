@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import {
   TrendingUp,
   Calculator,
@@ -7,11 +7,11 @@ import {
   AlertTriangle,
   CheckCircle,
   BarChart3,
-  Target
-} from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { Button } from '@/components/ui/button';
+  Target,
+} from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
 
 interface ROIMetrics {
   accidentsAvoided: number;
@@ -41,27 +41,36 @@ export function ROICalculator() {
     implementationCost: 25000, // coût implémentation
     annualSavings: 0, // calculé
     roi: 0, // calculé
-    paybackPeriod: 0 // calculé en mois
+    paybackPeriod: 0, // calculé en mois
   };
 
   const [metrics, setMetrics] = useState<ROIMetrics>(baseMetrics);
 
   // Calculs automatiques
   useEffect(() => {
-    const accidentSavings = metrics.accidentsAvoided * metrics.accidentCostPerIncident;
+    const accidentSavings =
+      metrics.accidentsAvoided * metrics.accidentCostPerIncident;
     const timeSavings = metrics.timeEfficiencyGains * 12 * 35; // 35€/heure moyenne
-    const totalAnnualSavings = accidentSavings + metrics.complianceFines + timeSavings;
-    const totalCosts = metrics.implementationCost + (metrics.totalEmployeesTrained * metrics.trainingCostPerPerson);
+    const totalAnnualSavings =
+      accidentSavings + metrics.complianceFines + timeSavings;
+    const totalCosts =
+      metrics.implementationCost +
+      metrics.totalEmployeesTrained * metrics.trainingCostPerPerson;
     const roi = ((totalAnnualSavings - totalCosts) / totalCosts) * 100;
     const paybackMonths = totalCosts / (totalAnnualSavings / 12);
 
-    setMetrics(prev => ({
+    setMetrics((prev) => ({
       ...prev,
       annualSavings: totalAnnualSavings,
       roi: roi,
-      paybackPeriod: paybackMonths
+      paybackPeriod: paybackMonths,
     }));
-  }, [metrics.accidentsAvoided, metrics.accidentCostPerIncident, metrics.complianceFines, metrics.timeEfficiencyGains]);
+  }, [
+    metrics.accidentsAvoided,
+    metrics.accidentCostPerIncident,
+    metrics.complianceFines,
+    metrics.timeEfficiencyGains,
+  ]);
 
   useEffect(() => {
     setIsAnimating(true);
@@ -70,24 +79,33 @@ export function ROICalculator() {
   }, []);
 
   const projectedYears = [
-    { year: 1, savings: metrics.annualSavings, cumulative: metrics.annualSavings - (metrics.implementationCost + metrics.totalEmployeesTrained * metrics.trainingCostPerPerson) },
+    {
+      year: 1,
+      savings: metrics.annualSavings,
+      cumulative:
+        metrics.annualSavings -
+        (metrics.implementationCost +
+          metrics.totalEmployeesTrained * metrics.trainingCostPerPerson),
+    },
     { year: 2, savings: metrics.annualSavings * 1.15, cumulative: 0 },
-    { year: 3, savings: metrics.annualSavings * 1.32, cumulative: 0 }
+    { year: 3, savings: metrics.annualSavings * 1.32, cumulative: 0 },
   ];
 
   // Calcul cumulatif
-  projectedYears[1].cumulative = projectedYears[0].cumulative + projectedYears[1].savings;
-  projectedYears[2].cumulative = projectedYears[1].cumulative + projectedYears[2].savings;
+  projectedYears[1].cumulative =
+    projectedYears[0].cumulative + projectedYears[1].savings;
+  projectedYears[2].cumulative =
+    projectedYears[1].cumulative + projectedYears[2].savings;
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('fr-FR', {
+    return new Intl.NumberFormat("fr-FR", {
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      maximumFractionDigits: 0,
     }).format(amount);
   };
 
   const formatNumber = (num: number) => {
-    return new Intl.NumberFormat('fr-FR').format(Math.round(num));
+    return new Intl.NumberFormat("fr-FR").format(Math.round(num));
   };
 
   return (
@@ -109,19 +127,31 @@ export function ROICalculator() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="text-center p-4 bg-white/5 rounded-lg">
-              <div className="text-2xl font-bold text-white">{formatCurrency(metrics.annualSavings)}</div>
-              <div className="text-sm text-emerald-300">Économies Annuelles</div>
+              <div className="text-2xl font-bold text-white">
+                {formatCurrency(metrics.annualSavings)}
+              </div>
+              <div className="text-sm text-emerald-300">
+                Économies Annuelles
+              </div>
             </div>
             <div className="text-center p-4 bg-white/5 rounded-lg">
-              <div className="text-2xl font-bold text-white">{Math.round(metrics.paybackPeriod)} mois</div>
-              <div className="text-sm text-blue-300">Retour sur Investissement</div>
+              <div className="text-2xl font-bold text-white">
+                {Math.round(metrics.paybackPeriod)} mois
+              </div>
+              <div className="text-sm text-blue-300">
+                Retour sur Investissement
+              </div>
             </div>
             <div className="text-center p-4 bg-white/5 rounded-lg">
-              <div className="text-2xl font-bold text-white">{metrics.accidentsAvoided}</div>
+              <div className="text-2xl font-bold text-white">
+                {metrics.accidentsAvoided}
+              </div>
               <div className="text-sm text-orange-300">Accidents Évités/An</div>
             </div>
             <div className="text-center p-4 bg-white/5 rounded-lg">
-              <div className="text-2xl font-bold text-white">{formatNumber(metrics.timeEfficiencyGains * 12)}h</div>
+              <div className="text-2xl font-bold text-white">
+                {formatNumber(metrics.timeEfficiencyGains * 12)}h
+              </div>
               <div className="text-sm text-purple-300">Temps Économisé/An</div>
             </div>
           </div>
@@ -146,15 +176,24 @@ export function ROICalculator() {
                     Accidents évités
                   </span>
                   <span className="text-white font-bold">
-                    {formatCurrency(metrics.accidentsAvoided * metrics.accidentCostPerIncident)}
+                    {formatCurrency(
+                      metrics.accidentsAvoided *
+                        metrics.accidentCostPerIncident,
+                    )}
                   </span>
                 </div>
-                <Progress 
-                  value={(metrics.accidentsAvoided * metrics.accidentCostPerIncident / metrics.annualSavings) * 100} 
+                <Progress
+                  value={
+                    ((metrics.accidentsAvoided *
+                      metrics.accidentCostPerIncident) /
+                      metrics.annualSavings) *
+                    100
+                  }
                   className="h-3"
                 />
                 <div className="text-xs text-slate-400 mt-1">
-                  {metrics.accidentsAvoided} accidents × {formatCurrency(metrics.accidentCostPerIncident)}
+                  {metrics.accidentsAvoided} accidents ×{" "}
+                  {formatCurrency(metrics.accidentCostPerIncident)}
                 </div>
               </div>
 
@@ -168,8 +207,10 @@ export function ROICalculator() {
                     {formatCurrency(metrics.complianceFines)}
                   </span>
                 </div>
-                <Progress 
-                  value={(metrics.complianceFines / metrics.annualSavings) * 100} 
+                <Progress
+                  value={
+                    (metrics.complianceFines / metrics.annualSavings) * 100
+                  }
                   className="h-3"
                 />
                 <div className="text-xs text-slate-400 mt-1">
@@ -187,8 +228,12 @@ export function ROICalculator() {
                     {formatCurrency(metrics.timeEfficiencyGains * 12 * 35)}
                   </span>
                 </div>
-                <Progress 
-                  value={(metrics.timeEfficiencyGains * 12 * 35 / metrics.annualSavings) * 100} 
+                <Progress
+                  value={
+                    ((metrics.timeEfficiencyGains * 12 * 35) /
+                      metrics.annualSavings) *
+                    100
+                  }
                   className="h-3"
                 />
                 <div className="text-xs text-slate-400 mt-1">
@@ -212,24 +257,36 @@ export function ROICalculator() {
               {projectedYears.map((yearData, index) => (
                 <div key={index} className="relative">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-slate-300 font-medium">Année {yearData.year}</span>
+                    <span className="text-slate-300 font-medium">
+                      Année {yearData.year}
+                    </span>
                     <div className="text-right">
-                      <div className="text-white font-bold">{formatCurrency(yearData.savings)}</div>
-                      <div className={`text-xs ${yearData.cumulative > 0 ? 'text-emerald-400' : 'text-orange-400'}`}>
+                      <div className="text-white font-bold">
+                        {formatCurrency(yearData.savings)}
+                      </div>
+                      <div
+                        className={`text-xs ${yearData.cumulative > 0 ? "text-emerald-400" : "text-orange-400"}`}
+                      >
                         Cumul: {formatCurrency(yearData.cumulative)}
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Progress 
-                      value={Math.min((yearData.savings / projectedYears[2].savings) * 100, 100)} 
+                    <Progress
+                      value={Math.min(
+                        (yearData.savings / projectedYears[2].savings) * 100,
+                        100,
+                      )}
                       className="h-2 flex-1"
                     />
-                    <CheckCircle className={`w-4 h-4 ${yearData.cumulative > 0 ? 'text-emerald-400' : 'text-orange-400'}`} />
+                    <CheckCircle
+                      className={`w-4 h-4 ${yearData.cumulative > 0 ? "text-emerald-400" : "text-orange-400"}`}
+                    />
                   </div>
                   {index === 0 && (
                     <div className="text-xs text-slate-400 mt-1">
-                      Seuil de rentabilité atteint en {Math.round(metrics.paybackPeriod)} mois
+                      Seuil de rentabilité atteint en{" "}
+                      {Math.round(metrics.paybackPeriod)} mois
                     </div>
                   )}
                 </div>
@@ -239,12 +296,21 @@ export function ROICalculator() {
             <div className="mt-6 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-emerald-400 font-bold">ROI Total 3 ans</div>
+                  <div className="text-emerald-400 font-bold">
+                    ROI Total 3 ans
+                  </div>
                   <div className="text-slate-300 text-sm">Bénéfice cumulé</div>
                 </div>
                 <div className="text-right">
                   <div className="text-2xl font-bold text-emerald-400">
-                    {formatNumber(((projectedYears[2].cumulative) / (metrics.implementationCost + metrics.totalEmployeesTrained * metrics.trainingCostPerPerson)) * 100)}%
+                    {formatNumber(
+                      (projectedYears[2].cumulative /
+                        (metrics.implementationCost +
+                          metrics.totalEmployeesTrained *
+                            metrics.trainingCostPerPerson)) *
+                        100,
+                    )}
+                    %
                   </div>
                   <div className="text-emerald-300 text-sm">
                     {formatCurrency(projectedYears[2].cumulative)}
@@ -278,14 +344,18 @@ export function ROICalculator() {
                   <div className="text-sm text-slate-300">Conformité</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-red-400">{formatCurrency(810000)}</div>
+                  <div className="text-2xl font-bold text-red-400">
+                    {formatCurrency(810000)}
+                  </div>
                   <div className="text-sm text-slate-300">Coûts annuels</div>
                 </div>
               </div>
             </div>
 
             <div className="text-center">
-              <div className="text-emerald-400 text-lg font-bold mb-2">APRÈS</div>
+              <div className="text-emerald-400 text-lg font-bold mb-2">
+                APRÈS
+              </div>
               <div className="space-y-3 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
                 <div>
                   <div className="text-2xl font-bold text-emerald-400">6</div>
@@ -296,7 +366,9 @@ export function ROICalculator() {
                   <div className="text-sm text-slate-300">Conformité</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-emerald-400">{formatCurrency(810000 - metrics.annualSavings)}</div>
+                  <div className="text-2xl font-bold text-emerald-400">
+                    {formatCurrency(810000 - metrics.annualSavings)}
+                  </div>
                   <div className="text-sm text-slate-300">Coûts annuels</div>
                 </div>
               </div>
@@ -314,7 +386,9 @@ export function ROICalculator() {
                   <div className="text-sm text-slate-300">Conformité</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-blue-400">{formatCurrency(metrics.annualSavings)}</div>
+                  <div className="text-2xl font-bold text-blue-400">
+                    {formatCurrency(metrics.annualSavings)}
+                  </div>
                   <div className="text-sm text-slate-300">Économies</div>
                 </div>
               </div>
