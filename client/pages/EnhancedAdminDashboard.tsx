@@ -390,7 +390,7 @@ export default function EnhancedAdminDashboard() {
                   size="sm"
                   variant="outline"
                   onClick={() => setAutoRefresh(!autoRefresh)}
-                  className={`text-white border-slate-600 hover:bg-slate-700 ${autoRefresh ? 'bg-emerald-500/20 border-emerald-500' : ''}`}
+                  className={`bg-slate-800/50 text-white border-slate-600 hover:bg-slate-700 backdrop-blur-md ${autoRefresh ? 'bg-emerald-500/20 border-emerald-500' : ''}`}
                 >
                   <RefreshCcw className={`w-4 h-4 mr-2 ${autoRefresh ? 'animate-spin' : ''}`} />
                   Auto
@@ -400,7 +400,7 @@ export default function EnhancedAdminDashboard() {
                   size="sm"
                   variant="outline"
                   onClick={() => setRealTimeMode(!realTimeMode)}
-                  className={`text-white border-slate-600 hover:bg-slate-700 ${realTimeMode ? 'bg-blue-500/20 border-blue-500' : ''}`}
+                  className={`bg-slate-800/50 text-white border-slate-600 hover:bg-slate-700 backdrop-blur-md ${realTimeMode ? 'bg-blue-500/20 border-blue-500' : ''}`}
                 >
                   <Monitor className="w-4 h-4 mr-2" />
                   Live
@@ -422,7 +422,7 @@ export default function EnhancedAdminDashboard() {
                 </div>
               )}
 
-              <Button size="sm" variant="outline" onClick={logout} className="text-white border-slate-600 hover:bg-slate-700">
+              <Button size="sm" variant="outline" onClick={logout} className="bg-slate-800/50 text-white border-slate-600 hover:bg-slate-700 backdrop-blur-md">
                 <LogOut className="w-4 h-4 mr-2" />Déconnexion
               </Button>
             </div>
