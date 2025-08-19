@@ -56,8 +56,12 @@ export default function Dashboard() {
               <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 py-2 rounded-lg">
                 <span className="font-bold">GERFLOR</span>
               </div>
-              <div className="bg-gradient-to-r from-red-600 to-red-800 text-white px-4 py-2 rounded-lg">
-                <span className="font-bold">FPSG</span>
+              <div className="bg-white px-4 py-2 rounded-lg shadow-lg">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2Fd93d9a0ec7824aa1ac4d890a1f90a2ec%2Fca3c12dc38bf426eacbda6f86df51d73?format=webp&width=800"
+                  alt="FPSG Logo"
+                  className="h-6 object-contain"
+                />
               </div>
             </div>
           </div>
