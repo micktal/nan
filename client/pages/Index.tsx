@@ -164,7 +164,7 @@ export default function Index() {
                 className="bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 text-white px-12 py-6 text-xl font-semibold rounded-xl shadow-lg pulse-button hover-lift interactive-element focus-ring"
               >
                 <Play className="w-6 h-6 mr-3" />
-                {currentContent.startButton}
+                {t('home.startButton')}
               </Button>
             </Link>
           </div>
