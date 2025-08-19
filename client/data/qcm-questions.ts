@@ -743,11 +743,13 @@ export function getQuestionsForProfile(profile: string): QCMQuestion[] {
 
 // Get all available questions
 export function getAllQuestions(): QCMQuestion[] {
-  return [
+  const allQuestions = [
     ...baseQuestions,
     ...driverQuestions,
     ...technicianQuestions,
     ...cleaningQuestions,
     ...administrativeQuestions
   ];
+
+  return allQuestions.map(ensureAllLanguages);
 }
