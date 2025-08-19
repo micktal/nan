@@ -141,6 +141,16 @@ export default function Dashboard() {
             </div>
 
             <div className="flex items-center gap-4">
+              <Link to="/mobile">
+                <Button
+                  size="sm"
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                >
+                  <Smartphone className="w-4 h-4 mr-2" />
+                  App Mobile
+                </Button>
+              </Link>
+
               <div className="px-4 py-2">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2Fd93d9a0ec7824aa1ac4d890a1f90a2ec%2Fcf2c1680c78247c6bd78521e30a0f35c?format=webp&width=800"
