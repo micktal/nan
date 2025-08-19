@@ -5,42 +5,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link, useNavigate } from "react-router-dom";
 import { useSound } from "@/hooks/use-sound";
 import { useHaptic } from "@/hooks/use-haptic";
-
-const questions = [
-  {
-    id: 1,
-    question: "Quels équipements sont obligatoires en zone de chargement ?",
-    options: [
-      "Gilet haute visibilité, chaussures de sécurité",
-      "Casque uniquement",
-      "Gants de travail seulement",
-      "Aucun équipement spécifique"
-    ],
-    correct: 0
-  },
-  {
-    id: 2,
-    question: "Que devez-vous faire en cas d'urgence ?",
-    options: [
-      "Continuer votre travail",
-      "Suivre les consignes d'évacuation",
-      "Attendre les instructions",
-      "Quitter immédiatement sans prévenir"
-    ],
-    correct: 1
-  },
-  {
-    id: 3,
-    question: "Dans quelles zones la vitesse est-elle limitée ?",
-    options: [
-      "Uniquement dans les parkings",
-      "Partout sur le site",
-      "Seulement près des bâtiments",
-      "Aucune limitation"
-    ],
-    correct: 1
-  }
-];
+import { useLanguage, type Language } from "@/hooks/use-language";
+import { getQuestionsForProfile, type QCMQuestion } from "@/data/qcm-questions";
 
 export default function QCM() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
