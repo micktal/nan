@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowLeft, Truck, Wrench, Sparkles, FileText, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link, useNavigate } from "react-router-dom";
+import { useSound } from "@/hooks/use-sound";
+import { useHaptic } from "@/hooks/use-haptic";
 
 const profiles = [
   {
