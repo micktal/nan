@@ -15,6 +15,7 @@ import { Progress } from "@/components/ui/progress";
 import { Link } from "react-router-dom";
 import { useSound } from "@/hooks/use-sound";
 import { useHaptic } from "@/hooks/use-haptic";
+import { ROICalculator } from "@/components/ROICalculator";
 
 export default function Dashboard() {
   const [isLoaded, setIsLoaded] = useState(false);
