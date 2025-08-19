@@ -1,0 +1,283 @@
+/* Device Adaptive Styles */
+
+/* Base responsive classes */
+.device-adaptive-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Mobile specific styles */
+.device-mobile {
+  font-size: 16px; /* Prevent iOS zoom */
+}
+
+.device-mobile .text-xs { font-size: 0.75rem; }
+.device-mobile .text-sm { font-size: 0.875rem; }
+.device-mobile .text-base { font-size: 1rem; }
+.device-mobile .text-lg { font-size: 1.125rem; }
+.device-mobile .text-xl { font-size: 1.25rem; }
+.device-mobile .text-2xl { font-size: 1.5rem; }
+.device-mobile .text-3xl { font-size: 1.875rem; }
+
+/* Touch-friendly button sizes for mobile */
+.device-mobile .btn-touch {
+  min-height: 44px; /* iOS touch target minimum */
+  min-width: 44px;
+  padding: 12px 16px;
+}
+
+.device-mobile button {
+  min-height: 44px;
+}
+
+/* Tablet specific styles */
+.device-tablet {
+  font-size: 18px;
+}
+
+.device-tablet .btn-touch {
+  min-height: 48px;
+  min-width: 48px;
+  padding: 14px 20px;
+}
+
+/* Desktop styles */
+.device-desktop {
+  font-size: 16px;
+}
+
+/* Orientation specific adjustments */
+.orientation-portrait {
+  --container-padding: 1rem;
+}
+
+.orientation-landscape {
+  --container-padding: 2rem;
+}
+
+.device-mobile.orientation-landscape {
+  --container-padding: 0.5rem;
+}
+
+/* Screen size specific styles */
+.screen-xs {
+  --nav-height: 60px;
+  --card-padding: 1rem;
+  --button-size: 40px;
+}
+
+.screen-sm {
+  --nav-height: 64px;
+  --card-padding: 1.25rem;
+  --button-size: 44px;
+}
+
+.screen-md {
+  --nav-height: 68px;
+  --card-padding: 1.5rem;
+  --button-size: 48px;
+}
+
+.screen-lg {
+  --nav-height: 72px;
+  --card-padding: 2rem;
+  --button-size: 52px;
+}
+
+.screen-xl {
+  --nav-height: 76px;
+  --card-padding: 2.5rem;
+  --button-size: 56px;
+}
+
+/* Adaptive grid systems */
+.adaptive-grid {
+  display: grid;
+  gap: var(--grid-gap, 1rem);
+}
+
+.device-mobile .adaptive-grid {
+  grid-template-columns: 1fr;
+  --grid-gap: 0.75rem;
+}
+
+.device-tablet .adaptive-grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  --grid-gap: 1rem;
+}
+
+.device-desktop .adaptive-grid {
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  --grid-gap: 1.5rem;
+}
+
+/* Touch-specific interactions */
+@media (hover: none) and (pointer: coarse) {
+  /* Touch device styles */
+  .hover\:scale-105:hover {
+    transform: none;
+  }
+  
+  .touch-device button:active {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+  }
+  
+  .touch-device .card-hover:hover {
+    transform: none;
+  }
+  
+  .touch-device .card-hover:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Scroll behavior adjustments */
+.device-mobile {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.device-mobile .overflow-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Safe area adjustments for notched devices */
+@supports (padding: max(0px)) {
+  .device-mobile {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+  
+  .device-mobile .fixed-top {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+  
+  .device-mobile .fixed-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* High DPI adjustments */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .device-mobile .border {
+    border-width: 0.5px;
+  }
+  
+  .device-mobile .shadow-sm {
+    box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Landscape mobile specific */
+.device-mobile.orientation-landscape {
+  --nav-height: 48px;
+}
+
+.device-mobile.orientation-landscape .text-3xl {
+  font-size: 1.5rem;
+}
+
+.device-mobile.orientation-landscape .text-2xl {
+  font-size: 1.25rem;
+}
+
+/* Animation performance for mobile */
+.device-mobile * {
+  will-change: auto;
+}
+
+.device-mobile .animate-spin,
+.device-mobile .animate-pulse,
+.device-mobile .animate-bounce {
+  will-change: transform;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .device-adaptive-container * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark mode adjustments for different devices */
+@media (prefers-color-scheme: dark) {
+  .device-mobile .bg-white {
+    background-color: #1f2937;
+  }
+  
+  .device-mobile .text-black {
+    color: #f9fafb;
+  }
+}
+
+/* Print styles for all devices */
+@media print {
+  .device-adaptive-container {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .fixed, .sticky {
+    position: static !important;
+  }
+  
+  .hidden-print {
+    display: none !important;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.device-desktop *:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.device-mobile *:focus,
+.device-tablet *:focus {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Utility classes for device-specific visibility */
+.mobile-only {
+  display: none;
+}
+
+.tablet-only {
+  display: none;
+}
+
+.desktop-only {
+  display: block;
+}
+
+.device-mobile .mobile-only {
+  display: block;
+}
+
+.device-mobile .desktop-only,
+.device-mobile .tablet-only {
+  display: none;
+}
+
+.device-tablet .tablet-only {
+  display: block;
+}
+
+.device-tablet .desktop-only,
+.device-tablet .mobile-only {
+  display: none;
+}
+
+/* Performance optimizations */
+.device-mobile .blur-effect {
+  backdrop-filter: none; /* Disable expensive blur on mobile */
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.device-mobile .shadow-2xl {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Simpler shadows */
+}
