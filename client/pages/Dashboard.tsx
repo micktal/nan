@@ -53,8 +53,12 @@ export default function Dashboard() {
             </div>
             
             <div className="flex items-center gap-4">
-              <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 py-2 rounded-lg">
-                <span className="font-bold">GERFLOR</span>
+              <div className="bg-white px-4 py-2 rounded-lg shadow-lg">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2Fd93d9a0ec7824aa1ac4d890a1f90a2ec%2Fcf2c1680c78247c6bd78521e30a0f35c?format=webp&width=800"
+                  alt="Gerflor Logo"
+                  className="h-6 object-contain"
+                />
               </div>
               <div className="bg-white px-4 py-2 rounded-lg shadow-lg">
                 <img
