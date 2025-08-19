@@ -170,7 +170,7 @@ export default function QCM() {
           {/* Progress bar */}
           <div className="mb-8">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-slate-300">Question {currentQuestion + 1} sur {questions.length}</span>
+              <span className="text-slate-300">{t('qcm.question')} {currentQuestion + 1} {t('qcm.of')} {questions.length}</span>
               <span className="text-slate-300">{Math.round(((currentQuestion + 1) / questions.length) * 100)}%</span>
             </div>
             <div className="w-full bg-slate-700 rounded-full h-2">
