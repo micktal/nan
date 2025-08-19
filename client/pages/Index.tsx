@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { useSound } from "@/hooks/use-sound";
 import { useHaptic } from "@/hooks/use-haptic";
 import { useFullscreen } from "@/hooks/use-fullscreen";
-import { useLanguage, AVAILABLE_LANGUAGES } from "@/hooks/use-language";
+import { useLanguage, AVAILABLE_LANGUAGES } from "@/hooks/use-language.tsx";
 
 export default function Index() {
   const [isLoaded, setIsLoaded] = useState(false);
