@@ -99,17 +99,8 @@ export function useDeviceDetection() {
 
 // Hook for automatic redirection
 export function useAutoMobileRedirect() {
-  // Safe router usage with try-catch
-  let navigate, location;
-  try {
-    navigate = useNavigate();
-    location = useLocation();
-  } catch {
-    // If not in router context, provide fallbacks
-    navigate = (path: string) => window.location.href = path;
-    location = { pathname: window.location.pathname };
-  }
-
+  const navigate = useNavigate();
+  const location = useLocation();
   const { isMobile, isTablet } = useDeviceDetection();
 
   useEffect(() => {
