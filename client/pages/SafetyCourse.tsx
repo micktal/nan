@@ -110,7 +110,7 @@ export default function SafetyCourse() {
               Parcours Sécurité Interactif
             </h1>
             <p
-              className="text-slate-300 animate-fade-in-up"
+              className="text-emerald-300 animate-fade-in-up font-medium"
               style={{ animationDelay: "0.2s" }}
             >
               Cliquez sur les zones ci-dessous pour découvrir les règles de
@@ -128,7 +128,7 @@ export default function SafetyCourse() {
                 <CardContent className="p-0 h-full">
                   {/* Site background image placeholder */}
                   <div className="w-full h-full bg-gradient-to-br from-slate-600 to-slate-700 relative flex items-center justify-center terminal-glow">
-                    <span className="text-slate-400 text-lg">
+                    <span className="text-slate-200 text-lg font-medium">
                       Vue du site industriel
                     </span>
 
@@ -207,7 +207,7 @@ export default function SafetyCourse() {
                 <Card className="glass-effect border-slate-600/50">
                   <CardContent className="p-6 text-center">
                     <Shield className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-                    <p className="text-slate-300">
+                    <p className="text-white font-medium">
                       Cliquez sur une zone pour afficher les informations de
                       sécurité
                     </p>
@@ -218,7 +218,7 @@ export default function SafetyCourse() {
               {/* Progress */}
               <Card className="glass-effect border-slate-600/50">
                 <CardContent className="p-6">
-                  <h4 className="text-white font-semibold mb-4">Progression</h4>
+                  <h4 className="text-emerald-400 font-bold mb-4 text-lg">Progression</h4>
                   <div className="space-y-2">
                     {safetyZones.map((zone) => (
                       <div key={zone.id} className="flex items-center">
@@ -228,8 +228,8 @@ export default function SafetyCourse() {
                         <span
                           className={
                             completedZones.includes(zone.id)
-                              ? "text-emerald-400"
-                              : "text-slate-400"
+                              ? "text-emerald-300 font-medium"
+                              : "text-slate-200 font-medium"
                           }
                         >
                           {zone.title}
@@ -267,7 +267,7 @@ export default function SafetyCourse() {
             <div className="w-3 h-3 bg-slate-600 rounded-full"></div>
             <div className="w-3 h-3 bg-slate-600 rounded-full"></div>
           </div>
-          <span className="text-slate-400 text-sm ml-4">Étape 3 sur 5</span>
+          <span className="text-slate-200 text-sm ml-4 font-medium">Étape 3 sur 5</span>
         </div>
       </div>
     </div>
