@@ -71,6 +71,24 @@ export default function Index() {
 
       {/* Controls - top right */}
       <div className="absolute top-6 right-6 z-20 flex gap-3">
+        {/* Admin access button */}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => {
+            if (isAuthenticated) {
+              window.location.href = '/admin';
+            } else {
+              setShowAdminLogin(true);
+            }
+            playClickSound();
+            triggerLight();
+          }}
+          className="bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30 interactive-element focus-ring"
+        >
+          <Shield className="w-4 h-4" />
+        </Button>
+
         {/* Fullscreen toggle for tablets */}
         {isTablet && (
           <Button
