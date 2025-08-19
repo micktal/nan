@@ -231,12 +231,17 @@ export default function QCM() {
               {showResult && (
                 <div className={`p-4 rounded-lg mb-6 animate-fade-in-up ${isCorrect ? 'bg-emerald-500/20 border border-emerald-500/50' : 'bg-red-500/20 border border-red-500/50'}`}>
                   <p className={`font-semibold ${isCorrect ? 'text-emerald-300' : 'text-red-300'}`}>
-                    {isCorrect ? "✅ Bonne réponse !" : "❌ Réponse incorrecte"}
+                    {isCorrect ? `✅ ${t('qcm.correct')}` : `❌ ${t('qcm.incorrect')}`}
                   </p>
                   {!isCorrect && (
-                    <p className="text-slate-300 mt-2">
-                      La bonne réponse était : {question.options[question.correct]}
-                    </p>
+                    <div className="text-slate-300 mt-2">
+                      <p>{t('qcm.correctAnswer')} {question.options[language as keyof typeof question.options][question.correct]}</p>
+                      {question.explanation && (
+                        <p className="text-sm mt-2 italic">
+                          {question.explanation[language as keyof typeof question.explanation]}
+                        </p>
+                      )}
+                    </div>
                   )}
                 </div>
               )}
