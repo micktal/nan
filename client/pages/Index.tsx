@@ -14,12 +14,12 @@ import { useFullscreen } from "@/hooks/use-fullscreen";
 import { useLanguage, AVAILABLE_LANGUAGES } from "@/hooks/use-language";
 
 export default function Index() {
-  const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
   const [isLoaded, setIsLoaded] = useState(false);
   const startButtonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // UX/UI hooks
+  // Language and UX/UI hooks
+  const { language, languageConfig, setLanguage, t } = useLanguage();
   const { playClickSound, playBeepSound, playNotificationSound } = useSound();
   const { triggerLight, triggerMedium, triggerSuccess } = useHaptic();
   const { isFullscreen, toggleFullscreen, isTablet, enableTabletMode } = useFullscreen();
