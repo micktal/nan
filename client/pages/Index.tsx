@@ -168,24 +168,24 @@ export default function Index() {
         </div>
 
         {/* Terminal-style interface */}
-        <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl border border-slate-600/50 shadow-2xl p-8 max-w-2xl w-full mx-auto">
-          
+        <div className="glass-effect rounded-2xl border border-slate-600/50 shadow-2xl p-8 max-w-2xl w-full mx-auto terminal-glow animate-scale-in">
+
           {/* Header with safety icon */}
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-full mb-6 shadow-lg">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-full mb-6 shadow-lg animate-bounce-soft">
               <Shield className="w-10 h-10 text-white" />
             </div>
-            
-            <h1 className="text-3xl font-bold text-white mb-2">
+
+            <h1 className="text-3xl font-bold text-white mb-2 animate-fade-in-up">
               {currentContent.title}
             </h1>
-            <p className="text-emerald-400 text-lg font-medium">
+            <p className="text-emerald-400 text-lg font-medium animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               {currentContent.subtitle}
             </p>
           </div>
 
           {/* Description */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             <p className="text-slate-300 text-lg leading-relaxed">
               {currentContent.description}
             </p>
@@ -195,11 +195,12 @@ export default function Index() {
           </div>
 
           {/* Start button */}
-          <div className="text-center">
-            <Link to="/profile-selection">
-              <Button 
+          <div className="text-center animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+            <Link to="/profile-selection" onClick={handleStartTraining}>
+              <Button
+                ref={startButtonRef}
                 size="lg"
-                className="bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 text-white px-12 py-6 text-xl font-semibold rounded-xl shadow-lg transform transition-all duration-200 hover:scale-105 animate-pulse hover:animate-none"
+                className="bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 text-white px-12 py-6 text-xl font-semibold rounded-xl shadow-lg pulse-button hover-lift interactive-element focus-ring"
               >
                 <Play className="w-6 h-6 mr-3" />
                 {currentContent.startButton}
