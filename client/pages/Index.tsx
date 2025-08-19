@@ -157,12 +157,6 @@ export default function Index() {
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="mt-12 text-center">
-          <p className="text-slate-400 text-sm">
-            {currentContent.poweredBy} <span className="text-emerald-400 font-semibold">Cikaba • Digilor</span>
-          </p>
-        </div>
       </div>
     </div>
   );
