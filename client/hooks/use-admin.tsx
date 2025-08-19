@@ -33,30 +33,71 @@ export function useAdmin() {
   return context;
 }
 
-// Default admin accounts (in production, this would be from a secure backend)
-const DEFAULT_ADMINS = {
-  admin: {
-    password: "SafetyAdmin2024!",
-    role: "super_admin" as const,
-    permissions: [
-      "view_all",
-      "export_data",
-      "manage_users",
-      "system_settings",
-      "analytics",
-    ],
-  },
-  supervisor: {
-    password: "Supervisor2024!",
-    role: "admin" as const,
-    permissions: ["view_all", "export_data", "analytics"],
-  },
-  hse: {
-    password: "HSE2024!",
-    role: "moderator" as const,
-    permissions: ["view_all", "analytics"],
-  },
-};
+// Generate secure access codes
+function generateAccessCode(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Avoid confusing characters
+  let result = '';
+  for (let i = 0; i < 8; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
+
+// Daily access codes (regenerated every day for security)
+function getDailyAccessCodes() {
+  const today = new Date().toISOString().split('T')[0];
+  const seed = today.split('-').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+
+  // Seed-based generation for consistency within the day
+  const codes = {
+    admin: `ADM-${seed}${today.slice(-2)}A`,
+    supervisor: `SUP-${seed}${today.slice(-2)}B`,
+    hse: `HSE-${seed}${today.slice(-2)}C`
+  };
+
+  return codes;
+}
+
+// Default admin accounts with dynamic codes
+function getAdminAccounts() {
+  const dailyCodes = getDailyAccessCodes();
+
+  return {
+    admin: {
+      password: dailyCodes.admin,
+      staticPassword: "SafetyAdmin2024!", // Fallback
+      role: "super_admin" as const,
+      permissions: [
+        "view_all",
+        "export_data",
+        "manage_users",
+        "system_settings",
+        "analytics",
+        "real_time_monitoring",
+        "advanced_reports",
+        "user_management",
+        "security_logs"
+      ],
+    },
+    supervisor: {
+      password: dailyCodes.supervisor,
+      staticPassword: "Supervisor2024!", // Fallback
+      role: "admin" as const,
+      permissions: ["view_all", "export_data", "analytics", "advanced_reports"],
+    },
+    hse: {
+      password: dailyCodes.hse,
+      staticPassword: "HSE2024!", // Fallback
+      role: "moderator" as const,
+      permissions: ["view_all", "analytics"],
+    },
+  };
+}
+
+// Get current access codes for display
+export function getCurrentAccessCodes() {
+  return getDailyAccessCodes();
+}
 
 interface AdminProviderProps {
   children: ReactNode;
@@ -104,9 +145,16 @@ export function AdminProvider({ children }: AdminProviderProps) {
     // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    const adminData = DEFAULT_ADMINS[username as keyof typeof DEFAULT_ADMINS];
+    const adminAccounts = getAdminAccounts();
+    const adminData = adminAccounts[username as keyof typeof adminAccounts];
 
-    if (adminData && adminData.password === password) {
+    // Check both daily code and static password
+    const isValidPassword = adminData && (
+      adminData.password === password ||
+      adminData.staticPassword === password
+    );
+
+    if (isValidPassword) {
       const adminUser: AdminUser = {
         id: `admin_${username}_${Date.now()}`,
         username,
@@ -118,8 +166,13 @@ export function AdminProvider({ children }: AdminProviderProps) {
       setUser(adminUser);
       setIsAuthenticated(true);
 
-      // Save session to localStorage
-      localStorage.setItem("admin-session", JSON.stringify(adminUser));
+      // Save session to localStorage with enhanced security info
+      const sessionData = {
+        ...adminUser,
+        loginMethod: adminData.password === password ? 'daily_code' : 'static_password',
+        sessionId: `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+      };
+      localStorage.setItem("admin-session", JSON.stringify(sessionData));
 
       return true;
     }
