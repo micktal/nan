@@ -18,6 +18,7 @@ import { useSound } from "@/hooks/use-sound";
 import { useHaptic } from "@/hooks/use-haptic";
 import { ROICalculator } from "@/components/ROICalculator";
 import { BusinessCase } from "@/components/BusinessCase";
+import { QRScanner } from "@/components/QRScanner";
 
 export default function Dashboard() {
   const [isLoaded, setIsLoaded] = useState(false);
