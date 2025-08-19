@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowLeft, ArrowRight, CheckCircle, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link, useNavigate } from "react-router-dom";
+import { useSound } from "@/hooks/use-sound";
+import { useHaptic } from "@/hooks/use-haptic";
 
 const questions = [
   {
@@ -47,8 +49,20 @@ export default function QCM() {
   const [showResult, setShowResult] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const navigate = useNavigate();
+  const nextButtonRef = useRef<HTMLButtonElement>(null);
+  const certificateButtonRef = useRef<HTMLButtonElement>(null);
+
+  // UX/UI hooks
+  const { playClickSound, playBeepSound, playSuccessSound, playErrorSound, playConfirmSound } = useSound();
+  const { triggerLight, triggerMedium, triggerSuccess, triggerError } = useHaptic();
+
+  useEffect(() => {
+    playBeepSound(); // Entry sound
+  }, [playBeepSound]);
 
   const handleAnswerSelect = (answerIndex: number) => {
+    playClickSound();
+    triggerLight();
     setSelectedAnswer(answerIndex);
   };
 
@@ -57,19 +71,44 @@ export default function QCM() {
       const newAnswers = [...answers];
       newAnswers[currentQuestion] = selectedAnswer;
       setAnswers(newAnswers);
-      
+
+      const isCorrect = selectedAnswer === questions[currentQuestion].correct;
+
+      if (isCorrect) {
+        playSuccessSound();
+        triggerSuccess(nextButtonRef.current || undefined);
+      } else {
+        playErrorSound();
+        triggerError(nextButtonRef.current || undefined);
+      }
+
       setShowResult(true);
-      
+
       setTimeout(() => {
         if (currentQuestion < questions.length - 1) {
           setCurrentQuestion(currentQuestion + 1);
           setSelectedAnswer(null);
           setShowResult(false);
+          playBeepSound(); // Next question sound
         } else {
           setIsFinished(true);
+          playConfirmSound(); // Quiz finished sound
         }
       }, 2000);
     }
+  };
+
+  const handleCertificate = () => {
+    playConfirmSound();
+    triggerSuccess(certificateButtonRef.current || undefined);
+    setTimeout(() => {
+      navigate('/certificate');
+    }, 300);
+  };
+
+  const handleBack = () => {
+    playClickSound();
+    triggerLight();
   };
 
   const calculateScore = () => {
@@ -83,10 +122,10 @@ export default function QCM() {
   if (isFinished) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
-        <div className="min-h-screen flex flex-col items-center justify-center px-6">
-          <Card className="bg-slate-800/90 backdrop-blur-sm border-slate-600/50 shadow-2xl p-8 max-w-2xl w-full mx-auto text-center">
+        <div className="min-h-screen flex flex-col items-center justify-center px-6 animate-fade-in-up">
+          <Card className="glass-effect border-slate-600/50 shadow-2xl p-8 max-w-2xl w-full mx-auto text-center terminal-glow animate-scale-in">
             <CardContent className="p-0">
-              <div className={`inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 ${scorePercentage >= 70 ? 'bg-emerald-500' : 'bg-orange-500'}`}>
+              <div className={`inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 animate-bounce-soft ${scorePercentage >= 70 ? 'bg-emerald-500' : 'bg-orange-500'}`}>
                 {scorePercentage >= 70 ? (
                   <CheckCircle className="w-10 h-10 text-white" />
                 ) : (
@@ -114,10 +153,11 @@ export default function QCM() {
                 }
               </p>
               
-              <Button 
+              <Button
+                ref={certificateButtonRef}
                 size="lg"
-                className="bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 text-white px-8 py-4 text-lg font-semibold rounded-xl"
-                onClick={() => navigate('/certificate')}
+                className="bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 text-white px-8 py-4 text-lg font-semibold rounded-xl pulse-button hover-lift interactive-element focus-ring"
+                onClick={handleCertificate}
               >
                 Générer le certificat
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -136,8 +176,8 @@ export default function QCM() {
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
       {/* Back button */}
       <div className="absolute top-6 left-6 z-20">
-        <Link to="/safety-course">
-          <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+        <Link to="/safety-course" onClick={handleBack}>
+          <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20 interactive-element focus-ring">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Retour
           </Button>
@@ -155,21 +195,21 @@ export default function QCM() {
               <span className="text-slate-300">{Math.round(((currentQuestion + 1) / questions.length) * 100)}%</span>
             </div>
             <div className="w-full bg-slate-700 rounded-full h-2">
-              <div 
-                className="bg-emerald-500 h-2 rounded-full transition-all duration-500"
-                style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
-              />
+            <div
+              className="bg-emerald-500 h-2 rounded-full transition-all duration-500 animate-progress-fill"
+              style={{ '--progress-width': `${((currentQuestion + 1) / questions.length) * 100}%`, width: `${((currentQuestion + 1) / questions.length) * 100}%` } as any}
+            />
             </div>
           </div>
 
-          <Card className="bg-slate-800/90 backdrop-blur-sm border-slate-600/50 shadow-2xl">
+          <Card className="glass-effect border-slate-600/50 shadow-2xl terminal-glow animate-scale-in">
             <CardContent className="p-8">
               
-              <h2 className="text-2xl font-bold text-white mb-8">
+              <h2 className="text-2xl font-bold text-white mb-8 animate-fade-in-up">
                 {question.question}
               </h2>
 
-              <div className="space-y-4 mb-8">
+              <div className="space-y-4 mb-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
                 {question.options.map((option, index) => {
                   let buttonClass = "w-full p-4 text-left border-2 rounded-xl transition-all duration-200 ";
                   
@@ -191,11 +231,11 @@ export default function QCM() {
 
                   return (
                     <button
-                      key={index}
-                      className={buttonClass}
-                      onClick={() => handleAnswerSelect(index)}
-                      disabled={showResult}
-                    >
+                    key={index}
+                    className={`${buttonClass} interactive-element focus-ring smooth-transition`}
+                    onClick={() => handleAnswerSelect(index)}
+                    disabled={showResult}
+                  >
                       <div className="flex items-center">
                         <div className="w-6 h-6 border-2 border-current rounded-full mr-4 flex items-center justify-center">
                           {selectedAnswer === index && (
@@ -210,7 +250,7 @@ export default function QCM() {
               </div>
 
               {showResult && (
-                <div className={`p-4 rounded-lg mb-6 ${isCorrect ? 'bg-emerald-500/20 border border-emerald-500/50' : 'bg-red-500/20 border border-red-500/50'}`}>
+                <div className={`p-4 rounded-lg mb-6 animate-fade-in-up ${isCorrect ? 'bg-emerald-500/20 border border-emerald-500/50' : 'bg-red-500/20 border border-red-500/50'}`}>
                   <p className={`font-semibold ${isCorrect ? 'text-emerald-300' : 'text-red-300'}`}>
                     {isCorrect ? "✅ Bonne réponse !" : "❌ Réponse incorrecte"}
                   </p>
@@ -222,11 +262,12 @@ export default function QCM() {
                 </div>
               )}
 
-              <div className="flex justify-end">
-                <Button 
+              <div className="flex justify-end animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+                <Button
+                  ref={nextButtonRef}
                   onClick={handleNext}
                   disabled={selectedAnswer === null || showResult}
-                  className="bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 text-white px-6 py-3"
+                  className="bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 text-white px-6 py-3 interactive-element focus-ring hover-lift"
                 >
                   {currentQuestion === questions.length - 1 ? "Terminer" : "Suivant"}
                   <ArrowRight className="w-4 h-4 ml-2" />
