@@ -150,6 +150,19 @@ export default function Dashboard() {
       <div
         className={`max-w-7xl mx-auto px-6 py-8 transition-all duration-1000 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
       >
+        {/* ROI Calculator - Section principale pour Gerflor */}
+        <div className="mb-12 animate-fade-in-up">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl font-bold text-white mb-2">
+              Impact Financier & ROI de la Formation Sécurité
+            </h2>
+            <p className="text-slate-300 text-lg">
+              Démonstration de la valeur business générée par votre investissement
+            </p>
+          </div>
+          <ROICalculator />
+        </div>
+
         {/* Stats cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card className="bg-slate-800/50 border-slate-600/50 hover-lift backdrop-blur-md">
