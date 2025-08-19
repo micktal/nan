@@ -181,21 +181,26 @@ export default function ProfileSelection() {
           {profiles.map((profile, index) => {
             const IconComponent = profile.icon;
             const isSelected = selectedProfile === profile.id;
-            
+
             return (
               <Card
                 key={profile.id}
+                ref={(el) => (cardRefs.current[index] = el)}
                 className={`
-                  bg-slate-800/50 border-slate-600/50 cursor-pointer transition-all duration-300 transform hover:scale-105 hover:shadow-2xl
-                  ${isSelected ? 'ring-2 ring-emerald-400 scale-105' : ''}
-                  ${isLoaded ? 'animate-in slide-in-from-bottom' : ''}
+                  glass-effect border-slate-600/50 cursor-pointer interactive-element card-hover focus-ring
+                  ${isSelected ? 'ring-2 ring-emerald-400 animate-pulse-glow' : ''}
+                  ${isLoaded ? 'animate-fade-in-up' : ''}
                 `}
                 style={{
                   animationDelay: `${index * 150}ms`,
                   animationDuration: '600ms',
                   animationFillMode: 'both'
                 }}
-                onClick={() => handleProfileSelect(profile.id)}
+                onClick={() => handleProfileSelect(profile.id, index)}
+                onMouseEnter={() => handleCardHover(index)}
+                tabIndex={0}
+                role="button"
+                aria-label={`Sélectionner le profil ${profile.title[language as keyof typeof profile.title]}`}
               >
                 <CardContent className="p-8 text-center">
                   {/* Icon with gradient background */}
