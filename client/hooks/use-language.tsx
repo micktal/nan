@@ -106,6 +106,18 @@ export const translations: Record<Language, Record<string, string>> = {
     'profile.administrative.desc': 'Réunions, inspections, audits',
     'profile.selected': 'Sélectionné',
     'profile.step': 'Étape 1 sur 5',
+
+    // QCM
+    'qcm.question': 'Question',
+    'qcm.of': 'sur',
+    'qcm.correct': 'Bonne réponse !',
+    'qcm.incorrect': 'Réponse incorrecte',
+    'qcm.correctAnswer': 'La bonne réponse était :',
+    'qcm.finished': 'QCM Terminé !',
+    'qcm.score': 'Score :',
+    'qcm.passed': 'Félicitations ! Vous avez réussi la formation.',
+    'qcm.failed': 'Score insuffisant. Nous vous recommandons de revoir la formation.',
+    'qcm.certificate': 'Générer le certificat',
   },
   
   en: {
