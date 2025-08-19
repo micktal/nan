@@ -142,6 +142,12 @@ export default function QCM() {
     );
   }
 
+  if (questions.length === 0) {
+    return <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <div className="text-white">Chargement des questions...</div>
+    </div>;
+  }
+
   const question = questions[currentQuestion];
   const isCorrect = selectedAnswer === question.correct;
 
