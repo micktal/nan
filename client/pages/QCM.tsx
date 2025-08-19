@@ -158,7 +158,7 @@ export default function QCM() {
         <Link to="/safety-course" onClick={handleBack}>
           <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20 interactive-element focus-ring">
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Retour
+            {t('nav.back')}
           </Button>
         </Link>
       </div>
