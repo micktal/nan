@@ -89,14 +89,20 @@ const App = () => (
 // Safe root creation to prevent multiple createRoot() calls
 const container = document.getElementById("root")!;
 
+// Extend HTMLElement to include _reactRoot property
+interface ExtendedHTMLElement extends HTMLElement {
+  _reactRoot?: any;
+}
+
 // Check if root already exists (for hot reload compatibility)
 let root: any;
+const extendedContainer = container as ExtendedHTMLElement;
 
-if (!container._reactRoot) {
+if (!extendedContainer._reactRoot) {
   root = createRoot(container);
-  container._reactRoot = root;
+  extendedContainer._reactRoot = root;
 } else {
-  root = container._reactRoot;
+  root = extendedContainer._reactRoot;
 }
 
 root.render(<App />);
