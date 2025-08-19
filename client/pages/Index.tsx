@@ -17,11 +17,13 @@ import { AdminLogin } from "@/components/AdminLogin";
 
 export default function Index() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showAdminLogin, setShowAdminLogin] = useState(false);
   const startButtonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Language and UX/UI hooks
+  // Language, Admin and UX/UI hooks
   const { language, languageConfig, setLanguage, t } = useLanguage();
+  const { isAuthenticated } = useAdmin();
   const { playClickSound, playBeepSound, playNotificationSound } = useSound();
   const { triggerLight, triggerMedium, triggerSuccess } = useHaptic();
   const { isFullscreen, toggleFullscreen, isTablet, enableTabletMode } = useFullscreen();
