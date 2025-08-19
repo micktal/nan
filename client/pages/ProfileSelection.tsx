@@ -97,15 +97,23 @@ export default function ProfileSelection() {
     playBeepSound(); // Entry sound
   }, [playBeepSound]);
 
-  const handleProfileSelect = (profileId: string) => {
+  const handleProfileSelect = (profileId: string, index: number) => {
+    playSuccessSound();
+    triggerSuccess(cardRefs.current[index] || undefined);
     setSelectedProfile(profileId);
+
     // Store the selected profile for use in later components
     sessionStorage.setItem('selectedProfile', profileId);
-    
+
     // Add a small delay for the selection animation, then navigate
     setTimeout(() => {
       navigate('/introduction');
-    }, 500);
+    }, 800);
+  };
+
+  const handleCardHover = (index: number) => {
+    playClickSound();
+    triggerLight(cardRefs.current[index] || undefined);
   };
 
   const content = {
