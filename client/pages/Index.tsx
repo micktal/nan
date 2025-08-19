@@ -36,43 +36,10 @@ export default function Index() {
     }
   }, [isTablet, playNotificationSound]);
 
-  const content = {
-    fr: {
-      title: "Centre de Formation Sécurité",
-      subtitle: "Sensibilisation sécurité interactive",
-      description: "Avant d'accéder au site, vous devez suivre une courte formation aux règles de sécurité essentielles.",
-      startButton: "Commencer la formation",
-      poweredBy: "Alimenté par"
-    },
-    en: {
-      title: "Safety Training Center", 
-      subtitle: "Interactive safety awareness",
-      description: "Before accessing the site, you must complete a short training on essential safety rules.",
-      startButton: "Start Training",
-      poweredBy: "Powered by"
-    },
-    de: {
-      title: "Sicherheitsschulungszentrum",
-      subtitle: "Interaktive Sicherheitsschulung", 
-      description: "Bevor Sie das Gelände betreten, müssen Sie eine kurze Schulung zu den wichtigsten Sicherheitsregeln absolvieren.",
-      startButton: "Schulung beginnen",
-      poweredBy: "Unterstützt von"
-    },
-    es: {
-      title: "Centro de Formación en Seguridad",
-      subtitle: "Sensibilización de seguridad interactiva",
-      description: "Antes de acceder al sitio, debe completar una breve formación sobre las reglas de seguridad esenciales.",
-      startButton: "Comenzar Formación", 
-      poweredBy: "Desarrollado por"
-    }
-  };
-
-  const currentContent = content[selectedLanguage.code as keyof typeof content];
-
-  const handleLanguageChange = (lang: typeof languages[0]) => {
+  const handleLanguageChange = (langCode: string) => {
     playClickSound();
     triggerLight();
-    setSelectedLanguage(lang);
+    setLanguage(langCode as any);
   };
 
   const handleStartTraining = () => {
