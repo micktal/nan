@@ -19,6 +19,7 @@ import { MobileSupervisorModal, useMobileSupervisorModal } from "@/components/Mo
 export default function Index() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
+  const { isOpen: isMobileSupervisorOpen, openModal: openMobileSupervisor, closeModal: closeMobileSupervisor } = useMobileSupervisorModal();
   const startButtonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
