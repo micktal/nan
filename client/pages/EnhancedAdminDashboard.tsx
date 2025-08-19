@@ -331,7 +331,7 @@ export default function EnhancedAdminDashboard() {
               <div>
                 <h1 className="text-2xl font-bold text-white flex items-center gap-2">
                   <Shield className="w-6 h-6 text-emerald-500" />
-                  Dashboard Admin Sophistiqué
+                  Dashboard Admin
                 </h1>
                 <p className="text-slate-300 text-sm">
                   {user?.username} ({user?.role}) • {analytics.totalSessions} sessions • {analytics.activeSessions} actives
@@ -410,13 +410,13 @@ export default function EnhancedAdminDashboard() {
               {/* Enhanced Export Options */}
               {hasPermission("export_data") && (
                 <div className="flex gap-1">
-                  <Button size="sm" variant="outline" onClick={() => handleAdvancedExport("csv")} className="text-white border-slate-600 hover:bg-slate-700">
+                  <Button size="sm" variant="outline" onClick={() => handleAdvancedExport("csv")} className="bg-slate-800/50 text-white border-slate-600 hover:bg-slate-700 backdrop-blur-md">
                     <FileText className="w-4 h-4 mr-1" />CSV
                   </Button>
-                  <Button size="sm" variant="outline" onClick={() => handleAdvancedExport("pdf")} className="text-white border-slate-600 hover:bg-slate-700">
+                  <Button size="sm" variant="outline" onClick={() => handleAdvancedExport("pdf")} className="bg-slate-800/50 text-white border-slate-600 hover:bg-slate-700 backdrop-blur-md">
                     <Download className="w-4 h-4 mr-1" />PDF
                   </Button>
-                  <Button size="sm" variant="outline" onClick={() => handleAdvancedExport("json")} className="text-white border-slate-600 hover:bg-slate-700">
+                  <Button size="sm" variant="outline" onClick={() => handleAdvancedExport("json")} className="bg-slate-800/50 text-white border-slate-600 hover:bg-slate-700 backdrop-blur-md">
                     <Database className="w-4 h-4 mr-1" />JSON
                   </Button>
                 </div>
