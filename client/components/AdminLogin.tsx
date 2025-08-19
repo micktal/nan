@@ -81,7 +81,7 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <Card className="w-full max-w-md glass-effect border-slate-600/50 shadow-2xl terminal-glow">
+      <Card className="w-full max-w-md bg-slate-800/50 border-slate-600/50 shadow-2xl terminal-glow backdrop-blur-md">
         <CardHeader className="text-center pb-6">
           <div className="mx-auto w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-full flex items-center justify-center mb-4">
             <Shield className="w-8 h-8 text-white" />
