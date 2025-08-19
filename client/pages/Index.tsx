@@ -1,5 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { ChevronDown, Play, Shield, Globe, Maximize, Smartphone } from "lucide-react";
+import {
+  ChevronDown,
+  Play,
+  Shield,
+  Globe,
+  Maximize,
+  Smartphone,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,12 +21,19 @@ import { useFullscreen } from "@/hooks/use-fullscreen";
 import { useLanguage, AVAILABLE_LANGUAGES } from "@/hooks/use-language.tsx";
 import { useAdmin } from "@/hooks/use-admin.tsx";
 import { AdminLogin } from "@/components/AdminLogin";
-import { MobileSupervisorModal, useMobileSupervisorModal } from "@/components/MobileSupervisorModal";
+import {
+  MobileSupervisorModal,
+  useMobileSupervisorModal,
+} from "@/components/MobileSupervisorModal";
 
 export default function Index() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [showAdminLogin, setShowAdminLogin] = useState(false);
-  const { isOpen: isMobileSupervisorOpen, openModal: openMobileSupervisor, closeModal: closeMobileSupervisor } = useMobileSupervisorModal();
+  const {
+    isOpen: isMobileSupervisorOpen,
+    openModal: openMobileSupervisor,
+    closeModal: closeMobileSupervisor,
+  } = useMobileSupervisorModal();
   const startButtonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 

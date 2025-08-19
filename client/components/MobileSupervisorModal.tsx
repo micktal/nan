@@ -1,15 +1,18 @@
-import { useState } from 'react';
-import { X, Smartphone, Shield } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import MobileDashboard from '@/pages/MobileDashboard';
+import { useState } from "react";
+import { X, Smartphone, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import MobileDashboard from "@/pages/MobileDashboard";
 
 interface MobileSupervisorModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export function MobileSupervisorModal({ isOpen, onClose }: MobileSupervisorModalProps) {
+export function MobileSupervisorModal({
+  isOpen,
+  onClose,
+}: MobileSupervisorModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -24,7 +27,9 @@ export function MobileSupervisorModal({ isOpen, onClose }: MobileSupervisorModal
               </div>
               <div>
                 <h2 className="text-white font-bold">Supervisor Mobile</h2>
-                <p className="text-slate-400 text-sm">Interface mobile de supervision</p>
+                <p className="text-slate-400 text-sm">
+                  Interface mobile de supervision
+                </p>
               </div>
             </div>
             <Button
@@ -70,20 +75,20 @@ export function useMobileSupervisorModal() {
   // Fermeture avec ESC
   useState(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isOpen) {
+      if (event.key === "Escape" && isOpen) {
         closeModal();
       }
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown);
-      return () => document.removeEventListener('keydown', handleKeyDown);
+      document.addEventListener("keydown", handleKeyDown);
+      return () => document.removeEventListener("keydown", handleKeyDown);
     }
   });
 
   return {
     isOpen,
     openModal,
-    closeModal
+    closeModal,
   };
 }

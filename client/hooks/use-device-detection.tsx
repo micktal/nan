@@ -109,7 +109,6 @@ export function useAutoMobileRedirect() {
   useEffect(() => {
     // Automatic redirection disabled to keep main menu visible
     // Users can access mobile supervisor via the dedicated button on homepage
-
     // Note: Auto-redirection is intentionally disabled per user request
     // to maintain visibility of the main menu and allow button-based access
   }, [isMobile, isTablet, location.pathname, navigate]);
