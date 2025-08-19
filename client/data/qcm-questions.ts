@@ -164,7 +164,7 @@ export const baseQuestions: QCMQuestion[] = [
         "Natychmiast wyjść bez powiadamiania"
       ],
       ar: [
-        "مواصلة عملك",
+        "م��اصلة عملك",
         "اتباع إجراءات الإخلاء",
         "انتظار التعليمات",
         "الخروج فوراً دون إشعار"
@@ -673,6 +673,45 @@ export const administrativeQuestions: QCMQuestion[] = [
     correct: 1
   }
 ];
+
+// Utility function to ensure all questions have fallbacks for missing languages
+function ensureAllLanguages(question: QCMQuestion): QCMQuestion {
+  const allLanguages = ['fr', 'en', 'de', 'es', 'it', 'pt', 'nl', 'pl', 'ar'] as const;
+
+  // Ensure question text has all languages (fallback to French)
+  const questionText = { ...question.question };
+  allLanguages.forEach(lang => {
+    if (!questionText[lang]) {
+      questionText[lang] = questionText.fr || Object.values(questionText)[0] || '';
+    }
+  });
+
+  // Ensure options have all languages (fallback to French)
+  const options = { ...question.options };
+  allLanguages.forEach(lang => {
+    if (!options[lang]) {
+      options[lang] = options.fr || Object.values(options)[0] || [];
+    }
+  });
+
+  // Ensure explanation has all languages if it exists (fallback to French)
+  let explanation = question.explanation;
+  if (explanation) {
+    explanation = { ...explanation };
+    allLanguages.forEach(lang => {
+      if (!explanation![lang]) {
+        explanation![lang] = explanation!.fr || Object.values(explanation!)[0] || '';
+      }
+    });
+  }
+
+  return {
+    ...question,
+    question: questionText,
+    options,
+    explanation
+  };
+}
 
 // Function to get questions for a specific profile
 export function getQuestionsForProfile(profile: string): QCMQuestion[] {
