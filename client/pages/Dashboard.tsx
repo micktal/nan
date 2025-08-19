@@ -151,7 +151,7 @@ export default function Dashboard() {
       >
         {/* Stats cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="glass-effect border-slate-600/50 hover-lift">
+          <Card className="bg-slate-800/50 border-slate-600/50 hover-lift backdrop-blur-md">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -166,7 +166,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="glass-effect border-slate-600/50 hover-lift">
+          <Card className="bg-slate-800/50 border-slate-600/50 hover-lift backdrop-blur-md">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -181,7 +181,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="glass-effect border-slate-600/50 hover-lift">
+          <Card className="bg-slate-800/50 border-slate-600/50 hover-lift backdrop-blur-md">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -196,7 +196,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="glass-effect border-slate-600/50 hover-lift">
+          <Card className="bg-slate-800/50 border-slate-600/50 hover-lift backdrop-blur-md">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -217,7 +217,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Activity chart placeholder */}
           <div className="lg:col-span-2">
-            <Card className="glass-effect border-slate-600/50 hover-lift">
+            <Card className="bg-slate-800/50 border-slate-600/50 hover-lift backdrop-blur-md">
               <CardHeader>
                 <CardTitle className="text-white flex items-center">
                   <BarChart3 className="w-5 h-5 mr-2" />
@@ -267,7 +267,7 @@ export default function Dashboard() {
             </Card>
 
             {/* Progress by profile */}
-            <Card className="glass-effect border-slate-600/50 hover-lift">
+            <Card className="bg-slate-800/50 border-slate-600/50 hover-lift backdrop-blur-md">
               <CardHeader>
                 <CardTitle className="text-white">
                   Progression par profil
