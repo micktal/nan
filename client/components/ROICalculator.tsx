@@ -98,7 +98,7 @@ export function ROICalculator() {
       <Card className="bg-gradient-to-r from-emerald-900/50 to-green-900/50 border-emerald-500/50 backdrop-blur-md">
         <CardHeader>
           <CardTitle className="text-white flex items-center text-2xl">
-            <DollarSign className="w-6 h-6 mr-3 text-emerald-400" />
+            <Calculator className="w-6 h-6 mr-3 text-emerald-400" />
             Calculateur de ROI - Impact Financier
             <div className="ml-auto text-right">
               <div className="text-3xl font-bold text-emerald-400">
