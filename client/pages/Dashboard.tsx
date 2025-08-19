@@ -238,7 +238,7 @@ export default function Dashboard() {
 
           {/* Alerts */}
           <div>
-            <Card className="glass-effect border-slate-600/50 hover-lift mb-6">
+            <Card className="bg-slate-800/50 border-slate-600/50 hover-lift mb-6 backdrop-blur-md">
               <CardHeader>
                 <CardTitle className="text-white flex items-center">
                   <Bell className="w-5 h-5 mr-2" />
@@ -317,7 +317,7 @@ export default function Dashboard() {
         </div>
 
         {/* Recent activity */}
-        <Card className="glass-effect border-slate-600/50 hover-lift mt-8">
+        <Card className="bg-slate-800/50 border-slate-600/50 hover-lift mt-8 backdrop-blur-md">
           <CardHeader>
             <CardTitle className="text-white">Activité récente</CardTitle>
           </CardHeader>
