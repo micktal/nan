@@ -343,6 +343,11 @@ export default function Dashboard() {
           </div>
         </div>
 
+        {/* Business Case - Témoignages et preuves de succès */}
+        <div className="mt-12 mb-8">
+          <BusinessCase />
+        </div>
+
         {/* Recent activity */}
         <Card className="bg-slate-800/50 border-slate-600/50 hover-lift mt-8 backdrop-blur-md">
           <CardHeader>
