@@ -20,7 +20,8 @@ export default function Certificate() {
   const dashboardButtonRef = useRef<HTMLButtonElement>(null);
 
   // UX/UI hooks
-  const { playClickSound, playBeepSound, playSuccessSound, playConfirmSound } = useSound();
+  const { playClickSound, playBeepSound, playSuccessSound, playConfirmSound } =
+    useSound();
   const { triggerLight, triggerMedium, triggerSuccess } = useHaptic();
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export default function Certificate() {
     playConfirmSound();
     triggerSuccess(dashboardButtonRef.current || undefined);
     setTimeout(() => {
-      navigate('/dashboard');
+      navigate("/dashboard");
     }, 300);
   };
 
@@ -57,23 +58,22 @@ export default function Certificate() {
     triggerLight();
   };
 
-  const currentDate = new Date().toLocaleDateString('fr-FR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+  const currentDate = new Date().toLocaleDateString("fr-FR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 
-  const selectedProfile = sessionStorage.getItem('selectedProfile') || 'visiteur';
+  const selectedProfile =
+    sessionStorage.getItem("selectedProfile") || "visiteur";
 
   if (isGenerated) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
         <div className="min-h-screen flex flex-col items-center justify-center px-6 animate-fade-in-up">
-
           {/* Certificate */}
           <Card className="bg-white shadow-2xl max-w-4xl w-full mx-auto border-8 border-emerald-500 relative animate-scale-in terminal-glow">
             <CardContent className="p-12">
-              
               {/* Header */}
               <div className="text-center mb-8">
                 <div className="flex items-center justify-center gap-8 mb-6">
@@ -92,14 +92,14 @@ export default function Certificate() {
                     />
                   </div>
                 </div>
-                
+
                 <div className="flex items-center justify-center mb-4">
                   <Award className="w-16 h-16 text-emerald-600 mr-4" />
                   <h1 className="text-4xl font-bold text-slate-800">
                     CERTIFICAT DE FORMATION
                   </h1>
                 </div>
-                
+
                 <p className="text-xl text-slate-600">
                   Sensibilisation Sécurité
                 </p>
@@ -110,29 +110,32 @@ export default function Certificate() {
                 <p className="text-lg text-slate-700 mb-4">
                   Nous certifions que
                 </p>
-                
+
                 <div className="bg-slate-100 p-6 rounded-lg mb-6">
                   <h2 className="text-3xl font-bold text-slate-800 mb-2">
                     {firstName} {lastName}
                   </h2>
-                  <p className="text-slate-600">
-                    Profil : {selectedProfile}
-                  </p>
+                  <p className="text-slate-600">Profil : {selectedProfile}</p>
                 </div>
-                
+
                 <p className="text-lg text-slate-700 mb-6">
-                  a suivi avec succès la formation de sensibilisation aux règles de sécurité 
-                  et est autorisé(e) à accéder au site dans le cadre de ses fonctions.
+                  a suivi avec succès la formation de sensibilisation aux règles
+                  de sécurité et est autorisé(e) à accéder au site dans le cadre
+                  de ses fonctions.
                 </p>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   <div className="text-center">
                     <p className="text-slate-600">Date de formation</p>
-                    <p className="font-semibold text-slate-800">{currentDate}</p>
+                    <p className="font-semibold text-slate-800">
+                      {currentDate}
+                    </p>
                   </div>
                   <div className="text-center">
                     <p className="text-slate-600">Score obtenu</p>
-                    <p className="font-semibold text-emerald-600 text-xl">85%</p>
+                    <p className="font-semibold text-emerald-600 text-xl">
+                      85%
+                    </p>
                   </div>
                   <div className="text-center">
                     <p className="text-slate-600">Validité</p>
@@ -148,7 +151,10 @@ export default function Certificate() {
                     <CheckCircle className="w-12 h-12 text-white" />
                   </div>
                   <p className="text-sm text-slate-600">Validé ✅</p>
-                  <p className="text-xs text-slate-500">Certificat #2024-{Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
+                  <p className="text-xs text-slate-500">
+                    Certificat #2024-
+                    {Math.random().toString(36).substr(2, 9).toUpperCase()}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -156,16 +162,16 @@ export default function Certificate() {
 
           {/* Actions */}
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <Button 
+            <Button
               size="lg"
               className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4"
             >
               <Download className="w-5 h-5 mr-2" />
               Télécharger PDF
             </Button>
-            
+
             {email && (
-              <Button 
+              <Button
                 size="lg"
                 variant="outline"
                 className="border-emerald-500 text-emerald-600 hover:bg-emerald-50 px-8 py-4"
@@ -174,11 +180,11 @@ export default function Certificate() {
                 Envoyer par e-mail
               </Button>
             )}
-            
-            <Button 
+
+            <Button
               size="lg"
               variant="outline"
-              onClick={() => navigate('/dashboard')}
+              onClick={() => navigate("/dashboard")}
               className="border-slate-500 text-slate-600 hover:bg-slate-50 px-8 py-4"
             >
               Tableau de bord HSE
@@ -194,7 +200,9 @@ export default function Certificate() {
               <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
               <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
             </div>
-            <span className="text-slate-400 text-sm ml-4">Formation terminée !</span>
+            <span className="text-slate-400 text-sm ml-4">
+              Formation terminée !
+            </span>
           </div>
         </div>
       </div>
@@ -206,7 +214,10 @@ export default function Certificate() {
       {/* Back button */}
       <div className="absolute top-6 left-6 z-20">
         <Link to="/qcm">
-          <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+          <Button
+            variant="outline"
+            className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Retour
           </Button>
@@ -214,28 +225,31 @@ export default function Certificate() {
       </div>
 
       {/* Main content */}
-      <div className={`min-h-screen flex flex-col items-center justify-center px-6 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        
+      <div
+        className={`min-h-screen flex flex-col items-center justify-center px-6 transition-all duration-1000 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      >
         <Card className="bg-slate-800/90 backdrop-blur-sm border-slate-600/50 shadow-2xl p-8 max-w-2xl w-full mx-auto">
           <CardContent className="p-0">
-            
             <div className="text-center mb-8">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-full mb-6">
                 <Award className="w-10 h-10 text-white" />
               </div>
-              
+
               <h1 className="text-3xl font-bold text-white mb-4">
                 Génération du Certificat
               </h1>
               <p className="text-slate-300">
-                Saisissez vos informations pour générer votre certificat de formation
+                Saisissez vos informations pour générer votre certificat de
+                formation
               </p>
             </div>
 
             <div className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="firstName" className="text-white">Prénom *</Label>
+                  <Label htmlFor="firstName" className="text-white">
+                    Prénom *
+                  </Label>
                   <Input
                     id="firstName"
                     value={firstName}
@@ -244,9 +258,11 @@ export default function Certificate() {
                     placeholder="Votre prénom"
                   />
                 </div>
-                
+
                 <div>
-                  <Label htmlFor="lastName" className="text-white">Nom *</Label>
+                  <Label htmlFor="lastName" className="text-white">
+                    Nom *
+                  </Label>
                   <Input
                     id="lastName"
                     value={lastName}
@@ -256,9 +272,11 @@ export default function Certificate() {
                   />
                 </div>
               </div>
-              
+
               <div>
-                <Label htmlFor="email" className="text-white">E-mail (optionnel)</Label>
+                <Label htmlFor="email" className="text-white">
+                  E-mail (optionnel)
+                </Label>
                 <Input
                   id="email"
                   type="email"
@@ -274,7 +292,7 @@ export default function Certificate() {
             </div>
 
             <div className="mt-8 text-center">
-              <Button 
+              <Button
                 size="lg"
                 onClick={handleGenerate}
                 disabled={!firstName || !lastName}

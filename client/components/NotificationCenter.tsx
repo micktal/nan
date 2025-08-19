@@ -1,24 +1,32 @@
-import { useState } from 'react';
-import { X, Bell, CheckCircle, AlertCircle, AlertTriangle, Info, Loader } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { useNotifications, type Notification } from '@/hooks/use-notifications';
+import { useState } from "react";
+import {
+  X,
+  Bell,
+  CheckCircle,
+  AlertCircle,
+  AlertTriangle,
+  Info,
+  Loader,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { useNotifications, type Notification } from "@/hooks/use-notifications";
 
 const iconMap = {
   success: CheckCircle,
   error: AlertCircle,
   warning: AlertTriangle,
   info: Info,
-  progress: Loader
+  progress: Loader,
 };
 
 const colorMap = {
-  success: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20',
-  error: 'text-red-500 bg-red-500/10 border-red-500/20',
-  warning: 'text-orange-500 bg-orange-500/10 border-orange-500/20',
-  info: 'text-blue-500 bg-blue-500/10 border-blue-500/20',
-  progress: 'text-purple-500 bg-purple-500/10 border-purple-500/20'
+  success: "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
+  error: "text-red-500 bg-red-500/10 border-red-500/20",
+  warning: "text-orange-500 bg-orange-500/10 border-orange-500/20",
+  info: "text-blue-500 bg-blue-500/10 border-blue-500/20",
+  progress: "text-purple-500 bg-purple-500/10 border-purple-500/20",
 };
 
 function NotificationItem({ notification }: { notification: Notification }) {
@@ -41,25 +49,32 @@ function NotificationItem({ notification }: { notification: Notification }) {
   return (
     <Card
       className={`border glass-effect hover-lift smooth-transition cursor-pointer ${colorMap[notification.type]} ${
-        !notification.read ? 'ring-1 ring-current' : ''
+        !notification.read ? "ring-1 ring-current" : ""
       }`}
       onClick={handleClick}
     >
       <CardContent className="p-4">
         <div className="flex items-start justify-between">
           <div className="flex items-start space-x-3 flex-1">
-            <Icon className={`w-5 h-5 mt-0.5 ${notification.type === 'progress' ? 'animate-spin' : ''}`} />
+            <Icon
+              className={`w-5 h-5 mt-0.5 ${notification.type === "progress" ? "animate-spin" : ""}`}
+            />
             <div className="flex-1 space-y-1">
-              <h4 className="text-sm font-semibold text-white">{notification.title}</h4>
+              <h4 className="text-sm font-semibold text-white">
+                {notification.title}
+              </h4>
               <p className="text-xs text-slate-300">{notification.message}</p>
-              
-              {notification.type === 'progress' && typeof notification.progress === 'number' && (
-                <div className="space-y-1">
-                  <Progress value={notification.progress} className="h-2" />
-                  <span className="text-xs text-slate-400">{notification.progress}%</span>
-                </div>
-              )}
-              
+
+              {notification.type === "progress" &&
+                typeof notification.progress === "number" && (
+                  <div className="space-y-1">
+                    <Progress value={notification.progress} className="h-2" />
+                    <span className="text-xs text-slate-400">
+                      {notification.progress}%
+                    </span>
+                  </div>
+                )}
+
               {notification.action && (
                 <Button
                   size="sm"
@@ -75,7 +90,7 @@ function NotificationItem({ notification }: { notification: Notification }) {
               )}
             </div>
           </div>
-          
+
           <Button
             size="sm"
             variant="ghost"
@@ -88,7 +103,7 @@ function NotificationItem({ notification }: { notification: Notification }) {
             <X className="w-3 h-3" />
           </Button>
         </div>
-        
+
         <div className="mt-2 text-xs text-slate-500">
           {new Date(notification.timestamp).toLocaleTimeString()}
         </div>
@@ -116,7 +131,7 @@ export function NotificationCenter() {
         <Bell className="w-4 h-4" />
         {unreadCount > 0 && (
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center animate-pulse">
-            {unreadCount > 9 ? '9+' : unreadCount}
+            {unreadCount > 9 ? "9+" : unreadCount}
           </span>
         )}
       </Button>
@@ -132,7 +147,9 @@ export function NotificationCenter() {
                   <h3 className="text-white font-semibold">Notifications</h3>
                   <div className="flex items-center gap-2">
                     {unreadCount > 0 && (
-                      <span className="text-xs text-slate-400">{unreadCount} non lues</span>
+                      <span className="text-xs text-slate-400">
+                        {unreadCount} non lues
+                      </span>
                     )}
                     {notifications.length > 0 && (
                       <Button
@@ -153,7 +170,10 @@ export function NotificationCenter() {
                 {recentNotifications.length > 0 ? (
                   <div className="p-2 space-y-2">
                     {recentNotifications.map((notification) => (
-                      <NotificationItem key={notification.id} notification={notification} />
+                      <NotificationItem
+                        key={notification.id}
+                        notification={notification}
+                      />
                     ))}
                   </div>
                 ) : (
@@ -187,10 +207,7 @@ export function NotificationCenter() {
 
       {/* Overlay to close dropdown */}
       {isOpen && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={() => setIsOpen(false)}
-        />
+        <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
       )}
     </div>
   );

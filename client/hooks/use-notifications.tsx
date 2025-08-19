@@ -1,7 +1,18 @@
-import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
-import { useSound } from './use-sound';
+import {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  ReactNode,
+} from "react";
+import { useSound } from "./use-sound";
 
-export type NotificationType = 'success' | 'error' | 'warning' | 'info' | 'progress';
+export type NotificationType =
+  | "success"
+  | "error"
+  | "warning"
+  | "info"
+  | "progress";
 
 export interface Notification {
   id: string;
@@ -20,7 +31,9 @@ export interface Notification {
 
 interface NotificationContextType {
   notifications: Notification[];
-  addNotification: (notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => string;
+  addNotification: (
+    notification: Omit<Notification, "id" | "timestamp" | "read">,
+  ) => string;
   removeNotification: (id: string) => void;
   markAsRead: (id: string) => void;
   clearAll: () => void;
@@ -34,12 +47,16 @@ interface NotificationContextType {
   updateProgress: (id: string, progress: number, message?: string) => void;
 }
 
-const NotificationContext = createContext<NotificationContextType | undefined>(undefined);
+const NotificationContext = createContext<NotificationContextType | undefined>(
+  undefined,
+);
 
 export function useNotifications() {
   const context = useContext(NotificationContext);
   if (!context) {
-    throw new Error('useNotifications must be used within a NotificationProvider');
+    throw new Error(
+      "useNotifications must be used within a NotificationProvider",
+    );
   }
   return context;
 }
@@ -50,14 +67,19 @@ interface NotificationProviderProps {
 
 export function NotificationProvider({ children }: NotificationProviderProps) {
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const { playSuccessSound, playErrorSound, playNotificationSound } = useSound();
+  const { playSuccessSound, playErrorSound, playNotificationSound } =
+    useSound();
 
   // Auto-remove notifications after their duration
   useEffect(() => {
     const timers: { [key: string]: NodeJS.Timeout } = {};
 
-    notifications.forEach(notification => {
-      if (notification.duration && notification.duration > 0 && !timers[notification.id]) {
+    notifications.forEach((notification) => {
+      if (
+        notification.duration &&
+        notification.duration > 0 &&
+        !timers[notification.id]
+      ) {
         timers[notification.id] = setTimeout(() => {
           removeNotification(notification.id);
         }, notification.duration);
@@ -65,7 +87,7 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
     });
 
     return () => {
-      Object.values(timers).forEach(timer => clearTimeout(timer));
+      Object.values(timers).forEach((timer) => clearTimeout(timer));
     };
   }, [notifications]);
 
@@ -73,23 +95,25 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
     return `notification_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   };
 
-  const addNotification = (notificationData: Omit<Notification, 'id' | 'timestamp' | 'read'>) => {
+  const addNotification = (
+    notificationData: Omit<Notification, "id" | "timestamp" | "read">,
+  ) => {
     const id = generateId();
     const notification: Notification = {
       ...notificationData,
       id,
       timestamp: new Date().toISOString(),
-      read: false
+      read: false,
     };
 
-    setNotifications(prev => [notification, ...prev]);
+    setNotifications((prev) => [notification, ...prev]);
 
     // Play appropriate sound
     switch (notification.type) {
-      case 'success':
+      case "success":
         playSuccessSound();
         break;
-      case 'error':
+      case "error":
         playErrorSound();
         break;
       default:
@@ -101,12 +125,12 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
   };
 
   const removeNotification = (id: string) => {
-    setNotifications(prev => prev.filter(n => n.id !== id));
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
   const markAsRead = (id: string) => {
-    setNotifications(prev =>
-      prev.map(n => n.id === id ? { ...n, read: true } : n)
+    setNotifications((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n)),
     );
   };
 
@@ -115,43 +139,49 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
   };
 
   const getUnreadCount = () => {
-    return notifications.filter(n => !n.read).length;
+    return notifications.filter((n) => !n.read).length;
   };
 
   const updateProgress = (id: string, progress: number, message?: string) => {
-    setNotifications(prev =>
-      prev.map(n =>
+    setNotifications((prev) =>
+      prev.map((n) =>
         n.id === id
           ? {
               ...n,
               progress: Math.max(0, Math.min(100, progress)),
               message: message || n.message,
-              timestamp: new Date().toISOString()
+              timestamp: new Date().toISOString(),
             }
-          : n
-      )
+          : n,
+      ),
     );
   };
 
   // Helper functions
   const notifySuccess = (title: string, message: string, duration = 5000) => {
-    return addNotification({ type: 'success', title, message, duration });
+    return addNotification({ type: "success", title, message, duration });
   };
 
   const notifyError = (title: string, message: string, duration = 8000) => {
-    return addNotification({ type: 'error', title, message, duration });
+    return addNotification({ type: "error", title, message, duration });
   };
 
   const notifyWarning = (title: string, message: string, duration = 6000) => {
-    return addNotification({ type: 'warning', title, message, duration });
+    return addNotification({ type: "warning", title, message, duration });
   };
 
   const notifyInfo = (title: string, message: string, duration = 4000) => {
-    return addNotification({ type: 'info', title, message, duration });
+    return addNotification({ type: "info", title, message, duration });
   };
 
   const notifyProgress = (title: string, message: string, progress: number) => {
-    return addNotification({ type: 'progress', title, message, progress, duration: 0 });
+    return addNotification({
+      type: "progress",
+      title,
+      message,
+      progress,
+      duration: 0,
+    });
   };
 
   return (
@@ -168,7 +198,7 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
         notifyWarning,
         notifyInfo,
         notifyProgress,
-        updateProgress
+        updateProgress,
       }}
     >
       {children}

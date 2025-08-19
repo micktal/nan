@@ -40,7 +40,10 @@ const App = () => (
 
                 <Routes>
                   <Route path="/" element={<Index />} />
-                  <Route path="/profile-selection" element={<ProfileSelection />} />
+                  <Route
+                    path="/profile-selection"
+                    element={<ProfileSelection />}
+                  />
                   <Route path="/introduction" element={<Introduction />} />
                   <Route path="/safety-course" element={<SafetyCourse />} />
                   <Route path="/qcm" element={<QCM />} />

@@ -1,11 +1,17 @@
-import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
+import {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  ReactNode,
+} from "react";
 
 export interface UserProfile {
   id: string;
   firstName: string;
   lastName: string;
   email?: string;
-  profileType: 'driver' | 'technician' | 'cleaning' | 'administrative';
+  profileType: "driver" | "technician" | "cleaning" | "administrative";
   company?: string;
   visitDate: string;
   language: string;
@@ -48,12 +54,14 @@ interface UserSessionContextType {
   clearSession: () => void;
 }
 
-const UserSessionContext = createContext<UserSessionContextType | undefined>(undefined);
+const UserSessionContext = createContext<UserSessionContextType | undefined>(
+  undefined,
+);
 
 export function useUserSession() {
   const context = useContext(UserSessionContext);
   if (!context) {
-    throw new Error('useUserSession must be used within a UserSessionProvider');
+    throw new Error("useUserSession must be used within a UserSessionProvider");
   }
   return context;
 }
@@ -67,7 +75,7 @@ export function UserSessionProvider({ children }: UserSessionProviderProps) {
     user: null,
     progress: null,
     isActive: false,
-    sessionId: ''
+    sessionId: "",
   });
 
   // Load session from localStorage on mount
@@ -85,24 +93,26 @@ export function UserSessionProvider({ children }: UserSessionProviderProps) {
   // Update session duration every minute
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    
+
     if (session.isActive && session.progress) {
       interval = setInterval(() => {
         const now = new Date().toISOString();
         const startTime = new Date(session.progress!.startTime);
         const duration = Math.floor((Date.now() - startTime.getTime()) / 1000);
-        
-        setSession(prev => ({
+
+        setSession((prev) => ({
           ...prev,
-          progress: prev.progress ? {
-            ...prev.progress,
-            lastActivity: now,
-            sessionDuration: duration
-          } : null
+          progress: prev.progress
+            ? {
+                ...prev.progress,
+                lastActivity: now,
+                sessionDuration: duration,
+              }
+            : null,
         }));
       }, 60000); // Update every minute
     }
-    
+
     return () => {
       if (interval) clearInterval(interval);
     };
@@ -114,51 +124,58 @@ export function UserSessionProvider({ children }: UserSessionProviderProps) {
 
   const loadSessionFromStorage = () => {
     try {
-      const savedSession = localStorage.getItem('safety-training-session');
+      const savedSession = localStorage.getItem("safety-training-session");
       if (savedSession) {
         const parsedSession = JSON.parse(savedSession);
-        
+
         // Check if session is still valid (not older than 24 hours)
-        const lastActivity = new Date(parsedSession.progress?.lastActivity || 0);
+        const lastActivity = new Date(
+          parsedSession.progress?.lastActivity || 0,
+        );
         const now = new Date();
-        const hoursDiff = (now.getTime() - lastActivity.getTime()) / (1000 * 60 * 60);
-        
-        if (hoursDiff < 24 && parsedSession.progress && !parsedSession.progress.certificateGenerated) {
+        const hoursDiff =
+          (now.getTime() - lastActivity.getTime()) / (1000 * 60 * 60);
+
+        if (
+          hoursDiff < 24 &&
+          parsedSession.progress &&
+          !parsedSession.progress.certificateGenerated
+        ) {
           setSession(parsedSession);
           return true;
         } else {
           // Clear expired session
-          localStorage.removeItem('safety-training-session');
+          localStorage.removeItem("safety-training-session");
         }
       }
     } catch (error) {
-      console.error('Error loading session from storage:', error);
-      localStorage.removeItem('safety-training-session');
+      console.error("Error loading session from storage:", error);
+      localStorage.removeItem("safety-training-session");
     }
     return false;
   };
 
   const saveSessionToStorage = () => {
     try {
-      localStorage.setItem('safety-training-session', JSON.stringify(session));
+      localStorage.setItem("safety-training-session", JSON.stringify(session));
     } catch (error) {
-      console.error('Error saving session to storage:', error);
+      console.error("Error saving session to storage:", error);
     }
   };
 
   const startSession = (profileData: Partial<UserProfile>) => {
     const sessionId = generateSessionId();
     const now = new Date().toISOString();
-    
+
     const newUser: UserProfile = {
       id: sessionId,
-      firstName: profileData.firstName || '',
-      lastName: profileData.lastName || '',
+      firstName: profileData.firstName || "",
+      lastName: profileData.lastName || "",
       email: profileData.email,
-      profileType: profileData.profileType || 'driver',
+      profileType: profileData.profileType || "driver",
       company: profileData.company,
       visitDate: now,
-      language: profileData.language || 'fr'
+      language: profileData.language || "fr",
     };
 
     const newProgress: TrainingProgress = {
@@ -173,65 +190,67 @@ export function UserSessionProvider({ children }: UserSessionProviderProps) {
       startTime: now,
       lastActivity: now,
       sessionDuration: 0,
-      certificateGenerated: false
+      certificateGenerated: false,
     };
 
     const newSession: TrainingSession = {
       user: newUser,
       progress: newProgress,
       isActive: true,
-      sessionId
+      sessionId,
     };
 
     setSession(newSession);
   };
 
   const updateProgress = (updates: Partial<TrainingProgress>) => {
-    setSession(prev => ({
+    setSession((prev) => ({
       ...prev,
-      progress: prev.progress ? {
-        ...prev.progress,
-        ...updates,
-        lastActivity: new Date().toISOString()
-      } : null
+      progress: prev.progress
+        ? {
+            ...prev.progress,
+            ...updates,
+            lastActivity: new Date().toISOString(),
+          }
+        : null,
     }));
   };
 
   const saveAnswer = (questionIndex: number, answer: number) => {
-    setSession(prev => {
+    setSession((prev) => {
       if (!prev.progress) return prev;
-      
+
       const newAnswers = [...prev.progress.qcmAnswers];
       newAnswers[questionIndex] = answer;
-      
+
       return {
         ...prev,
         progress: {
           ...prev.progress,
           qcmAnswers: newAnswers,
-          lastActivity: new Date().toISOString()
-        }
+          lastActivity: new Date().toISOString(),
+        },
       };
     });
   };
 
   const completeStep = (step: number) => {
-    setSession(prev => {
+    setSession((prev) => {
       if (!prev.progress) return prev;
-      
+
       const completedSteps = [...prev.progress.completedSteps];
       if (!completedSteps.includes(step)) {
         completedSteps.push(step);
       }
-      
+
       return {
         ...prev,
         progress: {
           ...prev.progress,
           currentStep: Math.max(prev.progress.currentStep, step + 1),
           completedSteps,
-          lastActivity: new Date().toISOString()
-        }
+          lastActivity: new Date().toISOString(),
+        },
       };
     });
   };
@@ -243,18 +262,20 @@ export function UserSessionProvider({ children }: UserSessionProviderProps) {
   const getCompletionPercentage = () => {
     if (!session.progress) return 0;
     const totalSteps = 6; // 0=home, 1=profile, 2=intro, 3=safety, 4=qcm, 5=certificate
-    return Math.round((session.progress.completedSteps.length / totalSteps) * 100);
+    return Math.round(
+      (session.progress.completedSteps.length / totalSteps) * 100,
+    );
   };
 
   const endSession = () => {
     if (session.progress) {
       updateProgress({ certificateGenerated: true });
     }
-    
+
     // Keep session data for analytics but mark as inactive
-    setSession(prev => ({
+    setSession((prev) => ({
       ...prev,
-      isActive: false
+      isActive: false,
     }));
   };
 
@@ -266,34 +287,36 @@ export function UserSessionProvider({ children }: UserSessionProviderProps) {
     return {
       session,
       exportDate: new Date().toISOString(),
-      version: '1.0'
+      version: "1.0",
     };
   };
 
   const clearSession = () => {
-    localStorage.removeItem('safety-training-session');
+    localStorage.removeItem("safety-training-session");
     setSession({
       user: null,
       progress: null,
       isActive: false,
-      sessionId: ''
+      sessionId: "",
     });
   };
 
   return (
-    <UserSessionContext.Provider value={{
-      session,
-      startSession,
-      updateProgress,
-      saveAnswer,
-      completeStep,
-      getCurrentStep,
-      getCompletionPercentage,
-      endSession,
-      resumeSession,
-      exportSessionData,
-      clearSession
-    }}>
+    <UserSessionContext.Provider
+      value={{
+        session,
+        startSession,
+        updateProgress,
+        saveAnswer,
+        completeStep,
+        getCurrentStep,
+        getCompletionPercentage,
+        endSession,
+        resumeSession,
+        exportSessionData,
+        clearSession,
+      }}
+    >
       {children}
     </UserSessionContext.Provider>
   );

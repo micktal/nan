@@ -1,4 +1,4 @@
-import type { TrainingSession } from '@/hooks/use-user-session';
+import type { TrainingSession } from "@/hooks/use-user-session";
 
 export interface ExportData {
   sessions: TrainingSession[];
@@ -13,80 +13,100 @@ export interface ExportData {
 // CSV Export Functions
 export function exportToCSV(data: ExportData, filename?: string): void {
   const csvContent = generateCSVContent(data);
-  downloadFile(csvContent, filename || `safety-training-export-${new Date().toISOString().split('T')[0]}.csv`, 'text/csv');
+  downloadFile(
+    csvContent,
+    filename ||
+      `safety-training-export-${new Date().toISOString().split("T")[0]}.csv`,
+    "text/csv",
+  );
 }
 
 function generateCSVContent(data: ExportData): string {
   const headers = [
-    'Session ID',
-    'Utilisateur',
-    'Email',
-    'Profil',
-    'Entreprise',
-    'Date de visite',
-    'Langue',
-    'Étape actuelle',
-    'Progression (%)',
-    'QCM commencé',
-    'QCM terminé',
-    'Score QCM',
-    'Zones de sécurité vues',
-    'Durée session (min)',
-    'Certificat généré',
-    'Date de début',
-    'Dernière activité'
+    "Session ID",
+    "Utilisateur",
+    "Email",
+    "Profil",
+    "Entreprise",
+    "Date de visite",
+    "Langue",
+    "Étape actuelle",
+    "Progression (%)",
+    "QCM commencé",
+    "QCM terminé",
+    "Score QCM",
+    "Zones de sécurité vues",
+    "Durée session (min)",
+    "Certificat généré",
+    "Date de début",
+    "Dernière activité",
   ];
 
-  const rows = data.sessions.map(session => {
+  const rows = data.sessions.map((session) => {
     const user = session.user;
     const progress = session.progress;
-    
+
     return [
       session.sessionId,
-      user ? `${user.firstName} ${user.lastName}` : '',
-      user?.email || '',
-      user?.profileType || '',
-      user?.company || '',
-      user?.visitDate ? new Date(user.visitDate).toLocaleDateString('fr-FR') : '',
-      user?.language || '',
+      user ? `${user.firstName} ${user.lastName}` : "",
+      user?.email || "",
+      user?.profileType || "",
+      user?.company || "",
+      user?.visitDate
+        ? new Date(user.visitDate).toLocaleDateString("fr-FR")
+        : "",
+      user?.language || "",
       progress?.currentStep || 0,
       progress ? Math.round((progress.completedSteps.length / 6) * 100) : 0,
-      progress?.qcmStarted ? 'Oui' : 'Non',
-      progress?.qcmCompleted ? 'Oui' : 'Non',
-      progress?.qcmScore || '',
-      progress?.safetyZonesCompleted.join('; ') || '',
+      progress?.qcmStarted ? "Oui" : "Non",
+      progress?.qcmCompleted ? "Oui" : "Non",
+      progress?.qcmScore || "",
+      progress?.safetyZonesCompleted.join("; ") || "",
       progress ? Math.round(progress.sessionDuration / 60) : 0,
-      progress?.certificateGenerated ? 'Oui' : 'Non',
-      progress?.startTime ? new Date(progress.startTime).toLocaleString('fr-FR') : '',
-      progress?.lastActivity ? new Date(progress.lastActivity).toLocaleString('fr-FR') : ''
+      progress?.certificateGenerated ? "Oui" : "Non",
+      progress?.startTime
+        ? new Date(progress.startTime).toLocaleString("fr-FR")
+        : "",
+      progress?.lastActivity
+        ? new Date(progress.lastActivity).toLocaleString("fr-FR")
+        : "",
     ];
   });
 
   const csvRows = [headers, ...rows];
-  return csvRows.map(row => 
-    row.map(field => `"${String(field).replace(/"/g, '""')}"`).join(',')
-  ).join('\n');
+  return csvRows
+    .map((row) =>
+      row.map((field) => `"${String(field).replace(/"/g, '""')}"`).join(","),
+    )
+    .join("\n");
 }
 
 // JSON Export Functions
 export function exportToJSON(data: ExportData, filename?: string): void {
   const jsonContent = JSON.stringify(data, null, 2);
-  downloadFile(jsonContent, filename || `safety-training-export-${new Date().toISOString().split('T')[0]}.json`, 'application/json');
+  downloadFile(
+    jsonContent,
+    filename ||
+      `safety-training-export-${new Date().toISOString().split("T")[0]}.json`,
+    "application/json",
+  );
 }
 
 // PDF Export Functions (using HTML-to-PDF approach)
 export function exportToPDF(data: ExportData, filename?: string): void {
   const htmlContent = generatePDFContent(data);
-  
+
   // Create a new window for printing
-  const printWindow = window.open('', '_blank');
+  const printWindow = window.open("", "_blank");
   if (printWindow) {
     printWindow.document.write(htmlContent);
     printWindow.document.close();
-    
+
     // Set filename for download
-    printWindow.document.title = filename || `safety-training-report-${new Date().toISOString().split('T')[0]}`;
-    
+    printWindow.document.title =
+      filename ||
+      `safety-training-report-${new Date().toISOString().split("T")[0]}`;
+
     // Trigger print dialog
     setTimeout(() => {
       printWindow.print();
@@ -178,7 +198,7 @@ function generatePDFContent(data: ExportData): string {
       <div class="header">
         <div class="logo">🛡️ GERFLOR × FPSG</div>
         <h1>Rapport de Formation Sécurité</h1>
-        <p>Généré le ${new Date().toLocaleDateString('fr-FR')} par ${data.exportedBy}</p>
+        <p>Généré le ${new Date().toLocaleDateString("fr-FR")} par ${data.exportedBy}</p>
       </div>
 
       <div class="stats">
@@ -214,29 +234,33 @@ function generatePDFContent(data: ExportData): string {
           </tr>
         </thead>
         <tbody>
-          ${data.sessions.map(session => {
-            const user = session.user;
-            const progress = session.progress;
-            const progressPercentage = progress ? Math.round((progress.completedSteps.length / 6) * 100) : 0;
-            
-            return `
+          ${data.sessions
+            .map((session) => {
+              const user = session.user;
+              const progress = session.progress;
+              const progressPercentage = progress
+                ? Math.round((progress.completedSteps.length / 6) * 100)
+                : 0;
+
+              return `
               <tr>
-                <td>${user ? `${user.firstName} ${user.lastName}` : 'N/A'}</td>
-                <td>${user?.profileType || 'N/A'}</td>
-                <td>${user?.visitDate ? new Date(user.visitDate).toLocaleDateString('fr-FR') : 'N/A'}</td>
+                <td>${user ? `${user.firstName} ${user.lastName}` : "N/A"}</td>
+                <td>${user?.profileType || "N/A"}</td>
+                <td>${user?.visitDate ? new Date(user.visitDate).toLocaleDateString("fr-FR") : "N/A"}</td>
                 <td>${progressPercentage}%</td>
-                <td>${progress?.qcmScore ? `${progress.qcmScore}%` : 'N/A'}</td>
+                <td>${progress?.qcmScore ? `${progress.qcmScore}%` : "N/A"}</td>
                 <td>${progress ? Math.round(progress.sessionDuration / 60) : 0} min</td>
-                <td>${progress?.certificateGenerated ? '✅' : '❌'}</td>
+                <td>${progress?.certificateGenerated ? "✅" : "❌"}</td>
               </tr>
             `;
-          }).join('')}
+            })
+            .join("")}
         </tbody>
       </table>
 
       <div class="footer">
         <p>Rapport généré automatiquement par le système de formation sécurité GERFLOR × FPSG</p>
-        <p>Export effectué le ${new Date().toLocaleString('fr-FR')}</p>
+        <p>Export effectué le ${new Date().toLocaleString("fr-FR")}</p>
       </div>
     </body>
     </html>
@@ -244,39 +268,51 @@ function generatePDFContent(data: ExportData): string {
 }
 
 // Utility function to download files
-function downloadFile(content: string, filename: string, mimeType: string): void {
+function downloadFile(
+  content: string,
+  filename: string,
+  mimeType: string,
+): void {
   const blob = new Blob([content], { type: mimeType });
   const url = URL.createObjectURL(blob);
-  
-  const link = document.createElement('a');
+
+  const link = document.createElement("a");
   link.href = url;
   link.download = filename;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
-  
+
   // Clean up
   setTimeout(() => URL.revokeObjectURL(url), 100);
 }
 
 // Analytics calculation utilities
 export function calculateAnalytics(sessions: TrainingSession[]): ExportData {
-  const completedSessions = sessions.filter(s => s.progress?.certificateGenerated);
+  const completedSessions = sessions.filter(
+    (s) => s.progress?.certificateGenerated,
+  );
   const qcmScores = sessions
-    .filter(s => s.progress?.qcmScore !== undefined)
-    .map(s => s.progress!.qcmScore!);
-  
+    .filter((s) => s.progress?.qcmScore !== undefined)
+    .map((s) => s.progress!.qcmScore!);
+
   const durations = sessions
-    .filter(s => s.progress?.sessionDuration)
-    .map(s => s.progress!.sessionDuration / 60); // Convert to minutes
+    .filter((s) => s.progress?.sessionDuration)
+    .map((s) => s.progress!.sessionDuration / 60); // Convert to minutes
 
   return {
     sessions,
     exportDate: new Date().toISOString(),
-    exportedBy: 'Administrator',
+    exportedBy: "Administrator",
     totalSessions: sessions.length,
     completedSessions: completedSessions.length,
-    averageScore: qcmScores.length > 0 ? qcmScores.reduce((a, b) => a + b, 0) / qcmScores.length : 0,
-    averageDuration: durations.length > 0 ? durations.reduce((a, b) => a + b, 0) / durations.length : 0
+    averageScore:
+      qcmScores.length > 0
+        ? qcmScores.reduce((a, b) => a + b, 0) / qcmScores.length
+        : 0,
+    averageDuration:
+      durations.length > 0
+        ? durations.reduce((a, b) => a + b, 0) / durations.length
+        : 0,
   };
 }

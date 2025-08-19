@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Eye, EyeOff, Shield, Lock, User, AlertCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useAdmin } from '@/hooks/use-admin';
-import { useSound } from '@/hooks/use-sound';
-import { useHaptic } from '@/hooks/use-haptic';
+import { useState } from "react";
+import { Eye, EyeOff, Shield, Lock, User, AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useAdmin } from "@/hooks/use-admin";
+import { useSound } from "@/hooks/use-sound";
+import { useHaptic } from "@/hooks/use-haptic";
 
 interface AdminLoginProps {
   onSuccess?: () => void;
@@ -14,11 +14,11 @@ interface AdminLoginProps {
 }
 
 export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [attempts, setAttempts] = useState(0);
 
   const { login } = useAdmin();
@@ -27,21 +27,21 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!username || !password) {
-      setError('Veuillez remplir tous les champs');
+      setError("Veuillez remplir tous les champs");
       playErrorSound();
       triggerError();
       return;
     }
 
     setIsLoading(true);
-    setError('');
+    setError("");
     playClickSound();
 
     try {
       const success = await login(username, password);
-      
+
       if (success) {
         playSuccessSound();
         triggerSuccess();
@@ -49,21 +49,23 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
       } else {
         const newAttempts = attempts + 1;
         setAttempts(newAttempts);
-        
+
         if (newAttempts >= 3) {
-          setError('Trop de tentatives échouées. Veuillez réessayer plus tard.');
+          setError(
+            "Trop de tentatives échouées. Veuillez réessayer plus tard.",
+          );
         } else {
-          setError('Nom d\'utilisateur ou mot de passe incorrect');
+          setError("Nom d'utilisateur ou mot de passe incorrect");
         }
-        
+
         playErrorSound();
         triggerError();
-        
+
         // Reset form on error
-        setPassword('');
+        setPassword("");
       }
     } catch (error) {
-      setError('Erreur de connexion. Veuillez réessayer.');
+      setError("Erreur de connexion. Veuillez réessayer.");
       playErrorSound();
       triggerError();
     } finally {
@@ -84,7 +86,9 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
           <div className="mx-auto w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-full flex items-center justify-center mb-4">
             <Shield className="w-8 h-8 text-white" />
           </div>
-          <CardTitle className="text-white text-xl">Accès Administrateur</CardTitle>
+          <CardTitle className="text-white text-xl">
+            Accès Administrateur
+          </CardTitle>
           <p className="text-slate-400 text-sm">
             Connexion requise pour accéder aux fonctionnalités d'administration
           </p>
@@ -121,7 +125,7 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
                 <Lock className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
                 <Input
                   id="password"
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="pl-10 pr-10 bg-slate-700/50 border-slate-600 text-white focus-ring"
@@ -156,7 +160,9 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
 
             {/* Demo Credentials Info */}
             <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
-              <p className="text-emerald-400 text-xs mb-2 font-medium">Comptes de démonstration :</p>
+              <p className="text-emerald-400 text-xs mb-2 font-medium">
+                Comptes de démonstration :
+              </p>
               <div className="text-xs text-slate-300 space-y-1">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
@@ -200,7 +206,7 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
                     Connexion...
                   </div>
                 ) : (
-                  'Se connecter'
+                  "Se connecter"
                 )}
               </Button>
             </div>

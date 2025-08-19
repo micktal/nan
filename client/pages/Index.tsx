@@ -5,7 +5,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
 import { useSound } from "@/hooks/use-sound";
@@ -26,7 +26,8 @@ export default function Index() {
   const { isAuthenticated } = useAdmin();
   const { playClickSound, playBeepSound, playNotificationSound } = useSound();
   const { triggerLight, triggerMedium, triggerSuccess } = useHaptic();
-  const { isFullscreen, toggleFullscreen, isTablet, enableTabletMode } = useFullscreen();
+  const { isFullscreen, toggleFullscreen, isTablet, enableTabletMode } =
+    useFullscreen();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -64,9 +65,12 @@ export default function Index() {
     >
       {/* Background pattern to simulate terminal/kiosk environment */}
       <div className="absolute inset-0 opacity-5">
-        <div className="w-full h-full" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Ccircle cx='7' cy='7' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Ccircle cx='7' cy='7' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
       </div>
 
       {/* Controls - top right */}
@@ -77,7 +81,7 @@ export default function Index() {
           size="sm"
           onClick={() => {
             if (isAuthenticated) {
-              window.location.href = '/admin';
+              window.location.href = "/admin";
             } else {
               setShowAdminLogin(true);
             }
@@ -104,13 +108,19 @@ export default function Index() {
         {/* Language selector */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20 interactive-element focus-ring">
+            <Button
+              variant="outline"
+              className="bg-white/10 border-white/20 text-white hover:bg-white/20 interactive-element focus-ring"
+            >
               <Globe className="w-4 h-4 mr-2" />
               {languageConfig.flag} {languageConfig.label}
               <ChevronDown className="w-4 h-4 ml-2" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="bg-slate-800 border-slate-700">
+          <DropdownMenuContent
+            align="end"
+            className="bg-slate-800 border-slate-700"
+          >
             {AVAILABLE_LANGUAGES.map((lang) => (
               <DropdownMenuItem
                 key={lang.code}
@@ -125,8 +135,9 @@ export default function Index() {
       </div>
 
       {/* Main content */}
-      <div className={`min-h-screen flex flex-col items-center justify-center px-6 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0 animate-fade-in-up' : 'opacity-0 translate-y-8'}`}>
-        
+      <div
+        className={`min-h-screen flex flex-col items-center justify-center px-6 transition-all duration-1000 ${isLoaded ? "opacity-100 translate-y-0 animate-fade-in-up" : "opacity-0 translate-y-8"}`}
+      >
         {/* Logo section */}
         <div className="mb-12 text-center">
           <div className="flex items-center justify-center gap-8 mb-6">
@@ -138,7 +149,7 @@ export default function Index() {
                 className="w-24 h-12 object-contain"
               />
             </div>
-            
+
             {/* FPSG logo */}
             <div>
               <img
@@ -152,7 +163,6 @@ export default function Index() {
 
         {/* Terminal-style interface */}
         <div className="glass-effect rounded-2xl border border-slate-600/50 shadow-2xl p-8 max-w-2xl w-full mx-auto terminal-glow animate-scale-in">
-
           {/* Header with safety icon */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-full mb-6 shadow-lg animate-bounce-soft">
@@ -160,25 +170,34 @@ export default function Index() {
             </div>
 
             <h1 className="text-3xl font-bold text-white mb-2 animate-fade-in-up">
-              {t('home.title')}
+              {t("home.title")}
             </h1>
-            <p className="text-emerald-400 text-lg font-medium animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              {t('home.subtitle')}
+            <p
+              className="text-emerald-400 text-lg font-medium animate-fade-in-up"
+              style={{ animationDelay: "0.2s" }}
+            >
+              {t("home.subtitle")}
             </p>
           </div>
 
           {/* Description */}
-          <div className="text-center mb-8 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+          <div
+            className="text-center mb-8 animate-fade-in-up"
+            style={{ animationDelay: "0.4s" }}
+          >
             <p className="text-slate-300 text-lg leading-relaxed">
-              {t('home.description')}
+              {t("home.description")}
             </p>
             <p className="text-slate-400 text-sm mt-2">
-              ⏱️ {t('home.duration')}
+              ⏱️ {t("home.duration")}
             </p>
           </div>
 
           {/* Start button */}
-          <div className="text-center animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+          <div
+            className="text-center animate-fade-in-up"
+            style={{ animationDelay: "0.6s" }}
+          >
             <Link to="/profile-selection" onClick={handleStartTraining}>
               <Button
                 ref={startButtonRef}
@@ -186,12 +205,11 @@ export default function Index() {
                 className="bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 text-white px-12 py-6 text-xl font-semibold rounded-xl shadow-lg pulse-button hover-lift interactive-element focus-ring"
               >
                 <Play className="w-6 h-6 mr-3" />
-                {t('home.startButton')}
+                {t("home.startButton")}
               </Button>
             </Link>
           </div>
         </div>
-
       </div>
 
       {/* Admin Login Modal */}
@@ -199,7 +217,7 @@ export default function Index() {
         <AdminLogin
           onSuccess={() => {
             setShowAdminLogin(false);
-            window.location.href = '/admin';
+            window.location.href = "/admin";
           }}
           onCancel={() => setShowAdminLogin(false)}
         />

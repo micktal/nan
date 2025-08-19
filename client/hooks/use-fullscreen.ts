@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 
 interface FullscreenAPI {
   requestFullscreen?: () => Promise<void>;
@@ -52,41 +52,53 @@ export function useFullscreen() {
     };
 
     // Add event listeners for all browser prefixes
-    document.addEventListener('fullscreenchange', handleFullscreenChange);
-    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
-    document.addEventListener('mozfullscreenchange', handleFullscreenChange);
-    document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    document.addEventListener("mozfullscreenchange", handleFullscreenChange);
+    document.addEventListener("MSFullscreenChange", handleFullscreenChange);
 
     return () => {
-      document.removeEventListener('fullscreenchange', handleFullscreenChange);
-      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
-      document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
-      document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange,
+      );
+      document.removeEventListener(
+        "mozfullscreenchange",
+        handleFullscreenChange,
+      );
+      document.removeEventListener(
+        "MSFullscreenChange",
+        handleFullscreenChange,
+      );
     };
   }, []);
 
-  const enterFullscreen = useCallback(async (element?: HTMLElement) => {
-    if (!isSupported) return false;
+  const enterFullscreen = useCallback(
+    async (element?: HTMLElement) => {
+      if (!isSupported) return false;
 
-    const targetElement = element || document.documentElement;
-    const elem = targetElement as HTMLElement & FullscreenAPI;
+      const targetElement = element || document.documentElement;
+      const elem = targetElement as HTMLElement & FullscreenAPI;
 
-    try {
-      if (elem.requestFullscreen) {
-        await elem.requestFullscreen();
-      } else if (elem.webkitRequestFullscreen) {
-        await elem.webkitRequestFullscreen();
-      } else if (elem.mozRequestFullScreen) {
-        await elem.mozRequestFullScreen();
-      } else if (elem.msRequestFullscreen) {
-        await elem.msRequestFullscreen();
+      try {
+        if (elem.requestFullscreen) {
+          await elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+          await elem.webkitRequestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+          await elem.mozRequestFullScreen();
+        } else if (elem.msRequestFullscreen) {
+          await elem.msRequestFullscreen();
+        }
+        return true;
+      } catch (error) {
+        console.warn("Failed to enter fullscreen:", error);
+        return false;
       }
-      return true;
-    } catch (error) {
-      console.warn('Failed to enter fullscreen:', error);
-      return false;
-    }
-  }, [isSupported]);
+    },
+    [isSupported],
+  );
 
   const exitFullscreen = useCallback(async () => {
     if (!isSupported) return false;
@@ -105,31 +117,35 @@ export function useFullscreen() {
       }
       return true;
     } catch (error) {
-      console.warn('Failed to exit fullscreen:', error);
+      console.warn("Failed to exit fullscreen:", error);
       return false;
     }
   }, [isSupported]);
 
-  const toggleFullscreen = useCallback(async (element?: HTMLElement) => {
-    if (isFullscreen) {
-      return await exitFullscreen();
-    } else {
-      return await enterFullscreen(element);
-    }
-  }, [isFullscreen, enterFullscreen, exitFullscreen]);
+  const toggleFullscreen = useCallback(
+    async (element?: HTMLElement) => {
+      if (isFullscreen) {
+        return await exitFullscreen();
+      } else {
+        return await enterFullscreen(element);
+      }
+    },
+    [isFullscreen, enterFullscreen, exitFullscreen],
+  );
 
   // Detect if device is likely a tablet
   const isTablet = useCallback(() => {
     // Check screen dimensions and touch capability
-    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
     const screenWidth = window.screen.width;
     const screenHeight = window.screen.height;
     const minDimension = Math.min(screenWidth, screenHeight);
     const maxDimension = Math.max(screenWidth, screenHeight);
-    
+
     // Typical tablet dimensions (7-13 inches)
-    const isTabletSize = minDimension >= 768 && maxDimension >= 1024 && maxDimension <= 1366;
-    
+    const isTabletSize =
+      minDimension >= 768 && maxDimension >= 1024 && maxDimension <= 1366;
+
     return hasTouch && isTabletSize;
   }, []);
 

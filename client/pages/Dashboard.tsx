@@ -1,5 +1,14 @@
 import { useState, useEffect, useRef } from "react";
-import { ArrowLeft, Users, TrendingUp, AlertCircle, Calendar, Award, Bell, BarChart3 } from "lucide-react";
+import {
+  ArrowLeft,
+  Users,
+  TrendingUp,
+  AlertCircle,
+  Calendar,
+  Award,
+  Bell,
+  BarChart3,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -34,20 +43,59 @@ export default function Dashboard() {
     totalVisitors: 1247,
     trainedToday: 23,
     successRate: 89,
-    expiringCertificates: 15
+    expiringCertificates: 15,
   };
 
   const recentActivity = [
-    { id: 1, name: "Jean Dupont", profile: "Chauffeur-livreur", score: 95, time: "Il y a 15 min" },
-    { id: 2, name: "Marie Martin", profile: "Agent de nettoyage", score: 78, time: "Il y a 32 min" },
-    { id: 3, name: "Pierre Durand", profile: "Sous-traitant technique", score: 92, time: "Il y a 1h" },
-    { id: 4, name: "Sophie Bernard", profile: "Visiteur administratif", score: 88, time: "Il y a 2h" }
+    {
+      id: 1,
+      name: "Jean Dupont",
+      profile: "Chauffeur-livreur",
+      score: 95,
+      time: "Il y a 15 min",
+    },
+    {
+      id: 2,
+      name: "Marie Martin",
+      profile: "Agent de nettoyage",
+      score: 78,
+      time: "Il y a 32 min",
+    },
+    {
+      id: 3,
+      name: "Pierre Durand",
+      profile: "Sous-traitant technique",
+      score: 92,
+      time: "Il y a 1h",
+    },
+    {
+      id: 4,
+      name: "Sophie Bernard",
+      profile: "Visiteur administratif",
+      score: 88,
+      time: "Il y a 2h",
+    },
   ];
 
   const alerts = [
-    { id: 1, message: "Certificat visiteur #453 expiré - relance envoyée", type: "warning", time: "Il y a 5 min" },
-    { id: 2, message: "15 certificats expirent dans les 7 prochains jours", type: "info", time: "Il y a 1h" },
-    { id: 3, message: "Taux de réussite en baisse de 3% ce mois", type: "warning", time: "Il y a 3h" }
+    {
+      id: 1,
+      message: "Certificat visiteur #453 expiré - relance envoyée",
+      type: "warning",
+      time: "Il y a 5 min",
+    },
+    {
+      id: 2,
+      message: "15 certificats expirent dans les 7 prochains jours",
+      type: "info",
+      time: "Il y a 1h",
+    },
+    {
+      id: 3,
+      message: "Taux de réussite en baisse de 3% ce mois",
+      type: "warning",
+      time: "Il y a 3h",
+    },
   ];
 
   return (
@@ -58,18 +106,25 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <Link to="/certificate">
-                <Button variant="ghost" className="text-white hover:bg-slate-700 mr-4">
+                <Button
+                  variant="ghost"
+                  className="text-white hover:bg-slate-700 mr-4"
+                >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Retour
                 </Button>
               </Link>
-              
+
               <div>
-                <h1 className="text-2xl font-bold text-white">Tableau de Bord HSE</h1>
-                <p className="text-slate-300">Gestion de la formation sécurité</p>
+                <h1 className="text-2xl font-bold text-white">
+                  Tableau de Bord HSE
+                </h1>
+                <p className="text-slate-300">
+                  Gestion de la formation sécurité
+                </p>
               </div>
             </div>
-            
+
             <div className="flex items-center gap-4">
               <div className="px-4 py-2">
                 <img
@@ -91,8 +146,9 @@ export default function Dashboard() {
       </div>
 
       {/* Main content */}
-      <div className={`max-w-7xl mx-auto px-6 py-8 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        
+      <div
+        className={`max-w-7xl mx-auto px-6 py-8 transition-all duration-1000 ${isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      >
         {/* Stats cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card className="glass-effect border-slate-600/50 hover-lift">
@@ -100,7 +156,9 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-slate-400 text-sm">Visiteurs formés</p>
-                  <p className="text-3xl font-bold text-white">{stats.totalVisitors}</p>
+                  <p className="text-3xl font-bold text-white">
+                    {stats.totalVisitors}
+                  </p>
                   <p className="text-emerald-400 text-sm">+12% ce mois</p>
                 </div>
                 <Users className="w-8 h-8 text-emerald-400" />
@@ -113,7 +171,9 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-slate-400 text-sm">Formés aujourd'hui</p>
-                  <p className="text-3xl font-bold text-white">{stats.trainedToday}</p>
+                  <p className="text-3xl font-bold text-white">
+                    {stats.trainedToday}
+                  </p>
                   <p className="text-blue-400 text-sm">Objectif: 30/jour</p>
                 </div>
                 <TrendingUp className="w-8 h-8 text-blue-400" />
@@ -126,7 +186,9 @@ export default function Dashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-slate-400 text-sm">Taux de réussite</p>
-                  <p className="text-3xl font-bold text-white">{stats.successRate}%</p>
+                  <p className="text-3xl font-bold text-white">
+                    {stats.successRate}%
+                  </p>
                   <p className="text-orange-400 text-sm">-2% vs mois dernier</p>
                 </div>
                 <Award className="w-8 h-8 text-orange-400" />
@@ -138,8 +200,12 @@ export default function Dashboard() {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-slate-400 text-sm">Certificats à renouveler</p>
-                  <p className="text-3xl font-bold text-white">{stats.expiringCertificates}</p>
+                  <p className="text-slate-400 text-sm">
+                    Certificats à renouveler
+                  </p>
+                  <p className="text-3xl font-bold text-white">
+                    {stats.expiringCertificates}
+                  </p>
                   <p className="text-red-400 text-sm">Dans 7 jours</p>
                 </div>
                 <AlertCircle className="w-8 h-8 text-red-400" />
@@ -149,7 +215,6 @@ export default function Dashboard() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
           {/* Activity chart placeholder */}
           <div className="lg:col-span-2">
             <Card className="glass-effect border-slate-600/50 hover-lift">
@@ -183,11 +248,18 @@ export default function Dashboard() {
               <CardContent>
                 <div className="space-y-4">
                   {alerts.map((alert) => (
-                    <div key={alert.id} className={`p-3 rounded-lg border-l-4 ${
-                      alert.type === 'warning' ? 'bg-orange-500/10 border-orange-500' : 'bg-blue-500/10 border-blue-500'
-                    }`}>
+                    <div
+                      key={alert.id}
+                      className={`p-3 rounded-lg border-l-4 ${
+                        alert.type === "warning"
+                          ? "bg-orange-500/10 border-orange-500"
+                          : "bg-blue-500/10 border-blue-500"
+                      }`}
+                    >
                       <p className="text-white text-sm">{alert.message}</p>
-                      <p className="text-slate-400 text-xs mt-1">{alert.time}</p>
+                      <p className="text-slate-400 text-xs mt-1">
+                        {alert.time}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -197,7 +269,9 @@ export default function Dashboard() {
             {/* Progress by profile */}
             <Card className="glass-effect border-slate-600/50 hover-lift">
               <CardHeader>
-                <CardTitle className="text-white">Progression par profil</CardTitle>
+                <CardTitle className="text-white">
+                  Progression par profil
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -208,15 +282,17 @@ export default function Dashboard() {
                     </div>
                     <Progress value={85} className="h-2" />
                   </div>
-                  
+
                   <div>
                     <div className="flex justify-between mb-2">
-                      <span className="text-slate-300 text-sm">Techniciens</span>
+                      <span className="text-slate-300 text-sm">
+                        Techniciens
+                      </span>
                       <span className="text-slate-300 text-sm">92%</span>
                     </div>
                     <Progress value={92} className="h-2" />
                   </div>
-                  
+
                   <div>
                     <div className="flex justify-between mb-2">
                       <span className="text-slate-300 text-sm">Nettoyage</span>
@@ -224,10 +300,12 @@ export default function Dashboard() {
                     </div>
                     <Progress value={78} className="h-2" />
                   </div>
-                  
+
                   <div>
                     <div className="flex justify-between mb-2">
-                      <span className="text-slate-300 text-sm">Administratif</span>
+                      <span className="text-slate-300 text-sm">
+                        Administratif
+                      </span>
                       <span className="text-slate-300 text-sm">96%</span>
                     </div>
                     <Progress value={96} className="h-2" />
@@ -256,15 +334,22 @@ export default function Dashboard() {
                 </thead>
                 <tbody>
                   {recentActivity.map((activity) => (
-                    <tr key={activity.id} className="border-b border-slate-700/50">
+                    <tr
+                      key={activity.id}
+                      className="border-b border-slate-700/50"
+                    >
                       <td className="text-white p-3">{activity.name}</td>
                       <td className="text-slate-300 p-3">{activity.profile}</td>
                       <td className="p-3">
-                        <span className={`px-2 py-1 rounded text-sm ${
-                          activity.score >= 90 ? 'bg-emerald-500/20 text-emerald-400' :
-                          activity.score >= 70 ? 'bg-orange-500/20 text-orange-400' :
-                          'bg-red-500/20 text-red-400'
-                        }`}>
+                        <span
+                          className={`px-2 py-1 rounded text-sm ${
+                            activity.score >= 90
+                              ? "bg-emerald-500/20 text-emerald-400"
+                              : activity.score >= 70
+                                ? "bg-orange-500/20 text-orange-400"
+                                : "bg-red-500/20 text-red-400"
+                          }`}
+                        >
                           {activity.score}%
                         </span>
                       </td>

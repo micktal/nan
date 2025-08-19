@@ -162,7 +162,7 @@ export default {
             opacity: "1",
           },
         },
-        "wiggle": {
+        wiggle: {
           "0%, 100%": {
             transform: "rotate(-3deg)",
           },
@@ -182,16 +182,19 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "slide-in-from-bottom": "slide-in-from-bottom 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-        "slide-in-from-left": "slide-in-from-left 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
-        "slide-in-from-right": "slide-in-from-right 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+        "slide-in-from-bottom":
+          "slide-in-from-bottom 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+        "slide-in-from-left":
+          "slide-in-from-left 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+        "slide-in-from-right":
+          "slide-in-from-right 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
         "fade-in": "fade-in 0.5s ease-out",
         "fade-in-up": "fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
         "pulse-slow": "pulse-slow 2s ease-in-out infinite",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "bounce-soft": "bounce-soft 2s ease-in-out infinite",
         "scale-in": "scale-in 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-        "wiggle": "wiggle 0.5s ease-in-out",
+        wiggle: "wiggle 0.5s ease-in-out",
         "progress-fill": "progress-fill 1s ease-out forwards",
       },
     },
