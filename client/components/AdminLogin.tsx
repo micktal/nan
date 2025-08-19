@@ -155,12 +155,24 @@ export function AdminLogin({ onSuccess, onCancel }: AdminLoginProps) {
             )}
 
             {/* Demo Credentials Info */}
-            <div className="p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-              <p className="text-blue-400 text-xs mb-2 font-medium">Comptes de démonstration :</p>
+            <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
+              <p className="text-emerald-400 text-xs mb-2 font-medium">Comptes de démonstration :</p>
               <div className="text-xs text-slate-300 space-y-1">
-                <div>��� <span className="font-mono">admin</span> - Accès complet</div>
-                <div>• <span className="font-mono">supervisor</span> - Gestion et exports</div>
-                <div>• <span className="font-mono">hse</span> - Consultation uniquement</div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                  <span className="font-mono text-emerald-300">admin</span>
+                  <span>- Accès complet</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                  <span className="font-mono text-orange-300">supervisor</span>
+                  <span>- Gestion et exports</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <span className="font-mono text-blue-300">hse</span>
+                  <span>- Consultation uniquement</span>
+                </div>
               </div>
             </div>
 
