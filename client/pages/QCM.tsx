@@ -1,0 +1,253 @@
+import { useState, useEffect } from "react";
+import { ArrowLeft, ArrowRight, CheckCircle, XCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Link, useNavigate } from "react-router-dom";
+
+const questions = [
+  {
+    id: 1,
+    question: "Quels équipements sont obligatoires en zone de chargement ?",
+    options: [
+      "Gilet haute visibilité, chaussures de sécurité",
+      "Casque uniquement",
+      "Gants de travail seulement",
+      "Aucun équipement spécifique"
+    ],
+    correct: 0
+  },
+  {
+    id: 2,
+    question: "Que devez-vous faire en cas d'urgence ?",
+    options: [
+      "Continuer votre travail",
+      "Suivre les consignes d'évacuation",
+      "Attendre les instructions",
+      "Quitter immédiatement sans prévenir"
+    ],
+    correct: 1
+  },
+  {
+    id: 3,
+    question: "Dans quelles zones la vitesse est-elle limitée ?",
+    options: [
+      "Uniquement dans les parkings",
+      "Partout sur le site",
+      "Seulement près des bâtiments",
+      "Aucune limitation"
+    ],
+    correct: 1
+  }
+];
+
+export default function QCM() {
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [answers, setAnswers] = useState<number[]>([]);
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [showResult, setShowResult] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
+  const navigate = useNavigate();
+
+  const handleAnswerSelect = (answerIndex: number) => {
+    setSelectedAnswer(answerIndex);
+  };
+
+  const handleNext = () => {
+    if (selectedAnswer !== null) {
+      const newAnswers = [...answers];
+      newAnswers[currentQuestion] = selectedAnswer;
+      setAnswers(newAnswers);
+      
+      setShowResult(true);
+      
+      setTimeout(() => {
+        if (currentQuestion < questions.length - 1) {
+          setCurrentQuestion(currentQuestion + 1);
+          setSelectedAnswer(null);
+          setShowResult(false);
+        } else {
+          setIsFinished(true);
+        }
+      }, 2000);
+    }
+  };
+
+  const calculateScore = () => {
+    return answers.reduce((score, answer, index) => {
+      return score + (answer === questions[index].correct ? 1 : 0);
+    }, 0);
+  };
+
+  const scorePercentage = isFinished ? Math.round((calculateScore() / questions.length) * 100) : 0;
+
+  if (isFinished) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+        <div className="min-h-screen flex flex-col items-center justify-center px-6">
+          <Card className="bg-slate-800/90 backdrop-blur-sm border-slate-600/50 shadow-2xl p-8 max-w-2xl w-full mx-auto text-center">
+            <CardContent className="p-0">
+              <div className={`inline-flex items-center justify-center w-20 h-20 rounded-full mb-6 ${scorePercentage >= 70 ? 'bg-emerald-500' : 'bg-orange-500'}`}>
+                {scorePercentage >= 70 ? (
+                  <CheckCircle className="w-10 h-10 text-white" />
+                ) : (
+                  <XCircle className="w-10 h-10 text-white" />
+                )}
+              </div>
+              
+              <h1 className="text-3xl font-bold text-white mb-4">
+                QCM Terminé !
+              </h1>
+              
+              <div className="mb-6">
+                <div className={`text-6xl font-bold mb-2 ${scorePercentage >= 70 ? 'text-emerald-400' : 'text-orange-400'}`}>
+                  {scorePercentage}%
+                </div>
+                <p className="text-slate-300">
+                  Score : {calculateScore()} / {questions.length}
+                </p>
+              </div>
+              
+              <p className={`text-lg mb-8 ${scorePercentage >= 70 ? 'text-emerald-400' : 'text-orange-400'}`}>
+                {scorePercentage >= 70 
+                  ? "Félicitations ! Vous avez réussi la formation."
+                  : "Score insuffisant. Nous vous recommandons de revoir la formation."
+                }
+              </p>
+              
+              <Button 
+                size="lg"
+                className="bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 text-white px-8 py-4 text-lg font-semibold rounded-xl"
+                onClick={() => navigate('/certificate')}
+              >
+                Générer le certificat
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
+  const question = questions[currentQuestion];
+  const isCorrect = selectedAnswer === question.correct;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+      {/* Back button */}
+      <div className="absolute top-6 left-6 z-20">
+        <Link to="/safety-course">
+          <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Retour
+          </Button>
+        </Link>
+      </div>
+
+      {/* Main content */}
+      <div className="min-h-screen flex flex-col items-center justify-center px-6">
+        <div className="max-w-3xl w-full">
+          
+          {/* Progress bar */}
+          <div className="mb-8">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-slate-300">Question {currentQuestion + 1} sur {questions.length}</span>
+              <span className="text-slate-300">{Math.round(((currentQuestion + 1) / questions.length) * 100)}%</span>
+            </div>
+            <div className="w-full bg-slate-700 rounded-full h-2">
+              <div 
+                className="bg-emerald-500 h-2 rounded-full transition-all duration-500"
+                style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+              />
+            </div>
+          </div>
+
+          <Card className="bg-slate-800/90 backdrop-blur-sm border-slate-600/50 shadow-2xl">
+            <CardContent className="p-8">
+              
+              <h2 className="text-2xl font-bold text-white mb-8">
+                {question.question}
+              </h2>
+
+              <div className="space-y-4 mb-8">
+                {question.options.map((option, index) => {
+                  let buttonClass = "w-full p-4 text-left border-2 rounded-xl transition-all duration-200 ";
+                  
+                  if (showResult) {
+                    if (index === question.correct) {
+                      buttonClass += "border-emerald-500 bg-emerald-500/20 text-emerald-300";
+                    } else if (index === selectedAnswer && selectedAnswer !== question.correct) {
+                      buttonClass += "border-red-500 bg-red-500/20 text-red-300";
+                    } else {
+                      buttonClass += "border-slate-600 bg-slate-700/50 text-slate-400";
+                    }
+                  } else {
+                    if (selectedAnswer === index) {
+                      buttonClass += "border-emerald-500 bg-emerald-500/20 text-white";
+                    } else {
+                      buttonClass += "border-slate-600 bg-slate-700/50 text-slate-300 hover:border-slate-500 hover:bg-slate-600/50";
+                    }
+                  }
+
+                  return (
+                    <button
+                      key={index}
+                      className={buttonClass}
+                      onClick={() => handleAnswerSelect(index)}
+                      disabled={showResult}
+                    >
+                      <div className="flex items-center">
+                        <div className="w-6 h-6 border-2 border-current rounded-full mr-4 flex items-center justify-center">
+                          {selectedAnswer === index && (
+                            <div className="w-3 h-3 bg-current rounded-full" />
+                          )}
+                        </div>
+                        {option}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {showResult && (
+                <div className={`p-4 rounded-lg mb-6 ${isCorrect ? 'bg-emerald-500/20 border border-emerald-500/50' : 'bg-red-500/20 border border-red-500/50'}`}>
+                  <p className={`font-semibold ${isCorrect ? 'text-emerald-300' : 'text-red-300'}`}>
+                    {isCorrect ? "✅ Bonne réponse !" : "❌ Réponse incorrecte"}
+                  </p>
+                  {!isCorrect && (
+                    <p className="text-slate-300 mt-2">
+                      La bonne réponse était : {question.options[question.correct]}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              <div className="flex justify-end">
+                <Button 
+                  onClick={handleNext}
+                  disabled={selectedAnswer === null || showResult}
+                  className="bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 text-white px-6 py-3"
+                >
+                  {currentQuestion === questions.length - 1 ? "Terminer" : "Suivant"}
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Progress indicator */}
+        <div className="mt-12 flex items-center justify-center">
+          <div className="flex space-x-2">
+            <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
+            <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
+            <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
+            <div className="w-3 h-3 bg-emerald-500 rounded-full"></div>
+            <div className="w-3 h-3 bg-slate-600 rounded-full"></div>
+          </div>
+          <span className="text-slate-400 text-sm ml-4">Étape 4 sur 5</span>
+        </div>
+      </div>
+    </div>
+  );
+}
