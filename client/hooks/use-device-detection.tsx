@@ -1,5 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+
+// Safe router imports - we'll handle the case where router context doesn't exist
+let useNavigate: any, useLocation: any;
+try {
+  const routerDom = require('react-router-dom');
+  useNavigate = routerDom.useNavigate;
+  useLocation = routerDom.useLocation;
+} catch {
+  // Fallback functions if router is not available
+  useNavigate = () => (path: string) => window.location.href = path;
+  useLocation = () => ({ pathname: window.location.pathname });
+}
 
 export interface DeviceInfo {
   isMobile: boolean;
