@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ArrowLeft, Download, Mail, CheckCircle, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
+import { useSound } from "@/hooks/use-sound";
+import { useHaptic } from "@/hooks/use-haptic";
 
 export default function Certificate() {
   const [firstName, setFirstName] = useState("");
