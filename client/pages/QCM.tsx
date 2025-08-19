@@ -107,32 +107,32 @@ export default function QCM() {
               </div>
               
               <h1 className="text-3xl font-bold text-white mb-4">
-                QCM Terminé !
+                {t('qcm.finished')}
               </h1>
-              
+
               <div className="mb-6">
                 <div className={`text-6xl font-bold mb-2 ${scorePercentage >= 70 ? 'text-emerald-400' : 'text-orange-400'}`}>
                   {scorePercentage}%
                 </div>
                 <p className="text-slate-300">
-                  Score : {calculateScore()} / {questions.length}
+                  {t('qcm.score')} {calculateScore()} / {questions.length}
                 </p>
               </div>
-              
+
               <p className={`text-lg mb-8 ${scorePercentage >= 70 ? 'text-emerald-400' : 'text-orange-400'}`}>
-                {scorePercentage >= 70 
-                  ? "Félicitations ! Vous avez réussi la formation."
-                  : "Score insuffisant. Nous vous recommandons de revoir la formation."
+                {scorePercentage >= 70
+                  ? t('qcm.passed')
+                  : t('qcm.failed')
                 }
               </p>
-              
+
               <Button
                 ref={certificateButtonRef}
                 size="lg"
                 className="bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 text-white px-8 py-4 text-lg font-semibold rounded-xl pulse-button hover-lift interactive-element focus-ring"
                 onClick={handleCertificate}
               >
-                Générer le certificat
+                {t('qcm.certificate')}
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
             </CardContent>
