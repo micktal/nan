@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import device adaptive styles */
+@import './styles/device-adaptive.css';
+
 @layer base {
   /**
    * Tailwind CSS theme
