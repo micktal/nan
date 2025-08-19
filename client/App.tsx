@@ -50,7 +50,7 @@ const App = () => (
                   <Route path="/qcm" element={<QCM />} />
                   <Route path="/certificate" element={<Certificate />} />
                   <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/admin" element={<AdminDashboard />} />
+                  <Route path="/admin" element={<EnhancedAdminDashboard />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>
