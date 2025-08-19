@@ -25,25 +25,37 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <LanguageProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/profile-selection" element={<ProfileSelection />} />
-            <Route path="/introduction" element={<Introduction />} />
-            <Route path="/safety-course" element={<SafetyCourse />} />
-            <Route path="/qcm" element={<QCM />} />
-            <Route path="/certificate" element={<Certificate />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </LanguageProvider>
+    <AdminProvider>
+      <NotificationProvider>
+        <UserSessionProvider>
+          <LanguageProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                {/* Global Notification Center */}
+                <div className="fixed top-4 right-4 z-50">
+                  <NotificationCenter />
+                </div>
+
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/profile-selection" element={<ProfileSelection />} />
+                  <Route path="/introduction" element={<Introduction />} />
+                  <Route path="/safety-course" element={<SafetyCourse />} />
+                  <Route path="/qcm" element={<QCM />} />
+                  <Route path="/certificate" element={<Certificate />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/admin" element={<AdminDashboard />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </TooltipProvider>
+          </LanguageProvider>
+        </UserSessionProvider>
+      </NotificationProvider>
+    </AdminProvider>
   </QueryClientProvider>
 );
 
