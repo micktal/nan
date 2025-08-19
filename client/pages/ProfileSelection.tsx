@@ -187,8 +187,8 @@ export default function ProfileSelection() {
                 key={profile.id}
                 ref={(el) => (cardRefs.current[index] = el)}
                 className={`
-                  glass-effect border-slate-600/50 cursor-pointer interactive-element card-hover focus-ring
-                  ${isSelected ? 'ring-2 ring-emerald-400 animate-pulse-glow' : ''}
+                  bg-slate-800/50 border-slate-600/50 cursor-pointer interactive-element card-hover focus-ring backdrop-blur-md
+                  ${isSelected ? 'ring-2 ring-emerald-400 animate-pulse-glow bg-slate-700/60' : 'hover:bg-slate-700/50'}
                   ${isLoaded ? 'animate-fade-in-up' : ''}
                 `}
                 style={{
