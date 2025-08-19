@@ -171,6 +171,9 @@ export default function Index() {
           </div>
         </div>
 
+        {/* Temporary test component */}
+        <QCMTest />
+
       </div>
     </div>
   );
