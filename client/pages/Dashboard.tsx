@@ -355,6 +355,19 @@ export default function Dashboard() {
           </div>
         </div>
 
+        {/* QR Scanner Section */}
+        <div className="mt-8 mb-12">
+          <div className="text-center mb-6">
+            <h3 className="text-2xl font-bold text-white mb-2">
+              Scanner QR & Contrôle d'Accès
+            </h3>
+            <p className="text-slate-300">
+              Vérification instantanée des badges de sécurité
+            </p>
+          </div>
+          <QRScanner mode="desktop" />
+        </div>
+
         {/* Business Case - Témoignages et preuves de succès */}
         <div className="mt-12 mb-8">
           <BusinessCase />
