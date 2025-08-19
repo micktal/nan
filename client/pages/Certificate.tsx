@@ -44,14 +44,14 @@ export default function Certificate() {
               {/* Header */}
               <div className="text-center mb-8">
                 <div className="flex items-center justify-center gap-8 mb-6">
-                  <div className="bg-white px-6 py-3 rounded-lg shadow-lg">
+                  <div className="px-6 py-3">
                     <img
                       src="https://cdn.builder.io/api/v1/image/assets%2Fd93d9a0ec7824aa1ac4d890a1f90a2ec%2Fcf2c1680c78247c6bd78521e30a0f35c?format=webp&width=800"
                       alt="Gerflor Logo"
                       className="h-8 object-contain"
                     />
                   </div>
-                  <div className="bg-white px-6 py-3 rounded-lg shadow-lg">
+                  <div className="px-6 py-3">
                     <img
                       src="https://cdn.builder.io/api/v1/image/assets%2Fd93d9a0ec7824aa1ac4d890a1f90a2ec%2Fca3c12dc38bf426eacbda6f86df51d73?format=webp&width=800"
                       alt="FPSG Logo"
