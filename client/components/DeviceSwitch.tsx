@@ -12,21 +12,7 @@ interface DeviceSwitchProps {
 
 export function DeviceSwitch({ showNotification = true, onClose }: DeviceSwitchProps) {
   const { deviceType, isMobile, isTablet, screenWidth, orientation } = useDeviceDetection();
-
-  // Safe router usage - only call if inside router context
-  let redirectFunctions;
-  try {
-    redirectFunctions = useAutoMobileRedirect();
-  } catch {
-    // Fallback if not in router context
-    redirectFunctions = {
-      forceDesktopMode: () => window.location.href = '/dashboard',
-      forceMobileMode: () => window.location.href = '/mobile',
-      clearPreference: () => localStorage.removeItem('interface-preference')
-    };
-  }
-
-  const { forceDesktopMode, forceMobileMode, clearPreference } = redirectFunctions;
+  const { forceDesktopMode, forceMobileMode, clearPreference } = useAutoMobileRedirect();
   const [isVisible, setIsVisible] = useState(false);
   const [userPreference, setUserPreference] = useState<string | null>(null);
 
