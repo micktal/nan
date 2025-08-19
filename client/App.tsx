@@ -19,6 +19,7 @@ import QCM from "./pages/QCM";
 import Certificate from "./pages/Certificate";
 import Dashboard from "./pages/Dashboard";
 import EnhancedAdminDashboard from "./pages/EnhancedAdminDashboard";
+import MobileDashboard from "./pages/MobileDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
