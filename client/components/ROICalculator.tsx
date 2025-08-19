@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { 
-  TrendingUp, 
-  DollarSign, 
-  Shield, 
-  Clock, 
+import {
+  TrendingUp,
+  Calculator,
+  Shield,
+  Clock,
   AlertTriangle,
   CheckCircle,
   BarChart3,
