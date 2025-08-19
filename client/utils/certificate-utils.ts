@@ -1,4 +1,4 @@
-import jsPDF from 'jspdf';
+// Alternative PDF generation without external dependencies
 
 export interface CertificateData {
   firstName: string;
