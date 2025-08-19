@@ -1,61 +1,164 @@
-import { DemoResponse } from "@shared/api";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { ChevronDown, Play, Shield, Globe } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu";
+import { Link } from "react-router-dom";
+
+const languages = [
+  { code: 'fr', label: 'Français', flag: '🇫🇷' },
+  { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+  { code: 'es', label: 'Español', flag: '🇪🇸' },
+];
 
 export default function Index() {
-  const [exampleFromServer, setExampleFromServer] = useState("");
-  // Fetch users on component mount
+  const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
-    fetchDemo();
+    setIsLoaded(true);
   }, []);
 
-  // Example of how to fetch data from the server (if needed)
-  const fetchDemo = async () => {
-    try {
-      const response = await fetch("/api/demo");
-      const data = (await response.json()) as DemoResponse;
-      setExampleFromServer(data.message);
-    } catch (error) {
-      console.error("Error fetching hello:", error);
+  const content = {
+    fr: {
+      title: "Centre de Formation Sécurité",
+      subtitle: "Sensibilisation sécurité interactive",
+      description: "Avant d'accéder au site, vous devez suivre une courte formation aux règles de sécurité essentielles.",
+      startButton: "Commencer la formation",
+      poweredBy: "Alimenté par"
+    },
+    en: {
+      title: "Safety Training Center", 
+      subtitle: "Interactive safety awareness",
+      description: "Before accessing the site, you must complete a short training on essential safety rules.",
+      startButton: "Start Training",
+      poweredBy: "Powered by"
+    },
+    de: {
+      title: "Sicherheitsschulungszentrum",
+      subtitle: "Interaktive Sicherheitsschulung", 
+      description: "Bevor Sie das Gelände betreten, müssen Sie eine kurze Schulung zu den wichtigsten Sicherheitsregeln absolvieren.",
+      startButton: "Schulung beginnen",
+      poweredBy: "Unterstützt von"
+    },
+    es: {
+      title: "Centro de Formación en Seguridad",
+      subtitle: "Sensibilización de seguridad interactiva",
+      description: "Antes de acceder al sitio, debe completar una breve formación sobre las reglas de seguridad esenciales.",
+      startButton: "Comenzar Formación", 
+      poweredBy: "Desarrollado por"
     }
   };
 
+  const currentContent = content[selectedLanguage.code as keyof typeof content];
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
-      <div className="text-center">
-        {/* TODO: FUSION_GENERATION_APP_PLACEHOLDER replace everything here with the actual app! */}
-        <h1 className="text-2xl font-semibold text-slate-800 flex items-center justify-center gap-3">
-          <svg
-            className="animate-spin h-8 w-8 text-slate-400"
-            viewBox="0 0 50 50"
-          >
-            <circle
-              className="opacity-30"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-            />
-            <circle
-              className="text-slate-600"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-              strokeDasharray="100"
-              strokeDashoffset="75"
-            />
-          </svg>
-          Generating your app...
-        </h1>
-        <p className="mt-4 text-slate-600 max-w-md">
-          Watch the chat on the left for updates that might need your attention
-          to finish generating
-        </p>
-        <p className="mt-4 hidden max-w-md">{exampleFromServer}</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+      {/* Background pattern to simulate terminal/kiosk environment */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="w-full h-full" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Ccircle cx='7' cy='7' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
+      </div>
+
+      {/* Language selector - top right */}
+      <div className="absolute top-6 right-6 z-20">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+              <Globe className="w-4 h-4 mr-2" />
+              {selectedLanguage.flag} {selectedLanguage.label}
+              <ChevronDown className="w-4 h-4 ml-2" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="bg-slate-800 border-slate-700">
+            {languages.map((lang) => (
+              <DropdownMenuItem 
+                key={lang.code}
+                onClick={() => setSelectedLanguage(lang)}
+                className="text-white hover:bg-slate-700 cursor-pointer"
+              >
+                {lang.flag} {lang.label}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
+      {/* Main content */}
+      <div className={`min-h-screen flex flex-col items-center justify-center px-6 transition-all duration-1000 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        
+        {/* Logo section */}
+        <div className="mb-12 text-center">
+          <div className="flex items-center justify-center gap-8 mb-6">
+            {/* Gerflor logo placeholder */}
+            <div className="bg-white rounded-lg p-4 shadow-lg">
+              <div className="w-24 h-12 bg-gradient-to-r from-blue-600 to-blue-800 rounded flex items-center justify-center">
+                <span className="text-white font-bold text-sm">GERFLOR</span>
+              </div>
+            </div>
+            
+            {/* FPSG logo placeholder */}
+            <div className="bg-white rounded-lg p-4 shadow-lg">
+              <div className="w-24 h-12 bg-gradient-to-r from-red-600 to-red-800 rounded flex items-center justify-center">
+                <span className="text-white font-bold text-sm">FPSG</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Terminal-style interface */}
+        <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl border border-slate-600/50 shadow-2xl p-8 max-w-2xl w-full mx-auto">
+          
+          {/* Header with safety icon */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-full mb-6 shadow-lg">
+              <Shield className="w-10 h-10 text-white" />
+            </div>
+            
+            <h1 className="text-3xl font-bold text-white mb-2">
+              {currentContent.title}
+            </h1>
+            <p className="text-emerald-400 text-lg font-medium">
+              {currentContent.subtitle}
+            </p>
+          </div>
+
+          {/* Description */}
+          <div className="text-center mb-8">
+            <p className="text-slate-300 text-lg leading-relaxed">
+              {currentContent.description}
+            </p>
+            <p className="text-slate-400 text-sm mt-2">
+              ⏱️ Durée estimée : 5-10 minutes
+            </p>
+          </div>
+
+          {/* Start button */}
+          <div className="text-center">
+            <Link to="/profile-selection">
+              <Button 
+                size="lg"
+                className="bg-gradient-to-r from-emerald-500 to-emerald-700 hover:from-emerald-600 hover:to-emerald-800 text-white px-12 py-6 text-xl font-semibold rounded-xl shadow-lg transform transition-all duration-200 hover:scale-105 animate-pulse hover:animate-none"
+              >
+                <Play className="w-6 h-6 mr-3" />
+                {currentContent.startButton}
+              </Button>
+            </Link>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-12 text-center">
+          <p className="text-slate-400 text-sm">
+            {currentContent.poweredBy} <span className="text-emerald-400 font-semibold">Cikaba • Digilor</span>
+          </p>
+        </div>
       </div>
     </div>
   );
