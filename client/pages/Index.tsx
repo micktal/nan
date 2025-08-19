@@ -211,6 +211,22 @@ export default function Index() {
               </Button>
             </Link>
           </div>
+
+          {/* Supervisor Mobile button */}
+          <div
+            className="text-center mt-6 animate-fade-in-up"
+            style={{ animationDelay: "0.8s" }}
+          >
+            <Button
+              onClick={openMobileSupervisor}
+              size="lg"
+              variant="outline"
+              className="bg-blue-500/10 border-blue-500/30 text-blue-300 hover:bg-blue-500/20 hover:border-blue-500/50 px-8 py-4 text-lg font-medium rounded-xl shadow-lg hover-lift interactive-element focus-ring"
+            >
+              <Smartphone className="w-5 h-5 mr-3" />
+              Supervisor Mobile
+            </Button>
+          </div>
         </div>
       </div>
 
