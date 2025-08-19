@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react";
-import { ChevronDown, Play, Shield, Globe } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { ChevronDown, Play, Shield, Globe, Maximize } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
+import { useSound } from "@/hooks/use-sound";
+import { useHaptic } from "@/hooks/use-haptic";
+import { useFullscreen } from "@/hooks/use-fullscreen";
 
 const languages = [
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
